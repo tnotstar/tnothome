@@ -1,5 +1,5 @@
-`tnothome` README
-=================
+The `tnothome` README
+=====================
 
 What?
 -----
@@ -25,6 +25,8 @@ Now, to easy deploy it, you should execute following command at the *Command pro
     added 1 changesets with 4 changes to 4 files
     updating to branch default
     4 files updated, 0 files merged, 0 files removed, 0 files unresolved
+
+> **WARN:** Last command will fail if you already have a `%HOME%\Local` folder in your box.
 
 It's useful to append `%HOME%\Local\bin` to the `PATH` environment variable.
 
