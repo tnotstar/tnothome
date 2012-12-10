@@ -18,8 +18,11 @@
 syntax: glob
 
 *.exe
+*.dll
 *.pyo
 *.pyc
+*.chm
+*.dat
 *~
 
 # EOF

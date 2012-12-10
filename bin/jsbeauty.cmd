@@ -1,6 +1,6 @@
-@rem ----------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------
 @rem Copyright (c) 2012 Antonio Alvarado Hernández - All rights reserved
-@rem ----------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------
 @rem
 @rem   Licensed under the Apache License, Version 2.0 (the "License");
 @rem   you may not use this file except in compliance with the License.
@@ -14,10 +14,20 @@
 @rem   See the License for the specific language governing permissions and
 @rem   limitations under the License.
 @rem
-@rem ----------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------
 @rem $Id$
-@rem ----------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------
 
-@start rundll32 shell32.dll,Control_RunDLL hotplug.dll
+@setlocal EnableExtensions
+
+@for /f "usebackq delims=" %%n in (`cmd /c "where node.exe 2> NUL"`) do @(
+    "%%n" "%~dp0\..\share\node_modules\tnotnode\jsbeauty\jsbeauty.js" %*
+    goto :eof
+)
+
+:error
+@echo Error: unabled to find node.js run-time.
+@goto :eof
 
 :eof
+@endlocal
