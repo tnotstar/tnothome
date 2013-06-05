@@ -17,12 +17,18 @@
 
 syntax: glob
 
-*.exe
+*.exe                   # avoid to commit binary files
 *.dll
 *.pyo
 *.pyc
 *.chm
 *.dat
-*~
+
+*~                      # avoid to commit vim backup & swap files
+*swp
+
+.git/**                 # exclude cloned git repositories
+
+var/**                  # exclude all files below the `var` folder
 
 # EOF

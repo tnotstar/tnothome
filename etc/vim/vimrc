@@ -1,0 +1,45 @@
+" vimrc - my personal vim settings
+" vim:ft=vim:fdm=marker:tw=78
+
+"
+" WARN: this must be first, coz affects other options!
+"
+set nocompatible        " use vim settings, rather than vi settings
+
+" now, activate the `pathogen` plugin
+execute pathogen#infect()
+
+" in many terminal emulators the mouse works just fine, thus enable it
+if has("mouse")
+    set mouse=a
+endif
+
+" set custom default gui options
+if has("gui_running")
+    let &guioptions = substitute(&guioptions, "[Tmr]", "", "g")
+                           " TODO
+    set guifont=consolas:h9:cDEFAULT
+                           " default gui font goes here
+endif
+
+" in color terminals, set a descent color scheme
+if has("gui_running") || &t_Co > 2
+    colorscheme desert
+endif
+
+" vim-sensible: if undo-persistence is on, put files in a cache directory
+if has('persistent_undo')
+    set undodir=~/Local/var/cache/vim/undo
+endif
+
+"*"set wrap                " by default, enable word wrap
+"*"set hlsearch            " switch on highlighting the last used search pattern
+"*"set noguipty            " make external commands work through a pipe instead
+"*"                        " of a pseudo-tty
+"*"set lines=50            " suggested number of lines (it depends of terminal)
+"*"set columns=132         " suggested number of columns (see above)
+"*"set shiftwidth=4        " TODO
+"*"set softtabstop=4       " TODO
+"*"
+
+" EOF

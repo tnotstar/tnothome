@@ -35,6 +35,6 @@ It's useful to append `%HOME%\Local\bin` to the `PATH` environment variable.
 Warning
 -------
 
-Tested only on *Windows XP SP3*!
+Tested only on *Windows XP SP3* and *Windows 7*!
 
 [1]: http://barnyard.syr.edu/~vefatica/#SETENV
