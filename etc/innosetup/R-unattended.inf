@@ -1,0 +1,13 @@
+[Setup]
+Lang=en
+Dir=C:\Library\R
+Group=R
+NoIcons=0
+SetupType=custom
+Components=main,i386
+Tasks=recordversion,associate
+
+[R]
+MDISDI=SDI
+HelpStyle=plain
+Internet=Standard
