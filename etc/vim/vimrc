@@ -1,7 +1,7 @@
+" vim:ft=vim:fdm=marker:tw=78
 "
 " ~/Local/etc/vim/vimrc
 "
-" vim:ft=vim:fdm=marker:tw=78
 
 "
 " WARN: this must be first, coz affects other options!
@@ -19,9 +19,6 @@ endif
 " set custom default gui options
 if has("gui_running")
     let &guioptions = substitute(&guioptions, "[Tmr]", "", "g")
-                           " TODO
-    set guifont=consolas:h9:cDEFAULT
-                           " default gui font goes here
 endif
 
 " in color terminals, set a descent color scheme
@@ -29,21 +26,36 @@ if has("gui_running") || &t_Co > 2
     colorscheme desert
 endif
 
+" disable generation of `.netrw` history and bookmark files
+let g:netrw_dirhistmax = 0
+
 " vim-sensible: if undo-persistence is on, put files in a cache directory
 if has('persistent_undo')
     set undodir=~/Local/var/cache/vim/undo
 endif
 
+" set up tabs/spaces as in http://vim.wikia.com/wiki/Converting_tabs_to_spaces
+set expandtab           " convert tabs to spaces
+set tabstop=4           " use 4 spaces for tabs
+set shiftwidth=4        " use 4 spaces for indentation
+set softtabstop=4       " backspace key treat 4 spaces as 1 tab
+
+" enable indent folding and use space bar for folding on/off
+set foldmethod=indent   " activate indent folding
+set foldlevel=16        " open first 16 levels
+
+nnoremap <space> za
+vnoremap <space> zf
+
+"
+" TODO: more settings go below here
+" 
 "*"set wrap                " by default, enable word wrap
 "*"set hlsearch            " switch on highlighting the last used search pattern
 "*"set noguipty            " make external commands work through a pipe instead
 "*"                        " of a pseudo-tty
 "*"set lines=50            " suggested number of lines (it depends of terminal)
 "*"set columns=132         " suggested number of columns (see above)
-"*"set shiftwidth=4        " TODO
-"*"set softtabstop=4       " TODO
 "*"
-
-autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
 
 " EOF

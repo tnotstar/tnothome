@@ -28,7 +28,9 @@ syntax: glob
 *swp
 
 .git/**                 # exclude cloned git repositories
+.gitignore              # ignore git's ignores!
 
 var/**                  # exclude all files below the `var` folder
+opt/**                  # exclude all files below the `opt` folder
 
 # EOF

@@ -19,6 +19,9 @@ alias ll='ls -l'
 alias la='ls -la'
 alias lart='ls -lart'
 
-alias sless='sort | less'
+alias sess='sort | less'
+
+alias open='xdg-open'
+alias start='xdg-open'
 
 # EOF

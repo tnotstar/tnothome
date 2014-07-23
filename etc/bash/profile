@@ -9,6 +9,10 @@ fi
 
 # User specific environment and startup programs
 
+EDITOR=vi && [ -n "$(which pepe 2> /dev/null)" ] && EDITOR=vim
+
+export EDITOR
+
 PATH=$PATH:$HOME/.local/bin:$HOME/Local/bin
 
 export PATH
