@@ -1,0 +1,7 @@
+#
+# ~/Local/etc/r/environ
+#
+
+R_LIBS_USER=~/.local/lib64/R/%p/%v
+
+# EOF
