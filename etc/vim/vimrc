@@ -1,4 +1,3 @@
-" vim:ft=vim:fdm=marker:tw=78
 "
 " ~/Local/etc/vim/vimrc
 "
@@ -41,11 +40,13 @@ set shiftwidth=4        " use 4 spaces for indentation
 set softtabstop=4       " backspace key treat 4 spaces as 1 tab
 
 " enable indent folding and use space bar for folding on/off
-set foldmethod=indent   " activate indent folding
-set foldlevel=16        " open first 16 levels
-
-nnoremap <space> za
-vnoremap <space> zf
+if exists("&foldmethod")
+    " activate indentation folding
+    set foldmethod=indent
+    set foldlevel=16
+    " remap space bar to folding toggle
+    nnoremap <space> za
+endif
 
 "
 " TODO: more settings go below here
@@ -58,4 +59,4 @@ vnoremap <space> zf
 "*"set columns=132         " suggested number of columns (see above)
 "*"
 
-" EOF
+" EOF vim:ft=vim:tw=78
