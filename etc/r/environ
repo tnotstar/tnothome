@@ -1,7 +1,11 @@
 #
-# ~/Local/etc/r/environ
+# ~/Local/etc/r/environ => ~/.Renviron
 #
 
 R_LIBS_USER=~/.local/lib64/R/%p/%v
+
+ftp_proxy=http://localhost:3128/
+http_proxy=http://localhost:3128/
+https_proxy=http://localhost:3128/
 
 # EOF

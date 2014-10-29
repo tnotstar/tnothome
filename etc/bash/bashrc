@@ -1,27 +1,64 @@
 #
-# ~/Local/etc/bash/bashrc
+# ~/Local/etc/bash/bashrc -> ~/.bashrc
 #
 
-# Source global definitions
+# source global definitions
 if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+    source /etc/bashrc
 fi
 
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
+#
+# user specific environment variables
+#
+
+# uncomment the following line if you don't like systemctl's auto-paging:
 # export SYSTEMD_PAGER=
 
-# User specific aliases and functions
-alias rm='/usr/bin/rm -i'
-alias mv='/usr/bin/mv -i'
-alias cp='/usr/bin/cp -i'
+# add my locals to the system path
+export PATH="$HOME/Local/bin:$PATH"
 
-alias ll='ls -l'
-alias la='ls -la'
-alias lart='ls -lart'
+# added by Anaconda 2.1.0 installer
+export PATH="$HOME/Local/opt/anaconda/bin:$PATH"
 
-alias sess='sort | less'
+# set up VISUAL and EDITOR environment variables
+__editor=$(which vim 2> /dev/null || which vi 2> /dev/null)
+if [ -n "${__editor}" ]; then
+    export VISUAL="${__editor}"
+    export EDITOR="${__editor}"
+fi
 
-alias open='xdg-open'
-alias start='xdg-open'
+# set up history's options
+export HISTTIMEFORMAT="%F %T  "
+
+# set up user variables for `virtualenvwrapper`
+export WORKON_HOME="~/.local/var/lib/virtualenvs"
+export PROJECT_HOME="~/Workspaces/Sandbox/Python"
+
+# read lazy loader for `virtualenvwrapper`
+if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]; then
+    source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
+fi
+
+# a work-around to use a Gtk+ theme inside Qt
+export GTK2_RC_FILES="~/.gtkrc-2.0"
+
+#
+# user specific functions
+#
+# TODO
+
+#
+# user specific aliases
+#
+alias rm="$(which 'rm') -i"
+alias mv="$(which 'mv') -i"
+alias cp="$(which 'cp') -i"
+
+alias open="$(which 'xdg-open')"
+alias start="$(which 'xdg-open')"
+
+if [ -n "${__editor}" ]; then
+    alias vi="${__editor}"
+fi
 
 # EOF

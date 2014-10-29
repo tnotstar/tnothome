@@ -1,32 +1,12 @@
 # 
-# ~/Local/etc/bash/profile
+# ~/Local/etc/bash/profile -> ~/.bash_profile
 #
 
-# Get the aliases and functions
+#
+# get aliases and functions
+#
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
-
-# User specific environment and startup programs
-
-export VISUAL=vi && [ -n "$(which vim 2> /dev/null)" ] && VISUAL=vim
-export EDITOR=$VISUAL
-
-export PATH=$PATH:$HOME/Local/bin
-
-# A work-around to use some java-based software
-PATH=$PATH:/opt/jruby/bin
-PATH=$PATH:/opt/groovy/bin
-PATH=$PATH:/opt/grails/bin
-PATH=$PATH:/opt/orientdb/bin
-
-export PATH
-
-# A work-around to use a Gtk+ theme inside Qt
-export GTK2_RC_FILES=$HOME/Local/etc/gtk2/gtkrc-2.0
-
-# Set up user variables for `virtualenvwrapper`
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Workspaces
 
 # EOF

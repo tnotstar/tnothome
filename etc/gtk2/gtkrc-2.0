@@ -1,5 +1,5 @@
 #
-# ~/Local/etc/gtk2/gtkrc-2.0
+# ~/Local/etc/gtk2/gtkrc-2.0 -> ~/.gtkrc-2.0
 #
 
 # following a workaround to fix QGtkStyle in Rstudio
