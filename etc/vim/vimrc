@@ -59,4 +59,7 @@ endif
 "*"set columns=132         " suggested number of columns (see above)
 "*"
 
+" enable strip trailing whitespaces on file save
+autocmd BufWritePre <buffer> StripWhitespace
+
 " EOF vim:ft=vim:tw=78
