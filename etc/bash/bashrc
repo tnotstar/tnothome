@@ -3,8 +3,10 @@
 #
 
 # source global definitions
-if [ -f /etc/bashrc ]; then
-    source /etc/bashrc
+if [ -n "$BASH_VERSION" ]; then
+    if [ -f "/etc/bashrc" ]; then
+        source "/etc/bashrc"
+    fi
 fi
 
 #
@@ -14,17 +16,24 @@ fi
 # uncomment the following line if you don't like systemctl's auto-paging:
 # export SYSTEMD_PAGER=
 
-# add my locals to the system path
-export PATH="$HOME/Local/bin:$PATH"
+# add *my locals* to the enviroment
+__path="$HOME/Local/bin"
+if [ -d "$__path" ]; then
+    export PATH="$__path":$PATH
+fi
 
-# added by Anaconda 2.1.0 installer
-export PATH="$HOME/Local/opt/anaconda/bin:$PATH"
+# add support for anaconda-2.1.0
+__path="$HOME/Local/opt/anaconda/bin"
+if [ -d "$__path" ]; then
+    export PATH=$PATH:"$__path"
+fi
 
 # set up VISUAL and EDITOR environment variables
-__editor=$(which vim 2> /dev/null || which vi 2> /dev/null)
+#__editor=$(which vim 2> /dev/null || which vi 2> /dev/null)
+__editor=`command -v vim || command -v vi`
 if [ -n "${__editor}" ]; then
-    export VISUAL="${__editor}"
     export EDITOR="${__editor}"
+    export VISUAL="${__editor}"
 fi
 
 # set up history's options
@@ -50,15 +59,16 @@ export GTK2_RC_FILES="~/.gtkrc-2.0"
 #
 # user specific aliases
 #
-alias rm="$(which 'rm') -i"
-alias mv="$(which 'mv') -i"
-alias cp="$(which 'cp') -i"
 
-alias open="$(which 'xdg-open')"
-alias start="$(which 'xdg-open')"
+alias rm="`command -v rm` -i"
+alias mv="`command -v mv` -i"
+alias cp="`command -v cp` -i"
 
-if [ -n "${__editor}" ]; then
-    alias vi="${__editor}"
+alias open="`command -v xdg-open`"
+alias start="`command -v xdg-open`"
+
+if [ -n "$EDITOR" ]; then
+    alias vi="`command -v $EDITOR`"
 fi
 
 # EOF

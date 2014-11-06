@@ -1,12 +1,12 @@
-# 
+#
 # ~/Local/etc/bash/profile -> ~/.bash_profile
 #
 
-#
-# get aliases and functions
-#
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
+# source local definitions
+if [ -n "$BASH_VERSION" ]; then
+    if [ -f "$HOME/.bashrc" ]; then
+        source "$HOME/.bashrc"
+    fi
 fi
 
 # EOF
