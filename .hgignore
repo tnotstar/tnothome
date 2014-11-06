@@ -33,4 +33,6 @@ syntax: glob
 var/**                  # exclude all files below the `var` folder
 opt/**                  # exclude all files below the `opt` folder
 
+bin/youtube-dl          # now, this file should be gotten with get-ytdl.py
+
 # EOF
