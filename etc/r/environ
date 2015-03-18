@@ -4,6 +4,7 @@
 
 R_LIBS_USER=~/.local/lib64/R/%p/%v
 
+all_proxy=http://localhost:3128/
 ftp_proxy=http://localhost:3128/
 http_proxy=http://localhost:3128/
 https_proxy=http://localhost:3128/
