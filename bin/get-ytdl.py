@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals, print_function
@@ -16,9 +16,9 @@ import logging as log
 import contextlib as ctx
 
 
+YTDL_LATEST_URL = r"https://yt-dl.org/downloads/latest/"
 YTDL_PROGRAM = r"youtube-dl"
 YTDL_VERSION = r"--version"
-YTDL_LATEST_URL = r"https://yt-dl.org/downloads/latest/"
 YTDL_VERSION_RX = re.compile(r"\d{4}\.\d{2}\.\d{2}(?:\.\d+)?")
 
 
