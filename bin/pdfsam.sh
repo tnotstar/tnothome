@@ -11,22 +11,14 @@ while [ -h "$CMDPATH" ]; do
         CMDPATH=$(dirname "$CMDPATH")/"$link"
     fi
 done
-CMDNAME=$(basename "$CMDPATH")
+CMDNAME=$(basename "$CMDPATH" .sh)
 CMDBASE=$(dirname "$CMDPATH")
+CMDROOT=$(dirname "$CMDBASE")
 
 # find pdfsam .jar file
-CMDJAR="$CMDBASE"
-while [ -n "$CMDJAR" ]; do
-    entry=$(ls -1 "$CMDJAR"/pdfsam*.jar 2> /dev/null)
-    if [ -f "$entry" ]; then
-        CMDJAR="$entry"
-	break
-    fi
-    CMDJAR=$(dirname "$CMDJAR")
-done
-
+CMDJAR=$(ls -1 $CMDROOT/opt/$CMDNAME/$CMDNAME*.jar 2> /dev/null)
 if [ ! -r "$CMDJAR" ]; then
-    echo "Fatal: $CMDNAME $*"
+    echo "Fatal: the .jar file '$CMDJAR' not found."
     exit 1
 fi
 
