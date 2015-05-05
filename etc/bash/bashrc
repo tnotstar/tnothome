@@ -58,12 +58,25 @@ export GTK2_RC_FILES="~/.gtkrc-2.0"
 __qpdf=`command -v qpdf`
 if [ -n "${__qpdf}" ]; then
     function qpdfmerge {
-        local OUTPUT=$1 && shift
+        local OUTPUT="$1" && shift
         if [ -e "${OUTPUT}" ]; then
             echo "Error: output file: \"${OUTPUT}\" already exists" 1>&2
             return -1
         fi
         "${__qpdf}" --min-version=1.7 --linearize --normalize-content=y --object-streams=generate --stream-data=compress --empty --pages "$@" -- "${OUTPUT}"
+    }
+fi
+
+__wget=`command -v wget`
+if [ -n "${__wget}" ]; then
+    function wgetsite {
+        local URL="$1" && shift
+        if [ -z "${URL}" ]; then
+            echo "Error: missing url argument(s)" 1>&2
+            return -1
+        fi
+
+        "${__wget}" -mkKEp -np -w 5 --random-wait -t 5 "$URL" "$@"
     }
 fi
 

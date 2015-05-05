@@ -4,11 +4,21 @@ The `tnothome` README
 What?
 -----
 
-This folder contains a copy of my `%HOME%\Local` tree.
+This repository contains a copy of my `%HOME%\Local` (and/or $HOME/Local) tree.
 
 
 How?
 ----
+
+### From GNU/Linux ###
+
+TODO
+
+### From Mac OS X ###
+
+TODO
+
+### From Windows ###
 
 You just need to creates your own *home directory*, e.g. using the *Vincent's `setenv` tool* [1]:
 
