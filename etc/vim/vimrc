@@ -34,10 +34,11 @@ if has('persistent_undo')
 endif
 
 " set up tabs/spaces as in http://vim.wikia.com/wiki/Converting_tabs_to_spaces
-set expandtab           " convert tabs to spaces
-set tabstop=4           " use 4 spaces for tabs
-set shiftwidth=4        " use 4 spaces for indentation
-set softtabstop=4       " backspace key treat 4 spaces as 1 tab
+set expandtab                " convert tabs to spaces
+set tabstop=4                " use 4 spaces for tabs
+set shiftwidth=4             " use 4 spaces for indentation
+set softtabstop=4            " backspace key treat 4 spaces as 1 tab
+set clipboard=unnamedplus    " always use the global clipboard
 
 " enable indent folding and use space bar for folding on/off
 if exists("&foldmethod")
@@ -50,7 +51,7 @@ endif
 
 "
 " TODO: more settings go below here
-" 
+"
 "*"set wrap                " by default, enable word wrap
 "*"set hlsearch            " switch on highlighting the last used search pattern
 "*"set noguipty            " make external commands work through a pipe instead
