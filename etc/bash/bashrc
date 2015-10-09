@@ -80,6 +80,13 @@ if [ -n "${__wget}" ]; then
     }
 fi
 
+__exo_open=`command -v exo-open`
+if [ -n "${__exo_open}" ]; then
+    function terminal {
+        "${__exo_open}" --launch TerminalEmulator "$@"
+    }
+fi
+
 #
 # user specific aliases
 #
