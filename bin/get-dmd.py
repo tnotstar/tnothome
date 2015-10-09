@@ -1,11 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals, print_function
-
-from six.moves.html_parser import HTMLParser
-from six.moves.urllib_parse import urljoin, urlparse
-from six.moves.urllib_request import urlopen, urlretrieve
+from html.parser import HTMLParser
+from urllib.parse import urljoin, urlparse
+from urllib.request import urlopen, urlretrieve
 
 from datetime import date
 from platform import system
@@ -18,8 +16,7 @@ import contextlib as ctx
 
 
 DMD_RELEASES_BASEURL = r"http://downloads.dlang.org/releases/"
-DMD_PROGRAM = r"xxx"
-DMD_VERSION = r"xxx"
+DMD_PROGRAM = r"dmd"
 DMD_VERSION_RX = re.compile(r"")
 
 
@@ -27,11 +24,8 @@ def get_latest_url():
     """Return the URL for the latest version of `dmd`."""
 
     class LatestParser(HTMLParser):
-        def __init__(self, **kwargs):
-            if six.PY2:
-                super(LatestParser, self).__init__(kwargs)
-            else:
-                super().__init__(kwargs)
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
             self._url = None
             self._system = system().lower()
 
@@ -71,7 +65,10 @@ def get_latest_url():
 
 
 if __name__ == '__main__':
-    log.basicConfig(level=log.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    log.info(get_latest_url())
+    logfmt = """%(asctime)s %(levelname)s %(message)s"""
+    log.basicConfig(level=log.INFO, format=logfmt)
+
+    latest_url = get_latest_url()
+    log.info("latest dmd's url is {}".format(latest_url))
 
 # EOF
