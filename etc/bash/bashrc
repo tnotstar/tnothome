@@ -1,5 +1,5 @@
 #
-# ~/Local/etc/bash/bashrc -> ~/.bashrc
+# ~/Local/etc/bash/bashrc => ~/.bashrc
 #
 
 # source global definitions
@@ -91,6 +91,7 @@ fi
 # user specific aliases
 #
 
+alias ls="`command -v ls` --color=auto"
 alias rm="`command -v rm` -i"
 alias mv="`command -v mv` -i"
 alias cp="`command -v cp` -i"
