@@ -40,8 +40,8 @@ fi
 export HISTTIMEFORMAT="%F %T  "
 
 # set up user variables for `virtualenvwrapper`
-export WORKON_HOME="~/.local/var/lib/virtualenvs"
-export PROJECT_HOME="~/Workspaces/Sandbox/Python"
+export WORKON_HOME="$HOME/.local/var/lib/virtualenvs"
+export PROJECT_HOME="$HOME/Workspaces/Sandbox/Python"
 
 # read lazy loader for `virtualenvwrapper`
 if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]; then
@@ -49,7 +49,7 @@ if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]; then
 fi
 
 # a work-around to use a Gtk+ theme inside Qt
-export GTK2_RC_FILES="~/.gtkrc-2.0"
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
 #
 # user specific functions
@@ -102,5 +102,11 @@ alias start="`command -v xdg-open`"
 if [ -n "$EDITOR" ]; then
     alias vi="`command -v $EDITOR`"
 fi
+
+#
+# user specific command calls
+#
+
+eval $(dircolors -b $HOME/.dircolors)
 
 # EOF
