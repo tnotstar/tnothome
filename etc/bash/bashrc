@@ -4,8 +4,9 @@
 
 # source global definitions
 if [ -n "$BASH_VERSION" ]; then
-    if [ -f "/etc/bashrc" ]; then
-        source "/etc/bashrc"
+    __bashrc="/etc/bashrc"
+    if [ -f "${__bashrc}" ]; then
+        source "${__bashrc}"
     fi
 fi
 
@@ -44,9 +45,13 @@ export WORKON_HOME="$HOME/.local/var/lib/virtualenvs"
 export PROJECT_HOME="$HOME/Workspaces/Sandbox/Python"
 
 # read lazy loader for `virtualenvwrapper`
-if [ -f /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]; then
-    source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
+__venv_wrappersh="/usr/bin/virtualenvwrapper_lazy.sh"
+if [ -f "${__venv_wrappersh}" ]; then
+    source "${__venv_wrappersh}"
 fi
+
+# set up the Go path
+export GOPATH="$HOME/.local/lib64/go"
 
 # a work-around to use a Gtk+ theme inside Qt
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
