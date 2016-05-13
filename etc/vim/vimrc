@@ -21,8 +21,16 @@ if has("gui_running")
 endif
 
 " in color terminals, set a descent color scheme
-if has("gui_running") || &t_Co > 2
-    colorscheme desert
+if has("gui_running")
+    if &t_Co > 2
+        colorscheme desert
+    endif
+endif
+
+" set up the default font in gui
+if has("gui_running")
+    set anti enc=utf-8
+    set guifont=Source\ Code\ Pro\ 10
 endif
 
 " disable generation of `.netrw` history and bookmark files
