@@ -1,9 +1,10 @@
 #
-# ~/Local/etc/r/environ => ~/.Renviron
+# ~/Local/etc/R/environ => ~/.Renviron
 #
 
-R_LIBS_USER=~/.local/lib64/R/%p/%v
+R_LIBS_USER=~/.local/lib/R/%p/%v
 
+no_proxy=127.0.0.1,localhost,.localdomain,.int,.elcorteingles.es
 all_proxy=http://localhost:3128/
 ftp_proxy=http://localhost:3128/
 http_proxy=http://localhost:3128/

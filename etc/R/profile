@@ -1,0 +1,18 @@
+#
+# ~/Local/etc/R/profile => ~/.Rprofile
+#
+
+
+# default option values
+options(repos=c(CRAN="https://ftp.cixug.es/CRAN/"))
+
+# default autoexec functions
+.First <- function() {
+    cat("Hello, world!\n")
+}
+
+.Last <- function() {
+    cat("Goodbye cruel world...\n")
+}
+
+# EOF
