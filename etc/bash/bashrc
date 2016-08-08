@@ -51,7 +51,7 @@ if [ -f "${__venv_wrappersh}" ]; then
 fi
 
 # set up the Go path
-export GOPATH="$HOME/.local/lib64/go"
+export GOPATH="$HOME/.local/lib/go"
 
 # a work-around to use a Gtk+ theme inside Qt
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
