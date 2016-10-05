@@ -1,13 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals, print_function
-
-from six.moves.urllib_parse import urljoin
-from six.moves.urllib_request import urlopen, urlretrieve
 
 from os import chmod
 from os.path import abspath, dirname, join, exists
+from html.parser import HTMLParser
+from urllib.parse import urljoin
+from urllib.request import urlopen, urlretrieve
 
 import re
 import sys
@@ -19,7 +17,7 @@ import contextlib as ctx
 YTDL_LATEST_URL = r"https://yt-dl.org/downloads/latest/"
 YTDL_PROGRAM = r"youtube-dl"
 YTDL_VERSION = r"--version"
-YTDL_VERSION_RX = re.compile(r"\d{4}\.\d{2}\.\d{2}(?:\.\d+)?")
+YTDL_VERSION_RX = re.compile(r"\d{4}\.\d{2}\.\d{2}(?:\.\w+)?")
 
 
 def get_current_path():
@@ -39,10 +37,30 @@ def get_current_version(path):
 
 
 def get_latest_url():
+    class LatestUrlParser(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.inside_downloads = False
+            self.latest_url = None
+        def handle_starttag(self, tag, attrs):
+            if not self.latest_url:
+                if not self.inside_downloads and tag == "ul":
+                    values = [ b for a, b in attrs if a == "class" ]
+                    if len(values) > 0:
+                        clazz = values.pop()
+                        self.inside_downloads = (clazz == "release-downloads")
+                elif self.inside_downloads and tag == "a":
+                    values = [ b for a, b in attrs if a == "href" ]
+                    if len(values) > 0:
+                        url = values.pop()
+                        self.latest_url = url.endswith(YTDL_PROGRAM) and url
     latest_url = None
     try:
         with ctx.closing(urlopen(YTDL_LATEST_URL)) as page:
-            latest_url = urljoin(page.url, YTDL_PROGRAM)
+            parser = LatestUrlParser()
+            parser.feed(page.read().decode("utf-8"))
+            latest_url = urljoin(page.url, parser.latest_url)
+            parser.close()
     finally:
         return latest_url
 
@@ -68,7 +86,7 @@ if __name__ == '__main__':
 
     current_version = get_current_version(current_path)
     if current_version:
-        log.info("yt-dl version seams to be {}".format(current_version))
+        log.info("yt-dl's version seems to be {}".format(current_version))
     else:
         log.info("unable to guess yt-dl's version string")
 
