@@ -1,4 +1,4 @@
-' Copyright (c) 2013 Antonio Alvarado Hernández - All rights reserved
+' Copyright (c) 2013-2018 Antonio Alvarado Hernández - All rights reserved
 '
 ' Licensed under the Apache License, Version 2.0 (the "License");
 ' you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ Const fkDeleteName = "Delete"
 
 Function Main()
 ' This is the program's entry-point
-
     Dim Shell_, Filename_
 
     ' Get a shell instance to hack the Registry
@@ -36,12 +35,10 @@ Function Main()
 
     ' Apply all hacks & return the overall result
     Main = FuckThem(Shell_, Filename_)
-
 End Function
 
 Function FuckThem(Shell_, Filename_)
 ' Run all hacks specified in given configuration file
-
     Dim Config_, Feature_, Properties_
 
     ' Set return value to pessimistic mode
@@ -66,12 +63,10 @@ Function FuckThem(Shell_, Filename_)
 
     ' Return the successfully value
     FuckThem = True
-
 End Function
 
 Function LoadConfig(Filename_)
 ' Load the configuration script with given filename
-
     Dim FS, Stream_, Config_
 
     ' Initialize the configuration object
@@ -88,11 +83,16 @@ Function LoadConfig(Filename_)
 
     ' Read the configuration file
     Do While Not Stream_.AtEndOfStream
-        Dim Feature_, Properties_, Buffer_, Length_, BoT_, EoT_, Key_, Val_
+        Dim Feature_, Properties_, Buffer_, BoT_, EoT_, Key_, Val_
 
         ' Read next line from input stream
-        Buffer_ = Trim(Stream_.ReadLine)
-        Length_ = Len(Buffer_)
+        Buffer_ = Stream_.ReadLine
+
+        ' Check for comments
+        BoT_ = InStr(1, Buffer_, ";", vbTextCompare)
+        If BoT_ > 0 Then
+            Buffer_ = Trim(Left(Buffer_, BoT_))
+        End If
 
         ' Check for begin of sections
         BoT_ = InStr(1, Buffer_, "[", vbTextCompare)
@@ -101,7 +101,6 @@ Function LoadConfig(Filename_)
             If EoT_ > 0 Then
                 ' Parse current section's name
                 Feature_ = Trim(Mid(Buffer_, BoT_+1, EoT_-BoT_-1))
-
                 ' Create the current section
                 Set Properties_ = CreateObject("Scripting.Dictionary")
                 If Not LoadConfig.Exists(Feature_) Then
@@ -115,18 +114,15 @@ Function LoadConfig(Filename_)
         If BoT_ > 0 Then
             ' Parse current property pair
             Key_ = Trim(Left(Buffer_, BoT_-1))
-            Val_ = Trim(Right(Buffer_, Length_-BoT_))
-
+            Val_ = Trim(Right(Buffer_, Len(Buffer_)-BoT_))
             ' Add to current section
             Properties_.Add Key_, Val_
         End If
     Loop
-
 End Function
 
 Function FuckIt(Shell_, Feature_, Properties_)
 ' Apply given feature parameters and return the results
-
     Dim Path_, Type_, Value_, Delete_, Current_, Answer_
 
     ' Set the default function's return value
@@ -139,24 +135,21 @@ Function FuckIt(Shell_, Feature_, Properties_)
     Path_ = Properties_.Item(fkPathName)
 
     ' Verify if the feature includes a type property (optional)
+    Type_ = Null
     If Properties_.Exists(fkTypeName) Then
         Type_ = Properties_.Item(fkTypeName)
-    Else
-        Type_ = Null
     End If
 
     ' Verify if the feature includes a value property (optional)
+    Value_ = Null
     If Properties_.Exists(fkValueName) Then
         Value_ = Properties_.Item(fkValueName)
-    Else
-        Value_ = Null
     End If
 
     ' Verify if the feature includes a delete property (optional)
+    Delete_ = Null
     If Properties_.Exists(fkDeleteName) Then
         Delete_ = Properties_.Item(fkDeleteName)
-    Else
-        Delete_ = Null
     End If
 
     ' Retrieve the current Registry value
@@ -165,13 +158,11 @@ Function FuckIt(Shell_, Feature_, Properties_)
     ' Verify if we need to remove the feature
     If Not IsNull(Delete_) And Not IsNull(Current_) Then
         ' Ask user to fuck this feature
-        Answer_ = MsgBox(Feature_ & " has an undesired value. Could I fuck it up?", _
-                         vbYesNo, "Fuck It!")
+        Answer_ = MsgBox(Feature_ & " is present. Could I fuck it up?", vbYesNo, "Fuck It!")
         If Answer_ <> vbYes Then
             FuckIt = True
             Exit Function
         End If
-
         ' Try to delete the Registry value
         FuckIt = RegDeleteOrFalse(Shell_, Path_)
         Exit Function
@@ -180,13 +171,11 @@ Function FuckIt(Shell_, Feature_, Properties_)
     ' Verify if we need to change the value
     If Current_ <> Value_ Then
         ' Ask user to fuck this feature
-        Answer_ = MsgBox(Feature_ & " has not a good value. Could I fuck it up?", _
-                         vbYesNo, "Fuck It!")
+        Answer_ = MsgBox(Feature_ & " hasn't a good value. Could I fuck it up?", vbYesNo, "Fuck It!")
         If Answer_ <> vbYes Then
             FuckIt = True
             Exit Function
         End If
-
         ' Try to overwrite the Registry value
         FuckIt = RegWriteOrFalse(Shell_, Path_, Type_, Value_)
         Exit Function
@@ -194,50 +183,55 @@ Function FuckIt(Shell_, Feature_, Properties_)
 
     ' Assuming all was good :)
     FuckIt = True
-
 End Function
 
 Function RegReadOrNull(Shell_, Path_)
 ' Return the value read from given path, or Null if failed
-
     Dim Value_
 
     On Error Resume Next
     Value_ = Shell_.RegRead(Path_)
-
-    If IsEmpty(Value_) Then
-        Value_ = Null
-    End If
-
-    If Not IsNull(Value_) Then
-        Value_ = CStr(Value_)
-    End If
-
     On Error Goto 0
-    RegReadOrNull = Value_
 
+    If Err.Number = 0 Then
+        If Not IsEmpty(Value_) Then
+            RegReadOrNull = CStr(Value_)
+        Else
+            RegReadOrNull = Null
+        End If
+    Else
+        RegReadOrNull = Null
+    End If
 End Function
 
 Function RegWriteOrFalse(Shell_, Path_, Type_, Value_)
 ' Overwrite value at given path and validate changes
-
     On Error Resume Next
     Shell_.RegWrite Path_, Value_, Type_
-
+    WScript.Echo "0k! " & Shell_.RegRead(Path_) & " vs " & Value_
     On Error Goto 0
-    RegWriteOrFalse = RegReadOrNull(Shell_, Path_) = Value_
+
+    If Err.Number = 0 Then
+        WScript.Echo "Ok! " & Shell_.RegRead(Path_) & " vs " & Value_
+        RegWriteOrFalse = RegReadOrNull(Shell_, Path_) = CStr(Value_)
+    Else
+        WScript.Echo "Oops: " & Err.Number
+        RegWriteOrFalse = False
+    End If
 
 End Function
 
 Function RegDeleteOrFalse(Shell_, Path_)
 ' Delete value at given path and validate changes
-
     On Error Resume Next
     Shell_.RegDelete Path_
-
     On Error Goto 0
-    RegDeleteOrFalse = IsNull(RegReadOrNull(Shell_, Path_))
 
+    If Err.Number = 0 Then
+        RegDeleteOrFalse = IsNull(RegReadOrNull(Shell_, Path_))
+    Else
+        RegDeleteOrFalse = False
+    End If
 End Function
 
 WScript.Quit Main()
