@@ -67,6 +67,7 @@ endif
 "*"set lines=50            " suggested number of lines (it depends of terminal)
 "*"set columns=132         " suggested number of columns (see above)
 "*"
+set backspace=indent,eol,start
 
 " enable strip trailing whitespaces on file save
 autocmd BufWritePre <buffer> StripWhitespace
