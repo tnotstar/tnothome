@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright (c) 2014 Antonio Alvarado Hernández - All rights reserved
+# Copyright (c) 2017-2018 Antonio Alvarado Hernández - All rights reserved
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 #   limitations under the License.
 #
 
-from __future__ import absolute_import, unicode_literals, print_function
+from argparse import ArgumentParser
 
-from six.moves import html_parser
+import html.parser as html_parser
 
 import re
 import sys
@@ -115,8 +115,23 @@ def parse_statement_from_html(fname):
     return None
 
 
+#if __name__ == "__main__":
+#    stmt = parse_statement_from_html(sys.argv[1])
+#    print(stmt)
+
+def parse_html_input_files(input_files):
+    print(input_files)
+
+
+DESCRIPT = """
+Convert given input files in b-kia format to just one .csv output file
+"""
+
 if __name__ == "__main__":
-    stmt = parse_statement_from_html(sys.argv[1])
-    print(stmt)
+    parser = ArgumentParser(description=DESCRIPT)
+    parser.add_argument("input_file", type=str, nargs="+", metavar="input_files",
+        help="the input file names")
+    args = parser.parse_args()
+    parse_html_input_files(args.input_files)
 
 # EOF
