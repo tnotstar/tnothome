@@ -16,16 +16,22 @@
 @rem
 
 @if "%1" == "eject" goto :eject
+@if "%1" == "services" goto :services
 
 :help
 @echo Show some Windows' UI dialogs from the command line
 @echo.
 @echo     %~nx0 eject
+@echo     %~nx0 services
 @echo.
 @goto :eof
 
 :eject
 @start rundll32 shell32.dll,Control_RunDLL hotplug.dll
+@goto :eof
+
+:services
+@start services.msc
 @goto :eof
 
 :eof
