@@ -52,7 +52,6 @@ Array.prototype.forEach || (Array.prototype.forEach = function(callback, thisArg
  * Test if the current process is running with elevated privileges.
  */
 isRunningElevated = function() {
-
     var sysDrive = Shell.Environment("Process")("SystemDrive")
     var testComand = "fsutil dirty query " + sysDrive
     if(0 === Shell.Run(testComand, 0, true))
