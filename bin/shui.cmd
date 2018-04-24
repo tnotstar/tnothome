@@ -19,6 +19,7 @@
 @if "%1" == "disks" goto :disks
 @if "%1" == "devices" goto :devices
 @if "%1" == "services" goto :services
+@if "%1" == "properties" goto :properties
 @if "%1" == "certificates" goto :certificates
 @if "%1" == "eject" goto :eject
 @if "%1" == "control"  goto :control
@@ -31,6 +32,7 @@
 @echo     %~n0 disks
 @echo     %~n0 devices
 @echo     %~n0 services
+@echo     %~n0 properties
 @echo     %~n0 certificates
 @echo     %~n0 eject
 @echo     %~n0 control ^<feature^>
@@ -55,6 +57,10 @@
 
 :services
 @start services.msc
+@goto :eof
+
+:properties
+@control.exe sysdm.cpl
 @goto :eof
 
 :certificates
