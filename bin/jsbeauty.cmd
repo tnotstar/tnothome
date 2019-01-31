@@ -1,5 +1,5 @@
 @rem ---------------------------------------------------------------------------
-@rem Copyright (c) 2012 Antonio Alvarado Hernández - All rights reserved
+@rem Copyright (c) 2012-2019 Antonio Alvarado Hernández - All rights reserved
 @rem ---------------------------------------------------------------------------
 @rem
 @rem   Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@
 @setlocal EnableExtensions
 
 @for /f "usebackq delims=" %%n in (`cmd /c "where node.exe 2> NUL"`) do @(
-    "%%n" "%~dp0\..\share\node_modules\tnotnode\jsbeauty\jsbeauty.js" %*
+    "%%n" "%~dp0\..\lib\node\modules\tnotnode\jsbeauty\jsbeauty.js" %*
     goto :eof
 )
 
