@@ -2,74 +2,9 @@
 " ~/Local/etc/vim/vimrc
 "
 
-"
-" WARN: this must be first, coz affects other options!
-"
-set nocompatible        " use vim settings, rather than vi settings
+"""
+" General settings
 
-" now, activate the `pathogen` plugin
-execute pathogen#infect()
-
-" in many terminal emulators the mouse works just fine, thus enable it
-if has("mouse")
-    set mouse=a
-endif
-
-" set custom default gui options
-if has("gui_running")
-    let &guioptions = substitute(&guioptions, "[Tmr]", "", "g")
-endif
-
-" in color terminals, set a descent color scheme
-if has("gui_running")
-    if &t_Co > 2
-        colorscheme desert
-    endif
-endif
-
-" set up the default font in gui
-if has("gui_running")
-    set anti enc=utf-8
-    set guifont=Source\ Code\ Pro\ 10
-endif
-
-" disable generation of `.netrw` history and bookmark files
-let g:netrw_dirhistmax = 0
-
-" vim-sensible: if undo-persistence is on, put files in a cache directory
-if has('persistent_undo')
-    set undodir=~/Local/var/cache/vim/undo
-endif
-
-" set up tabs/spaces as in http://vim.wikia.com/wiki/Converting_tabs_to_spaces
-set expandtab                " convert tabs to spaces
-set tabstop=4                " use 4 spaces for tabs
-set shiftwidth=4             " use 4 spaces for indentation
-set softtabstop=4            " backspace key treat 4 spaces as 1 tab
-set clipboard=unnamedplus    " always use the global clipboard
-
-" enable indent folding and use space bar for folding on/off
-if exists("&foldmethod")
-    " activate indentation folding
-    set foldmethod=indent
-    set foldlevel=16
-    " remap space bar to folding toggle
-    nnoremap <space> za
-endif
-
-"
-" TODO: more settings go below here
-"
-"*"set wrap                " by default, enable word wrap
-"*"set hlsearch            " switch on highlighting the last used search pattern
-"*"set noguipty            " make external commands work through a pipe instead
-"*"                        " of a pseudo-tty
-"*"set lines=50            " suggested number of lines (it depends of terminal)
-"*"set columns=132         " suggested number of columns (see above)
-"*"
-set backspace=indent,eol,start
-
-" enable strip trailing whitespaces on file save
-autocmd BufWritePre <buffer> StripWhitespace
+set nocompatible               " use vim settings, rather than vi settings
 
 " EOF vim:ft=vim:tw=78
