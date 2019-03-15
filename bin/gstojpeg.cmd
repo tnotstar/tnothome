@@ -15,11 +15,30 @@
 @rem limitations under the License.
 @rem
 
-@if "%1" == "" goto :error
+@setlocal enableExtensions
+@setlocal disableDelayedExpansion
 
-@echo gswin64c -dBATCH -dNOPAUSE -sDEVICE=jpeg -r96 -dJPEGQ=100 "-sOutputFile=%~n1.jpg" "%~n1.pdf"
+@if "%1" == "" goto :err_args
 
-:error
+@set GS_CMD=gswin64c
+@set GS_OPTS=-q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT
+@set GS_OPTS=%GS_OPTS% -r96x96 -sDEVICE=jpeg -dJPEGQ=100 -dUseCIEColor
+@set GS_OPTS=%GS_OPTS% -dGridFitTT=2 -dAlignToPixels=0 -dMaxBitmap=536870912
+@set GS_OPTS=%GS_OPTS% -dTextAlphaBits=4 -dGraphicsAlphaBits=4
+
+@%GS_CMD% %GS_OPTS% "-sOutputFile=%~n1.jpg" -f"%~n1.pdf"
+@if %errorlevel% neq 0 goto :err_exec
+@goto :eof
+
+:err_args
 @echo Oops: invalid command line arguments
 @echo.
-@echo     %~n0 ^<input-filename-without-extension^>
+@echo Usage:
+@echo     %~n0 ^<input-filename^>
+@goto :eof
+
+:err_exec
+@echo Oops: something is wrong %errorlevel% :(
+@goto :eof
+
+:eof
