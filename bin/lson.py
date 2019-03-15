@@ -65,6 +65,11 @@ def walk_path_and_dump_tree(output, path):
     results = walk(path)
     json.dump(results, output)
 
+if __name__ == "__main__2":
+    decript = "export a json file with a folder tree loaded from given path"
+    parser = ArgumentParser(decription=descript)
+    parser.add_argument("-a", "--all", help="show hidden entries.")
+    parser.add_argument("
 
 if __name__ == "__main__":
     descrpt = "export a json file with a folder tree loaded from given path"
