@@ -18,13 +18,18 @@
 @setlocal enableExtensions
 @setlocal disableDelayedExpansion
 
+@echo ^>^> Updating `conda` package...
 @call conda update -y conda
+@echo ^>^> Updating `base` environment...
 @call conda update -y --all
 
 @for /f "usebackq" %%p in (`call conda info --json ^| jq ".envs_dirs[]"`) do @(
     @for /d %%d in (%%p\*) do @(
+        @echo ^>^> Update `%%~nd` environment...
         @call conda update -y --name %%~nd --all
     )
 )
+
+@echo ^>^> All updates are finished^!^!
 
 :eof
