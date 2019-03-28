@@ -1,4 +1,4 @@
-    @rem -*- coding: utf-8 -*-
+@rem -*- coding: utf-8 -*-
 @rem
 @rem Copyright (c) 2019 Antonio Alvarado Hernández - All rights reserved
 @rem
