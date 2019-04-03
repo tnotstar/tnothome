@@ -20,16 +20,24 @@
 
 @echo ^>^> Updating `conda` package...
 @call conda update -y conda
+@if %errorlevel% neq 0 @goto error
 @echo ^>^> Updating `base` environment...
 @call conda update -y --all
+@if %errorlevel% neq 0 @goto error
 
 @for /f "usebackq" %%p in (`call conda info --json ^| jq ".envs_dirs[]"`) do @(
     @for /d %%d in (%%p\*) do @(
         @echo ^>^> Update `%%~nd` environment...
         @call conda update -y --name %%~nd --all
+        @if %errorlevel% neq 0 @goto error
     )
 )
 
 @echo ^>^> All updates are finished^!^!
+@exit /b 0
+
+:error
+@echo ^>^> Oops: something is wrong...
+@exit /b 1
 
 :eof
