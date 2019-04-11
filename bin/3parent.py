@@ -20,6 +20,7 @@ from urllib.parse import urlparse
 from argparse import ArgumentParser
 from pathlib import Path
 
+import os
 import socket
 import threading
 
@@ -77,12 +78,15 @@ def generate_parent_proxy_configuration(stream, proxy_url):
 
 
 if __name__ == "__main__":
+    default_parent_proxy = os.environ.get("PARENT_PROXY", None)
+    default_filename = Path(__file__).with_suffix(".cfg")
+
     # prepare the command line parser
     description = "A selective parent proxy configurator for 3proxy."
     parser = ArgumentParser(description=description)
-    parser.add_argument("-p", "--parent-proxy", required=True,
+    parser.add_argument("-p", "--parent-proxy", default=default_parent_proxy,
         help="indicates the tentative parent proxy url")
-    parser.add_argument("-o", "--output", required=True,
+    parser.add_argument("-o", "--output", default=default_filename,
         help="set up an output file for the generated configuration fragment")
 
     # parse arguments, open output stream and generate statement(s)
