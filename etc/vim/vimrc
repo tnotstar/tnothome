@@ -4,7 +4,47 @@
 
 """
 " General settings
+"
 
-set nocompatible               " use vim settings, rather than vi settings
+set nocompatible                       " use vim settings, rather than vi ones
+
+if has('autocmd')                      " enable file type, plugins and indent
+    filetype plugin on
+    filetype indent on
+endif
+
+if has('syntax')                       " switch on syntax highlighting
+    if !exists('g:syntax_on')
+        syntax enable
+    endif
+endif
+
+if has("mouse")                        " mouse can be enable in some terminals
+    " enable mouse mode and the copy&paste with the "shift" key
+    " See also: https://stackoverflow.com/questions/4608161/
+    set mouse=a
+endif
+
+set wrap                               " by default, enable word wrap
+set autoindent                         " copy indent from current to new line
+set backspace=indent,eol,start         " allow backspacing over autoindent,
+                                       "   line breaks and start of inserts
+set history=128                        " how many commands of history to recall
+
+" set up tabs/spaces as in http://vim.wikia.com/wiki/Converting_tabs_to_spaces
+set expandtab                          " convert tabs to spaces
+set tabstop=4                          " use 4 spaces for tabs
+set shiftwidth=4                       " use 4 spaces for indentation
+set softtabstop=4                      " backspace key treat 4 spaces as 1 tab
+
+set lines=50                           " suggested number of lines (if available)
+set columns=132                        " suggested number of columns (see above)
+
+set hlsearch                           " highlight the last used search pattern
+set noguipty                           " make external commands work through a
+                                       " pipe instead of a pseudo-tty
+
+set encoding=utf-8                     " The encoding displayed.
+set fileencoding=utf-8                 " The encoding written to file.
 
 " EOF vim:ft=vim:tw=78
