@@ -32,18 +32,18 @@
 @echo     %~n0 list     to show a list of running virtual machines, if any
 @echo;
 @echo Note:
-@echo     Default virtual machine must be set up in the DEFAULT_VIRTUALBOX_VM
+@echo     Default virtual machine must be set up in the VBOX_DEFAULT_VM
 @echo     environment variable
 @goto :eof
 
 :start
-@VBoxManage startvm "%DEFAULT_VIRTUALBOX_VM%" -type headless
+@VBoxManage startvm "%VBOX_DEFAULT_VM%" -type headless
 @if not errorlevel 1 @goto :eof
 @echo Oops: VirtualBox manager failed to start with exit code %ERRORLEVEL%
 @goto :eof
 
 :stop
-@VBoxManage controlvm "%DEFAULT_VIRTUALBOX_VM%" acpipowerbutton
+@VBoxManage controlvm "%VBOX_DEFAULT_VM%" acpipowerbutton
 @if not errorlevel 1 @goto :eof
 @echo Oops: VirtualBox manager failed to stop with exit code %ERRORLEVEL%
 @goto :eof
