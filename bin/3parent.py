@@ -74,11 +74,11 @@ def generate_parent_proxy_configuration(stream, proxy_url):
         buffer = str()
 
     # write detected configuration to the output stream
-    print(buffer, file=stream)
+    print(buffer, sep="", end="\n", file=stream)
 
 
 if __name__ == "__main__":
-    default_parent_proxy = os.environ.get("PARENT_PROXY", None)
+    default_parent_proxy = os.environ.get("_3PARENT_PROXY_", None)
     default_filename = Path(__file__).with_suffix(".cfg")
 
     # prepare the command line parser
