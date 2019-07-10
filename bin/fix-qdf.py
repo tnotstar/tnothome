@@ -16,15 +16,25 @@
 #   limitations under the License.
 #
 
+from argparse import ArgumentParser
+
+import sys
+
+
 def fix_qdf_file(output, input):
     for line in input:
-        #print(line)
         output.write(line)
 
 
 if __name__ == "__main__":
-    with open("fichero-qdf_fix-qdf.pdf", "rb") as input:
-        with open("dale.pdf", "wb") as output:
+    descript = "repair PDF files in QDF form after editing (python version)"
+    parser = ArgumentParser(description=descript)
+    parser.add_argument("-o", "--output", help="path of the output file")
+    parser.add_argument("-i", "--input", help="path of the input file")
+    args = parser.parse_args()
+
+    with args.input and open(args.input, "rb") or sys.stdin as input:
+        with args.output and open(args.output, "wb") or sys.stdout as output:
             fix_qdf_file(output, input)
 
 # EOF
