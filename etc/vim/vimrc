@@ -57,7 +57,7 @@ if has("gui_running")
     set guioptions-=T        " remove toolbar
     set guioptions-=r        " remove right-hand scroll bar
     set guioptions-=L        " remove left-hand scroll bar
-    set guioptions+=b        " add bottom (horizontal) scroll bar
+    set guioptions+=r        " add right (vertical) scroll bar
     set guioptions+=c        " use console dialogs instead of popup dialogs
 
     " set font and cursor options
@@ -75,6 +75,6 @@ endif
 
 " set a default color scheme common to all ui modes which support
 " more than two (2) colors
-colorscheme koehler
+colorscheme desert
 
 " EOF vim:ft=vim:tw=78
