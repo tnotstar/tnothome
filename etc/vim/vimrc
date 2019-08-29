@@ -53,12 +53,14 @@ set fileencoding=utf-8                 " The encoding written to file.
 " if we are running on a graphical ui, set up custom options
 if has("gui_running")
     " basic gui options
-    set guioptions-=m        " remove menu bar
-    set guioptions-=T        " remove toolbar
-    set guioptions-=r        " remove right-hand scroll bar
-    set guioptions-=L        " remove left-hand scroll bar
-    set guioptions+=r        " add right (vertical) scroll bar
+    set guioptions+=!        " execute external commands in a terminal
+    set guioptions-=a        " disable copy-on-select behaviour
     set guioptions+=c        " use console dialogs instead of popup dialogs
+    set guioptions-=f        " disable foreground proccess wait
+    set guioptions-=L        " remove left-hand scroll bar
+    set guioptions-=m        " remove menu bar
+    set guioptions+=r        " add right-hand (vertical) scroll bar
+    set guioptions-=T        " remove toolbar
 
     " set font and cursor options
     set guifont=Hack:h10:cANSI:qDRAFT
