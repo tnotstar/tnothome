@@ -1,6 +1,6 @@
 @rem -*- coding: utf-8 -*-
 @rem
-@rem Copyright (c) 2012-2018 Antonio Alvarado Hernández - All rights reserved
+@rem Copyright (c) 2012-2019 Antonio Alvarado Hernández - All rights reserved
 @rem
 @rem Licensed under the Apache License, Version 2.0 (the "License");
 @rem you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 @if "%1" == "disks" goto :disks
 @if "%1" == "devices" goto :devices
 @if "%1" == "services" goto :services
+@if "%1" == "programs" goto :programs
 @if "%1" == "properties" goto :properties
 @if "%1" == "certificates" goto :certificates
 @if "%1" == "eject" goto :eject
@@ -32,6 +33,7 @@
 @echo     %~n0 disks
 @echo     %~n0 devices
 @echo     %~n0 services
+@echo     %~n0 programs
 @echo     %~n0 properties
 @echo     %~n0 certificates
 @echo     %~n0 eject
@@ -57,6 +59,10 @@
 
 :services
 @start services.msc
+@goto :eof
+
+:programs:
+@start appwiz.cpl
 @goto :eof
 
 :properties
