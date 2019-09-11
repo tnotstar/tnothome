@@ -23,6 +23,14 @@ from pathlib import Path
 import os
 import socket
 import threading
+import logging as log
+
+
+LOG_FORMAT = r"%(asctime)s: %(name)-15s %(levelname)-8s %(processName)-10s %(message)s"
+
+DEFAULT_LOG_FILENAME = os.environ.get("_3PARENT_LOG_", None)
+DEFAULT_PARENT_PROXY = os.environ.get("_3PARENT_PROXY_", None)
+DEFAULT_CONFIG_FILENAME = os.environ.get("_3PARENT_CONFIG_", None)
 
 
 def lookup(host, port, timeout=None):
@@ -50,21 +58,26 @@ def lookup(host, port, timeout=None):
         return None
 
 
-def generate_parent_proxy_configuration(stream, proxy_url):
-    """Detect if given proxy configuration settings are valid in curremt context
+def generate_parent_proxy_config(stream, proxy_url):
+    """Detect if given proxy settings are valid in curremt context
     and then generate a statement for 3proxy configuration file."""
+    log.debug("Entering proxy config generation w/url: {}...".format(proxy_url))
 
     # parse given proxy url
     p = urlparse(proxy_url)
+    log.debug("Proxy url parsed: {}".format(p))
 
     # check proxy name resolution
     ipaddr = portno = None
     addresses = lookup(p.hostname, p.port, 0.25)
+    log.debug("Proxy lookup results: {}".format(addresses))
     if addresses:
         first_address = addresses.pop(0)
+        log.debug("Selected address: {}".format(first_address))
         if len(first_address) > 0:
             ipaddr = first_address[-1][0]
             portno = first_address[-1][1]
+        log.debug("ipaddr = {} and portno = {}".format(ipaddr, portno))
 
     # generate parent statement
     if ipaddr and portno:
@@ -72,27 +85,38 @@ def generate_parent_proxy_configuration(stream, proxy_url):
         buffer = template.format(p.scheme, ipaddr, portno, p.username, p.password)
     else:
         buffer = str()
+    log.debug("Generated parent configuration is: \"{}\"".format(buffer))
 
     # write detected configuration to the output stream
     print(buffer, sep="", end="\n", file=stream)
+    log.debug("Configuration has been written!!")
 
 
 if __name__ == "__main__":
-    default_parent_proxy = os.environ.get("_3PARENT_PROXY_", None)
-    default_filename = Path(__file__).with_suffix(".cfg")
-
     # prepare the command line parser
     description = "A selective parent proxy configurator for 3proxy."
     parser = ArgumentParser(description=description)
-    parser.add_argument("-p", "--parent-proxy", default=default_parent_proxy,
+    parser.add_argument("-p", "--parent-proxy", default=DEFAULT_PARENT_PROXY,
         help="indicates the tentative parent proxy url")
-    parser.add_argument("-o", "--output", default=default_filename,
+    parser.add_argument("-o", "--output", default=DEFAULT_CONFIG_FILENAME,
         help="set up an output file for the generated configuration fragment")
+    parser.add_argument("-l", "--log", default=DEFAULT_LOG_FILENAME,
+        help="set up a file for the generation process log")
 
     # parse arguments, open output stream and generate statement(s)
     args = parser.parse_args()
-    output = (Path(__file__).parent / args.output).resolve()
+    if not args.log:
+        args.log = r"C:\Users\66948571\dale.log"
+    log.basicConfig(level=log.DEBUG, format=LOG_FORMAT, filename=args.log)
+    log.info("Beginning parent proxy configuration...")
+    log.debug("> Using log file: {}".format(args.log))
+    log.debug("> Using proxy url: {}".format(args.parent_proxy))
+    log.debug("> Using output file: {}".format(args.output))
+
+    # running the config generation process
+    output = Path(args.output).resolve()
     with output.open("w") as stream:
-        generate_parent_proxy_configuration(stream, args.parent_proxy)
+        generate_parent_proxy_config(stream, args.parent_proxy)
+    log.info("Process finished!!\n--oOo--")
 
 # EOF
