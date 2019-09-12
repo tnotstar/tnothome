@@ -1,0 +1,17 @@
+{
+    "plugins": [ "aliases" ],
+    "prompt": [
+        [ "White", "DarkRed",  " ${Env:CONDA_PROMPT_MODIFIER}"],
+        [ "White", "Magenta",  " ${time} "],
+        [ "Black", "Cyan",     " ${user}@${hostname} "],
+        [ "White", "DarkBlue", " ${path} "],
+        [ "Green", "",         "`n`$" ]
+    ],
+    "aliases": {
+        "rm": [ "help", "man" ],
+        "add": {
+            "help($name)": "get-help $name -detailed | less",
+            "man": "help"
+        }
+    }
+}
