@@ -20,28 +20,30 @@
 @if "%1" == "devices" goto :devices
 @if "%1" == "services" goto :services
 @if "%1" == "programs" goto :programs
+@if "%1" == "policies" goto :policies
 @if "%1" == "properties" goto :properties
 @if "%1" == "certificates" goto :certificates
-@if "%1" == "eject" goto :eject
 @if "%1" == "control"  goto :control
+@if "%1" == "eject" goto :eject
 @goto :help
 
 :help
-@echo Show some Windows' UI dialogs from the command line
+@echo Show some Windows GUI dialogs from the command line
 @echo.
 @echo     %~n0 users
 @echo     %~n0 disks
 @echo     %~n0 devices
 @echo     %~n0 services
 @echo     %~n0 programs
+@echo     %~n0 policies
 @echo     %~n0 properties
 @echo     %~n0 certificates
-@echo     %~n0 eject
 @echo     %~n0 control ^<feature^>
 @echo       Available features are:
 @echo         - users
 @echo         - taskbar
 @echo         - troubles
+@echo     %~n0 eject
 @echo.
 @goto :eof
 
@@ -65,16 +67,16 @@
 @start appwiz.cpl
 @goto :eof
 
+:policies:
+@start secpol.msc
+@goto :eof
+
 :properties
 @control.exe sysdm.cpl
 @goto :eof
 
 :certificates
 @start certmgr.msc
-@goto :eof
-
-:eject
-@start rundll32.exe shell32.dll,Control_RunDLL hotplug.dll
 @goto :eof
 
 :control
@@ -94,6 +96,10 @@
 
 :control_troubles
 @control.exe /name Microsoft.Troubleshooting
+@goto :eof
+
+:eject
+@start rundll32.exe shell32.dll,Control_RunDLL hotplug.dll
 @goto :eof
 
 :eof
