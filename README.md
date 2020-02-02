@@ -22,19 +22,19 @@ TODO
 
 You just need to creates your own *home directory*, e.g. using the *Vincent's `setenv` tool* [1]:
 
-    C:\> setenv -u HOME "<put-your-home-directory-path-here>"
+    C:\> setenv -u HOME "%USERPROFILE%"
+
+Or, with _PowerShell_:
+
+    $ [System.Environment]::SetEnvironmentVariable("HOME", $Env:USERPROFILE, "User")
 
 Now, to easy deploy it, you should execute following command at the *Command prompt*:
 
-    C:\> hg clone https://bitbucket.org/tnotstar/tnothome "%HOME%\Local"
-    destination directory: tnothome
-    requesting all changes
-    adding changesets
-    adding manifests
-    adding file changes
-    added 1 changesets with 4 changes to 4 files
-    updating to branch default
-    4 files updated, 0 files merged, 0 files removed, 0 files unresolved
+    C:\> git clone https://github.com/tnotstar/tnothome.git "%HOME%\Local"
+
+Or, with _PowerShell_:
+
+    $ git clone https://github.com/tnotstar/tnothome.git "$env:HOME\Local"
 
 > **WARN:** Last command will fail if you already have a `%HOME%\Local` folder in your box.
 
@@ -45,6 +45,6 @@ It's useful to append `%HOME%\Local\bin` to the `PATH` environment variable.
 Warning
 -------
 
-Tested only on *Windows XP SP3* and *Windows 7*!
+Tested only on *Windows XP SP3*, *Windows 7* and *Windows 10*!
 
 [1]: http://barnyard.syr.edu/~vefatica/#SETENV
