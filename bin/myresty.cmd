@@ -23,8 +23,9 @@
 @if "%1" == "-h" goto :usage
 @if "%1" == "/?" goto :usage
 
-@if "%1" == "stop" goto :stop
 @if "%1" == "start" goto :start
+@if "%1" == "stop" goto :stop
+@if "%1" == "test" goto :test
 
 :start
 @echo Starting up from "%RESTY_PATH%"...
@@ -34,7 +35,13 @@
 
 :stop
 @echo Shutting down...
-@openresty -p %RESTY_PATH% -s stop
+@openresty -s stop -p %RESTY_PATH%
+@if %errorlevel% neq 0 @goto :error
+@goto :eof
+
+:test
+@echo Testing configuration...
+@openresty -t -p %RESTY_PATH%
 @if %errorlevel% neq 0 @goto :error
 @goto :eof
 
