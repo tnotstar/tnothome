@@ -1,31 +1,51 @@
 #
+# Copyright (c) 2019 Antonio Alvarado Hernández - All rights reserved
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+#
 # Microsoft.PowerShell_profile.ps1
 #
 
+
 #region conda initialize
-$Env:_CONDA_ROOT = "C:\Scoop\apps\miniconda3\current"
-
-$Env:_CONDA_EXE = "$Env:_CONDA_ROOT\Scripts\conda.exe"
-$Env:_CE_CONDA = ""
-$Env:_CE_M = ""
-
-$Env:CONDA_EXE = "$Env:_CONDA_ROOT\Scripts\conda.exe"
-
-Import-Module "$Env:_CONDA_ROOT\Shell\condabin\Conda.psm1"
-
-conda activate base
+# !! Contents within this block are managed by 'conda init' !!
+(& "C:\Library\Conda\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
 #endregion
 
-try { $null = gcm pshazz -ea stop; pshazz init 'default' } catch { }
+function Unalias {
+	Param ($Name)
 
-New-Alias -Name nvim -Value nvim-qt
-New-Alias -Name pad -Value notepad
+	if (Get-Command 'Remove-Alias' -ErrorAction SilentlyContinue) {
+		Remove-Alias -Name "$Name" -Force
+	} else {
+		Remove-Item -Path "Alias:$Name" -Force
+	}
 
-Remove-Item -Path Alias:ls
-Remove-Item -Path Alias:cp
-Remove-Item -Path Alias:mv
-Remove-Item -Path Alias:rm
-Remove-Item -Path Alias:cat
-Remove-Item -Path Alias:clear
+	if (Get-Alias -name "$Name" -ErrorAction SilentlyContinue) {
+		Unalias "$Name"
+	}
+}
+
+New-Alias -Name    u -Value micro.exe
+New-Alias -Name   vi -Value nvim.exe
+New-Alias -Name  pad -Value notepad.exe
+New-Alias -Name nvim -Value nvim-qt.exe
+
+Unalias 'ls'
+Unalias 'cp'
+Unalias 'mv'
+Unalias 'rm'
+Unalias 'cat'
+Unalias 'clear'
 
 # EOF
