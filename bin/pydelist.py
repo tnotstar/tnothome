@@ -23,8 +23,11 @@ import os.path
 
 
 def delete_files_from(input_file):
-    for entry in open(input_file):
-        fname = os.path.abspath(os.path.expanduser(entry.strip()))
+    for entry in open(input_file, encoding="utf-8"):
+        entry = entry.strip()
+        if not entry:
+            continue
+        fname = os.path.abspath(os.path.expanduser(entry))
         if os.path.exists(fname):
             print("Removing: " + fname)
             os.remove(fname)
