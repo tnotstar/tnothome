@@ -1,0 +1,12 @@
+[submodule "etc/vim/pack/contrib/start/editorconfig-vim"]
+	path = etc/vim/pack/contrib/start/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim.git
+[submodule "etc/vim/pack/contrib/start/vim-airline"]
+	path = etc/vim/pack/contrib/start/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "etc/vim/pack/contrib/start/vim-fugitive"]
+	path = etc/vim/pack/contrib/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "etc/vim/pack/contrib/start/vim-better-whitespace"]
+	path = etc/vim/pack/contrib/start/vim-better-whitespace
+	url = https://github.com/ntpeters/vim-better-whitespace.git

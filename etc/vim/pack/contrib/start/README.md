@@ -6,4 +6,3 @@ Vim 8 has built-in plugins support using packages (`[:help packages]`). A Vim pa
 Git repositories cloned right [here](.) will be activated at Vim startup.
 
 [:help packages]: https://vimhelp.org/repeat.txt.html#packages
-
