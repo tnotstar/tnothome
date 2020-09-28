@@ -26,12 +26,9 @@
 *~
 *swp
                         # exclude all files below given directory
-lib/R/**
-lib/go/**
 var/**
-opt/**
+
                         # now, any individual file not included in patterns above
 bin/youtube-dl
-bin/wrk
 
 # EOF
