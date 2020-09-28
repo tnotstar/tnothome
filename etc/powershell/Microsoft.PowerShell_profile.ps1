@@ -21,12 +21,13 @@
 $Env:_CONDA_ROOT = "C:\Library\Conda"
 $Env:_CONDA_EXE = "$Env:_CONDA_ROOT\Scripts\conda.exe"
 $Env:CONDA_EXE = "$Env:_CONDA_EXE"
-Import-Module "$Env:_CONDA_ROOT\shell\condabin\Conda.psm1"
-#conda activate base
-#Add-CondaEnvironmentToPrompt
 #endregion
 
-Import-Module "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll"
+function condavars {
+    Import-Module "$Env:_CONDA_ROOT\shell\condabin\Conda.psm1"
+    conda activate base
+    Add-CondaEnvironmentToPrompt
+}
 
 function Unalias {
 	Param ($Name)
@@ -50,11 +51,12 @@ Unalias 'cat'
 Unalias 'clear'
 
 New-Alias -Name u -Value micro.exe
-New-Alias -Name vi -Value nvim.exe
+New-Alias -Name vi -Value vim.exe
 New-Alias -Name pad -Value tnotpad.exe
 New-Alias -Name nvim -Value C:\Scoop\apps\neovim\current\bin\nvim-qt.exe
 
 function vcvars32 {
+    Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
     Enter-VsDevShell 09f6951e
 }
 
