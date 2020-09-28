@@ -4,5 +4,41 @@
 
 # Don't print a new line at the start of the prompt
 add_newline = false
+prompt_order = [
+    "time", "directory", "package", "git_commit", "git_branch",
+    "git_status", "git_state", "cmd_duration", "line_break",
+    "character"
+]
+
+[cmd_duration]
+min_time = 0
+show_milliseconds = true
+prefix = "tooks "
+
+[directory]
+truncation_length = 6
+
+[git_branch]
+symbol = "branch:"
+
+[git_status]
+conflicted = "="
+ahead      = "<"
+behind     = ">"
+diverged   = "#"
+untracked  = "?"
+stashed    = "$"
+modified   = "!"
+staged     = "+"
+renamed    = "*"
+deleted    = "x"
+
+[package]
+symbol = "version:"
+
+[time]
+disabled = false
+format = " %H:%M:%S "
+style = "fg:white bg:blue"
 
 # EOF
