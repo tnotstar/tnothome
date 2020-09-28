@@ -1,0 +1,61 @@
+# Optional parameters for the console and the pager
+# The system-wide copy is in rwxxxx/etc.
+# A user copy can be installed in `R_USER'.
+
+## Style
+MDI = no
+
+## Font.
+font = Hack
+points = 10
+style = normal
+
+## Dimensions (in characters) of the console.
+rows = 36
+columns = 144
+
+## Dimensions (in characters) of the internal pager.
+pgrows = 36
+pgcolumns = 80
+
+# should options(width=) be set to the console width?
+setwidthonresize = yes
+
+# memory limits for the console scrolling buffer, in chars and lines
+buflines = 8192
+bufbytes = 261120
+
+# Initial position of the console (pixels, relative to the workspace for MDI)
+xconsole = 40
+yconsole = 20
+
+# The internal pager can displays help in a single window
+# or in multiple windows (one for each topic)
+# pagerstyle can be set to `singlewindow' or `multiplewindows'
+pagerstyle = singlewindow
+
+## Colours for console and pager(s)
+background = black
+normaltext = LightGray
+usertext = white
+pagerbg = black
+pagertext = LightGray
+highlight = yellow
+dataeditbg = black
+dataedittext = LightGray
+dataedituser = white
+editorbg = black
+editortext = LightGray
+
+## Initial position of the graphics window
+xgraphics = 0
+ygraphics = 0
+
+## Language for messages
+language = en_GB
+
+## Default setting for console buffering: 'yes' or 'no'
+buffered = yes
+
+## Console cursor blink
+cursor_blink = Partial

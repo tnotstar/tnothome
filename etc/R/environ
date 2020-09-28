@@ -1,13 +1,13 @@
 #
-# ~/Local/etc/R/environ => ~/.Renviron
+# ~/Local/etc/r/environ => ~/.Renviron
 #
 
-R_LIBS_USER=~/.local/lib/R/%p/%v
+#R_LIBS_USER=~/.local/lib/R/%p/%v
 
-no_proxy=127.0.0.1,localhost,.localdomain,.int,.elcorteingles.es
-all_proxy=http://localhost:3128/
-ftp_proxy=http://localhost:3128/
-http_proxy=http://localhost:3128/
-https_proxy=http://localhost:3128/
+#no_proxy=127.0.0.1,localhost,.localdomain
+#all_proxy=http://localhost:3128
+#ftp_proxy=http://localhost:3128
+#http_proxy=http://localhost:3128
+#https_proxy=http://localhost:3128
 
 # EOF
