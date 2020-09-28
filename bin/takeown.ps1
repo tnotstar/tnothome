@@ -2,38 +2,34 @@
 
 <#
 .NAME
-    mklink
+    takeown
 
 .SYNOPSIS
-    Makes a symbolic link to given target and stores it in given path.
+    Take the ownershio of an item at given path.
 
 .SYNTAX
-    mklink [[-To] <String>] [[-From] <String>]
+    takeown [[-To] <String>]
 
 .PARAMETER To
-    The path of the symbolic link to be created.
-
-.PARAMETER From
-    The path of the target to be created.
+    The path of the item to take the ownership from.
 
 .DESCRIPTION
-    mklink is a replacement of the legacy `cmd.exe` command `mklink`
+    takeown is a replacement of the legacy `cmd.exe` command: `takeown`
 
 .EXAMPLE
-    mklink _vimrc Local\etc\vimrc
+    takeown _vimrc
 #>
 param (
-    [string]$To,
-    [string]$From
+    [string]$To
 )
 
-# Check mandatory parameters
-if ("$To" -eq "" -or "$From" -eq "") {
-    Write-Error "Missing command line arguments"
+# Check mandatory command line arguments
+if ("$To" -eq "") {
+    Write-Error "Missing command line argument"
     Exit 1
 }
 
-# Check elevated priviledges
+# Check for elevated priviledges
 $Principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-Not ($Principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))) {
     Write-Error "This command needs to run with elevated priviledges"
@@ -41,10 +37,8 @@ if (-Not ($Principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 }
 
 # This is the main control sequence
-$Item = New-Item -ItemType SymbolicLink -Path "$To" -Target "$From"
 $Owner = New-Object System.Security.Principal.NTAccount("$Env:USERNAME")
+$Item = Get-Item $To
 $ACL = Get-ACL $Item
 $ACL.SetOwner($Owner)
 Set-ACL -Path $Item -AclObject $ACL
-
-# EOF
