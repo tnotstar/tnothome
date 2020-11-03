@@ -1,4 +1,4 @@
-# Copyright (c) 2019 Antonio Alvarado Hernández
+# Copyright (c) 2020 Antonio Alvarado Hernández
 
 try {
     Get-Command Invoke-Conda -ErrorAction Stop | Out-Null
