@@ -29,6 +29,11 @@ function condavars {
     Add-CondaEnvironmentToPrompt
 }
 
+function vcvars {
+    Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
+    Enter-VsDevShell 09f6951e
+}
+
 function Unalias {
 	Param ($Name)
 
@@ -54,11 +59,6 @@ New-Alias -Name u -Value micro.exe
 New-Alias -Name vi -Value vim.exe
 New-Alias -Name pad -Value tnotpad.exe
 New-Alias -Name nvim -Value C:\Scoop\apps\neovim\current\bin\nvim-qt.exe
-
-function vcvars32 {
-    Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
-    Enter-VsDevShell 09f6951e
-}
 
 Invoke-Expression (&starship init powershell)
 
