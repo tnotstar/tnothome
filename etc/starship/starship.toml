@@ -4,25 +4,49 @@
 
 # Don't print a new line at the start of the prompt
 add_newline = false
-prompt_order = [
-    "time", "directory", "package", "git_commit", "git_branch",
-    "git_status", "git_state", "cmd_duration", "line_break",
-    "character"
-]
+
+format = """\
+  $username\
+  $hostname\
+  $directory\
+  $package\
+  $git_branch\
+  $git_commit\
+  $git_state\
+  $git_status\
+  $cmd_duration\
+  $line_break\
+  $custom\
+  $jobs\
+  $battery\
+  $env_var\
+  $time\
+  $character\
+  """
+
+[conda]
+disabled = true
+
+[character]
+vicmd_symbol = "[ ❮ ](bold green)"
+error_symbol = "[ X ](bold red)"
+success_symbol = "[ ❯ ](bold green)"
 
 [cmd_duration]
 min_time = 0
 show_milliseconds = true
-prefix = "tooks "
+format = "tooks [$duration]($style)"
 
 [directory]
 truncation_length = 6
+format = "[$path]($style)[$read_only]($read_only_style) "
 
-[git_branch]
-symbol = "branch:"
+[env_var]
+format = "with [$env_value]($style) "
 
 [git_status]
-conflicted = "="
+format = "([$all_status$ahead_behind]($style) )"
+conflicted = "%"
 ahead      = "<"
 behind     = ">"
 diverged   = "#"
@@ -36,9 +60,19 @@ deleted    = "x"
 [package]
 symbol = "version:"
 
+[python]
+disabled = true
+
 [time]
 disabled = false
-format = " %H:%M:%S "
 style = "fg:white bg:blue"
+format = "[ $time ]($style)"
+
+[username]
+style_user = "white bold"
+style_root = "black bold"
+format = "user: [$user]($style) "
+disabled = false
+show_always = true
 
 # EOF
