@@ -5,47 +5,65 @@
 # Don't print a new line at the start of the prompt
 add_newline = false
 
+# Wait 10 milliseconds for starship to check files
+# under the current directory
+scan_timeout = 10
+
 format = """\
-  $username\
-  $hostname\
-  $directory\
-  $package\
-  $git_branch\
-  $git_commit\
-  $git_state\
-  $git_status\
-  $cmd_duration\
-  $line_break\
-  $custom\
-  $jobs\
-  $battery\
-  $env_var\
-  $time\
-  $character\
-  """
+    $username\
+    $hostname\
+    $directory\
+    $time\
+    $cmd_duration\
+    $git_branch\
+    $git_status\
+    $conda\
+    $nodejs\
+    $package\
+    $line_break\
+    $character\
+    """
 
-[conda]
-disabled = true
+[username]
+format = "[ $user]($style)"
+style_user = "fg:purple bg:white"
+style_root = "fg:red bg:white"
+show_always = true
 
-[character]
-vicmd_symbol = "[ ❮ ](bold green)"
-error_symbol = "[ X ](bold red)"
-success_symbol = "[ ❯ ](bold green)"
-
-[cmd_duration]
-min_time = 0
-show_milliseconds = true
-format = "tooks [$duration]($style)"
+[hostname]
+format = "[@$hostname ]($style)"
+style = "fg:blue bg:white"
+ssh_only = false
 
 [directory]
-truncation_length = 6
-format = "[$path]($style)[$read_only]($read_only_style) "
+format = "[ in $path ]($style)[$read_only]($read_only_style)"
+style = "fg:yellow bg:blue"
+truncation_symbol = "…/"
+truncation_length = 4
 
-[env_var]
-format = "with [$env_value]($style) "
+[time]
+disabled = false
+format = "[ at $time ]($style)"
+style = "fg:blue bg:yellow"
+
+[cmd_duration]
+format = "[ tooks $duration ]($style) "
+style = "fg:blue bg:white"
+show_milliseconds = true
+min_time = 0
+
+[nodejs]
+format = " via [$symbol$version]($style) "
+style = "fg:bold green"
+
+[git_branch]
+show_always = false
+format = "on [$symbol$branch]($style) "
+style = "bold purple"
+symbol = " "
 
 [git_status]
-format = "([$all_status$ahead_behind]($style) )"
+format = "[$all_status$ahead_behind]($style)"
 conflicted = "%"
 ahead      = "<"
 behind     = ">"
@@ -57,22 +75,9 @@ staged     = "+"
 renamed    = "*"
 deleted    = "x"
 
-[package]
-symbol = "version:"
-
-[python]
-disabled = true
-
-[time]
-disabled = false
-style = "fg:white bg:blue"
-format = "[ $time ]($style)"
-
-[username]
-style_user = "white bold"
-style_root = "black bold"
-format = "user: [$user]($style) "
-disabled = false
-show_always = true
+[character]
+error_symbol = "[X](bold red)"
+success_symbol = "[❯](bold green)"
+vicmd_symbol = "[❮](bold green)"
 
 # EOF
