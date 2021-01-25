@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright (c) 2017-2019 Antonio Alvarado Hernández - All rights reserved
+# Copyright (c) 2017-2021 Antonio Alvarado Hernández - All rights reserved
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -124,7 +124,7 @@ class HTMLStatementParser(html_parser.HTMLParser):
 
 
 def create_output_datasheet(outfile, infiles):
-    with outfile and open(outfile, "w", newline="") or sys.stdout as output:
+    with outfile and open(outfile, "w", newline="") as output:
         writer = csv.writer(output, dialect=EXCEL_ES)
         for infile in [i for s in [glob.glob(p) for p in infiles] for i in s]:
             parser = HTMLStatementParser(writer)
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     descrpt = "Convert a list of b-kia's input files to a merged .csv one."
     parser = ArgumentParser(description=descrpt)
     parser.add_argument("-o", "--output", type=str, metavar="output_file",
-        help="the name of the output file")
+        help="the name of the output file", required=True)
     parser.add_argument("inputs", type=str, metavar="input_file", nargs="+",
         help="a bunch of input filenames to read for them")
 
