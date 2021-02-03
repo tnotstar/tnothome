@@ -8,7 +8,7 @@
     Makes a symbolic link to given target and stores it in given path.
 
 .SYNTAX
-    mklink [[-To] <String>] [[-From] <String>]
+    mklink [[-To] <String>] [[-From] <String>] -TakeOwnership
 
 .PARAMETER To
     The path of the symbolic link to be created.
@@ -24,7 +24,8 @@
 #>
 param (
     [string]$To,
-    [string]$From
+    [string]$From,
+    [switch]$TakeOwnership = $false
 )
 
 # Check mandatory parameters
@@ -42,9 +43,11 @@ if (-Not ($Principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 
 # This is the main control sequence
 $Item = New-Item -ItemType SymbolicLink -Path "$To" -Target "$From"
-$Owner = New-Object System.Security.Principal.NTAccount("$Env:USERNAME")
-$ACL = Get-ACL $Item
-$ACL.SetOwner($Owner)
-Set-ACL -Path $Item -AclObject $ACL
+if ($TakeOwnership) {
+    $Owner = New-Object System.Security.Principal.NTAccount("$Env:USERNAME")
+    $ACL = Get-ACL $Item
+    $ACL.SetOwner($Owner)
+    Set-ACL -Path $Item -AclObject $ACL
+}
 
 # EOF
