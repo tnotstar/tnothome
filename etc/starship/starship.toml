@@ -25,30 +25,31 @@ format = """\
     """
 
 [username]
-format = "[ $user]($style)"
+format = "[\uE0B0](fg:black bg:white)[ $user]($style)"
 style_user = "fg:purple bg:white"
 style_root = "fg:red bg:white"
 show_always = true
 
 [hostname]
-format = "[@$hostname ]($style)"
+format = "[@$hostname ]($style)[\uE0B4](fg:white bg:blue)"
 style = "fg:blue bg:white"
 ssh_only = false
 
 [directory]
-format = "[ in $path ]($style)[$read_only]($read_only_style)"
+format = "[ in $path $read_only]($style)[\uE0B4](fg:blue bg:yellow)"
 style = "fg:yellow bg:blue"
+read_only = " \uE0A2 "
 truncation_symbol = "…/"
 truncation_length = 4
 
 [time]
 disabled = false
-format = "[ at $time ]($style)"
+format = "[ at $time ]($style)[\uE0B4](fg:yellow bg:black)"
 style = "fg:blue bg:yellow"
 
 [cmd_duration]
 format = "[ tooks $duration ]($style) "
-style = "fg:blue bg:white"
+style = "fg:yellow bg:black"
 show_milliseconds = true
 min_time = 0
 
