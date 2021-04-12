@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright (c) 2019 Antonio Alvarado Hernández - All rights reserved
+# Copyright (c) 2019-2021 Antonio Alvarado Hernández - All rights reserved
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -31,6 +31,8 @@ def delete_files_from(input_file):
         if os.path.exists(fname):
             print("Removing: " + fname)
             os.remove(fname)
+        else:
+            print("Omitting: " + fname)
 
 
 def main():
