@@ -5,7 +5,7 @@
     takeown
 
 .SYNOPSIS
-    Take the ownershio of an item at given path.
+    Take the ownership of an item at given path.
 
 .SYNTAX
     takeown [[-To] <String>]
