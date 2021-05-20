@@ -8,7 +8,7 @@
     Makes a symbolic link to given target and stores it in given path.
 
 .SYNTAX
-    mklink [[-To] <String>] [[-From] <String>] -TakeOwnership
+    mklink [[-To] <LinkName>] [[-From] <SourcePath>] -TakeOwnership
 
 .PARAMETER To
     The path of the symbolic link to be created.
