@@ -36,9 +36,9 @@ style = "fg:blue bg:white"
 ssh_only = false
 
 [directory]
-format = "[ in $path $read_only]($style)[\uE0B4](fg:blue bg:yellow)"
+format = "[ in $path$read_only ]($style)[\uE0B4](fg:blue bg:yellow)"
 style = "fg:yellow bg:blue"
-read_only = " \uE0A2 "
+read_only = " \uE0A2"
 truncation_symbol = "…/"
 truncation_length = 4
 
@@ -48,7 +48,7 @@ format = "[ at $time ]($style)[\uE0B4](fg:yellow bg:black)"
 style = "fg:blue bg:yellow"
 
 [cmd_duration]
-format = "[ tooks $duration ]($style) "
+format = "[ tooks $duration]($style) "
 style = "fg:yellow bg:black"
 show_milliseconds = true
 min_time = 0
@@ -58,7 +58,6 @@ format = " via [$symbol$version]($style) "
 style = "fg:bold green"
 
 [git_branch]
-show_always = false
 format = "on [$symbol$branch]($style) "
 style = "bold purple"
 symbol = " "
@@ -70,11 +69,11 @@ ahead      = "<"
 behind     = ">"
 diverged   = "#"
 untracked  = "?"
-stashed    = "$$"
+stashed    = "@"
 modified   = "!"
 staged     = "+"
 renamed    = "*"
-deleted    = "x"
+deleted    = "X"
 
 [character]
 error_symbol = "[X](bold red)"
