@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright (c) 2019-2021 Antonio Alvarado Hernández - All rights reserved
+# Copyright 2019 - 2021, Antonio Alvarado Hernández
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -18,13 +18,25 @@
 
 from argparse import ArgumentParser
 
+import json
 import os
 import os.path
 
 
+def parse_jdupes_file(input_file):
+    try:
+        raw = json.load(open(input_file, encoding="utf-8"))
+        return \
+            [ _['filePath']
+                for l in [ _['fileList'] for _ in raw['matchSets'] ]
+                    for _ in l ]
+    except json.decoder.JSONDecodeError as ex:
+        return \
+            [ _.strip() for _ in open(input_file, encoding="utf-8") ]
+
+
 def delete_files_from(input_file):
-    for entry in open(input_file, encoding="utf-8"):
-        entry = entry.strip()
+    for entry in parse_jdupes_file(input_file):
         if not entry:
             continue
         fname = os.path.abspath(os.path.expanduser(entry))
@@ -38,7 +50,7 @@ def delete_files_from(input_file):
 def main():
     parser = ArgumentParser(description="a list-based batch delete utility")
     parser.add_argument("-i", "--input-file", required=True,
-        help="an input file with the list of files to be deleted")
+        help="a `jdupes`' json result file with the entries to be deleted")
     args = parser.parse_args()
     try:
         delete_files_from(args.input_file)
