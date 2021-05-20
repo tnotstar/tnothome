@@ -24,15 +24,9 @@ import os.path
 
 
 def parse_jdupes_file(input_file):
-    try:
-        raw = json.load(open(input_file, encoding="utf-8"))
-        return \
-            [ _['filePath']
-                for l in [ _['fileList'] for _ in raw['matchSets'] ]
-                    for _ in l ]
-    except json.decoder.JSONDecodeError as ex:
-        return \
-            [ _.strip() for _ in open(input_file, encoding="utf-8") ]
+    raw = json.load(open(input_file, encoding="utf-8"))
+    matches = [ _['fileList'] for _ in raw['matchSets'] ]
+    return [ _['filePath'] for l in matches for _ in l ]
 
 
 def delete_files_from(input_file):
