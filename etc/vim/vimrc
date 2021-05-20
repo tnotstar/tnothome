@@ -10,6 +10,17 @@ if &compatible
     set nocompatible                   " use vim settings, rather than vi ones
 endif
 
+if has('autocmd')                      " enable file type, plugins and indent
+    filetype plugin indent on
+endif
+
+set history=256                        " how many commands of history to recall
+set autoread                           " set to auto read when a file is changed
+au FocusGained,BufEnter * checktime
+
+let mapleader=","                      " define a <leader> key and some leader maps
+nmap <leader>w :w!<cr>
+
 set wrap                               " by default, enable word wrap
 set ruler                              " show the cursor position all the time
 set showcmd                            " display incomplete commands in status line
@@ -19,7 +30,6 @@ set noguipty                           " make external commands work through a p
 set ttimeout                           " time out for key codes
 set ttimeoutlen=100                    " wait up to 100ms after Esc for special key
 set complete-=i                        " disable current & included files scan
-set history=256                        " how many commands of history to recall
 set display=truncate                   " show @@@ in the last line, if truncated
 set clipboard=unnamedplus              " always use the global clipboard
 set scrolloff=5                        " show a few lines of context around the cursor
@@ -41,10 +51,6 @@ set fileencoding=utf-8                 " the encoding written to file.
 " don't use ex mode, use q for formatting.
 " revert with ":unmap Q".
 map Q gq
-
-if has('autocmd')                      " enable file type, plugins and indent
-    filetype plugin indent on
-endif
 
 if has('syntax')                       " switch on syntax highlighting
     if !exists('g:syntax_on')
