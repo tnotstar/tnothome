@@ -3,37 +3,26 @@
 "
 
 """
-" Common settings
+" common settings
 "
 
 if &compatible
     set nocompatible                   " use vim settings, rather than vi ones
 endif
 
-if has('autocmd')                      " enable file type, plugins and indent
-    filetype plugin indent on
-endif
-
-set history=256                        " how many commands of history to recall
-set autoread                           " set to auto read when a file is changed
-au FocusGained,BufEnter * checktime
-
-let mapleader=","                      " define a <leader> key and some leader maps
-nmap <leader>w :w!<cr>
-
-set wrap                               " by default, enable word wrap
 set ruler                              " show the cursor position all the time
+set wrap                               " by default, enable word wrap
 set showcmd                            " display incomplete commands in status line
 set wildmenu                           " display completion matches in status line
-set hlsearch                           " highlight the last used search pattern
 set noguipty                           " make external commands work through a pty
 set ttimeout                           " time out for key codes
 set ttimeoutlen=100                    " wait up to 100ms after Esc for special key
-set complete-=i                        " disable current & included files scan
 set display=truncate                   " show @@@ in the last line, if truncated
-set clipboard=unnamedplus              " always use the global clipboard
 set scrolloff=5                        " show a few lines of context around the cursor
+set history=256                        " how many commands of history to recall
+set complete-=i                        " disable current & included files scan
 set nrformats-=octal                   " don't recognize octal numbers for ctrl-a/ctrl-x
+set clipboard=unnamedplus              " always use the global clipboard
 
 " set tabs/spaces up, as in http://vim.wikia.com/wiki/Converting_tabs_to_spaces
 set autoindent                         " copy indent from current to new line
@@ -48,64 +37,61 @@ set softtabstop=4                      " backspace key treat 4 spaces as 1 tab
 set encoding=utf-8                     " the encoding displayed.
 set fileencoding=utf-8                 " the encoding written to file.
 
-" don't use ex mode, use q for formatting.
-" revert with ":unmap Q".
-map Q gq
+" set search options up
+set hlsearch                           " highlight the last used search pattern
 
-if has('syntax')                       " switch on syntax highlighting
-    if !exists('g:syntax_on')
-        syntax enable
-    endif
+if has("reltime")                      " do incremental searching
+  set incsearch                        "   when it's possible to timeout
 endif
 
+" enable mouse mode and the copy&paste with the `shift` key
 if has("mouse")                        " mouse can be enable in some terminals
-    " enable mouse mode and the copy&paste with the "shift" key,
-    " as in https://stackoverflow.com/questions/4608161/
-    set mouse=a
+  set mouse=a
 endif
 
-" do incremental searching when it's possible to timeout.
-if has('reltime')
-    set incsearch
+" enable file type detection
+if has("autocmd")
+    filetype plugin indent on          " enable file type, plugins and indent
 endif
 
-"""
-" Graphical settings
-"
-
-" if we are running on a graphical ui, set up custom options
-if has("gui_running")
-    " basic gui options
-    set guioptions+=!        " execute external commands in a terminal
-    set guioptions-=a        " disable copy-on-select behaviour
-    set guioptions+=c        " use console dialogs instead of popup dialogs
-    set guioptions-=f        " disable foreground proccess wait
-    set guioptions-=L        " remove left-hand scroll bar
-    set guioptions-=m        " remove menu bar
-    set guioptions+=r        " add right-hand (vertical) scroll bar
-    set guioptions-=T        " remove toolbar
-
-    if has('win32')
-      set guioptions-=t                " win32: no tearoff menu entries
-      set renderoptions=type:directx   " render with directx for ligatures
+" switch on syntax highlighting
+if has("syntax")
+    if !exists("g:syntax_on")
+        syntax on                      " switch syntax highlighting on
     endif
-
-    " set font and cursor options
-    set antialias
-    set guifont=Delugia_Nerd_Font:h10
-    set guicursor=a:blinkon0
-
-    " set the window size & position
-    if exists(":winpos") == 2
-        winpos 0 0
-    endif
-
-    set lines=9999           " the tallest window possible
-    set columns=9999         " the widest window possible
 endif
 
-" set a default color scheme common to all ui modes which support
-" more than two (2) colors
-colorscheme desert
+" when the terminal has colors 
+if &t_Co > 2
+    colorscheme pablo                  " set default color scheme
+endif
+
+if has("win32")
+    behave mswin
+endif
+
+let mapleader=" "                      " define a <leader> key and some maps
+
+nmap <leader>w :w!<cr>
+nmap <leader>e :browse confirm e
+map Q gq
+inoremap <C-U> <C-G>u<C-U>
+
+if has("clipboard")
+    " ctrl-X and Shift-Del are `Cut`
+    vnoremap <C-X> "+x
+    vnoremap <S-Del> "+x
+
+    " ctrl-C and Ctrl-Insert are `Copy`
+    vnoremap <C-C> "+y
+    vnoremap <C-Insert> "+y
+
+    " ctrl-V and Shift-Insert are `Paste`
+    map <C-V> "+gP
+    map <S-Insert> "+gP
+
+    cmap <C-V> <C-R>+
+    cmap <S-Insert> <C-R>+
+endif
 
 " EOF vim:ft=vim:tw=78

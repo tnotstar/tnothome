@@ -1,0 +1,44 @@
+"
+" ~/Vimfiles/vimrc
+"
+
+"""
+" common settings
+"
+
+runtime vimrc
+
+"""
+" graphical settings
+"
+
+" if we are running on a graphical ui, set up custom options
+if has("gui_running")
+    if exists(":winpos") == 2          " set the window size & position
+        winpos 0 0
+    endif
+
+    set lines=9999                     " the tallest window possible
+    set columns=9999                   " the widest window possible
+
+    " basic gui options
+    set guioptions+=!                  " execute external commands in a terminal
+    set guioptions-=a                  " disable copy-on-select behaviour
+    set guioptions+=c                  " use console dialogs instead of popups
+    set guioptions-=f                  " disable foreground proccess wait
+    set guioptions-=L                  " remove left-hand scroll bar
+    set guioptions-=m                  " remove menu bar
+    set guioptions+=r                  " add right-hand (vertical) scroll bar
+    set guioptions-=T                  " remove toolbar
+
+    if has('win32')
+      set guioptions-=t                " win32: no tearoff menu entries
+    endif
+
+    set guifont=Delugia_Nerd_Font:h10  " set font and cursor options
+    set guicursor=a:blinkon0
+
+    colorscheme desert                 " set the gui color scheme
+endif
+
+" EOF vim:ft=vim:tw=78
