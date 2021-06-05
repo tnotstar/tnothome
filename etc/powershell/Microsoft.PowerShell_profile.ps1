@@ -55,9 +55,8 @@ Unalias 'rm'
 Unalias 'cat'
 Unalias 'clear'
 
-New-Alias -Name u -Value micro.exe
-New-Alias -Name vi -Value vim.exe
 New-Alias -Name pad -Value tnotpad.exe
+New-Alias -Name vi -Value C:\Scoop\apps\vim\current\gvim.exe
 New-Alias -Name nvim -Value C:\Scoop\apps\neovim\current\bin\nvim-qt.exe
 
 Invoke-Expression (&starship init powershell)
