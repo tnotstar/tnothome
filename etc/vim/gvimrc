@@ -3,12 +3,6 @@
 "
 
 """
-" common settings
-"
-
-runtime vimrc
-
-"""
 " graphical settings
 "
 
