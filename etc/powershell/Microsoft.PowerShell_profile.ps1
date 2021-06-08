@@ -1,18 +1,4 @@
-#
-# Copyright (c) 2020 Antonio Alvarado Hernández - All rights reserved
-#
-#   Licensed under the Apache License, Version 2.0 (the "License");
-#   you may not use this file except in compliance with the License.
-#   You may obtain a copy of the License at
-#
-#       http://www.apache.org/licenses/LICENSE-2.0
-#
-#   Unless required by applicable law or agreed to in writing, software
-#   distributed under the License is distributed on an "AS IS" BASIS,
-#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#   See the License for the specific language governing permissions and
-#   limitations under the License.
-#
+# Copyright 2020-21, Antonio Alvarado Hernández
 
 
 #region conda initialize
@@ -22,6 +8,14 @@ $Env:_CONDA_ROOT = "C:\Library\Conda"
 $Env:_CONDA_EXE = "$Env:_CONDA_ROOT\Scripts\conda.exe"
 $Env:CONDA_EXE = "$Env:_CONDA_EXE"
 #endregion
+
+function scoop {
+    if ($args[0] -eq "search") {
+        scoop-search.exe @($args | Select-Object -Skip 1)
+    } else {
+        scoop.ps1 @args
+    }
+}
 
 function condavars {
     Import-Module "$Env:_CONDA_ROOT\shell\condabin\Conda.psm1"
@@ -35,17 +29,11 @@ function vcvars {
 }
 
 function Unalias {
-	Param ($Name)
-
-	if (Get-Command 'Remove-Alias' -ErrorAction SilentlyContinue) {
-		Remove-Alias -Name "$Name" -Force
-	} else {
-		Remove-Item -Path "Alias:$Name" -Force
-	}
-
-	if (Get-Alias -name "$Name" -ErrorAction SilentlyContinue) {
-		Unalias "$Name"
-	}
+    if (Get-Command 'Remove-Alias' -ErrorAction SilentlyContinue) {
+        Remove-Alias -Name "$($args[0])" -Force
+    } else {
+        Remove-Item -Path "Alias:$($args[0])" -Force
+    }
 }
 
 Unalias 'ls'
