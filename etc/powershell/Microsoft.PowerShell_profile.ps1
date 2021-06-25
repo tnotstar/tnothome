@@ -49,4 +49,7 @@ New-Alias -Name nvim -Value C:\Scoop\apps\neovim\current\bin\nvim-qt.exe
 
 Invoke-Expression (&starship init powershell)
 
+# $PSDefaultParameterValues['Out-Default:OutVariable'] = '__'
+
+
 # EOF
