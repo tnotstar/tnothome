@@ -146,7 +146,8 @@ class InMemoryProcessor(object):
 
     def add_data(self, data):
         data = self.normalize_data(data)
-        if data and len(data) > 5 and not data in self.data:
+        if data and len(data) >= 7 \
+                and not data[:7] in [ _[:7] for _ in self.data ]:
             self.data.append(data)
 
     def normalize_title(self, title):
@@ -238,12 +239,13 @@ def compare_data(a, b):
         return answer
     balance_a = a[5] - a[3]
     balance_b = b[5] - b[3]
+    print(">>", a[0], ":", a[3], "=>", a[5], "vs", b[3], "=>", b[5], ":", balance_a == b[5], "(a)", a[5] == balance_b, "(b)", balance_b - balance_a, "(b)")
     if balance_a == b[5]:
         return +1
     elif a[5] == balance_b:
         return -1
     else:
-        return balance_a - balance_b
+        return balance_b - balance_a
 
 
 def create_output_datasheet(outfile, infiles):
