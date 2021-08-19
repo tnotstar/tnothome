@@ -34,11 +34,10 @@ def delete_files_from(input_file):
         if not entry:
             continue
         fname = os.path.abspath(os.path.expanduser(entry))
-        if os.path.exists(fname):
-            print("Removing: " + fname)
-            os.remove(fname)
-        else:
-            print("Omitting: " + fname)
+        if not os.path.exists(fname):
+            continue
+        print("Removing: " + fname)
+        os.remove(fname)
 
 
 def main():
