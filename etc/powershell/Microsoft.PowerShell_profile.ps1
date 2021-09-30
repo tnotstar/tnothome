@@ -25,7 +25,6 @@ function vcvars {
 function condavars {
     Import-Module "$Env:_CONDA_ROOT\shell\condabin\Conda.psm1"
     conda activate base
-    Add-CondaEnvironmentToPrompt
 }
 
 function lsdsk {
@@ -76,6 +75,5 @@ New-Alias -Name nvim -Value C:\Scoop\apps\neovim\current\bin\nvim-qt.exe
 Invoke-Expression (&starship init powershell)
 
 # $PSDefaultParameterValues['Out-Default:OutVariable'] = '__'
-
 
 # EOF
