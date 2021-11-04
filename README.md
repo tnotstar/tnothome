@@ -1,3 +1,5 @@
+<!-- Copyright 2021, Antonio Alvarado Hernández -->
+
 The `tnothome` README
 =====================
 
@@ -43,10 +45,18 @@ It's useful to append `%HOME%\Local\bin` to the `PATH` environment variable.
 C:\> setenv -u PATH "%PATH%;%HOME%\Local\bin"
 ~~~~
 
+### From Linux ###
+
+Common Linux distros set the `$HOME` environment variable by default, so you just need to clone this repository:
+
+~~~~{.sh}
+$ git clone https://github.com/tnotstar/tnothome.git "$HOME/Local"
+~~~~
+
 Warning
 -------
 
-Tested only on *Windows XP SP3*, *Windows 7* and *Windows 10*!
+Tested only on *Windows XP SP3*, *Windows 7*, *Windows 10* and now *Ubuntu LTS 20.04*!!
 
 [1]: http://barnyard.syr.edu/~vefatica/#SETENV
 
