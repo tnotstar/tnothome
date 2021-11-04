@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
 # Copyright 2021, Antonio Alvarado Hernández
 
-bin/                    # exclude all files from given directory
-var/
 
-*.exe                   # avoid to commit binary files
+                        # exclude all files from given directory
+bin/**
+var/**
+
+                        # avoid to commit binary files
+*.exe
 *.dll
 *.pyo
 *.pyc
 *.chm
 *.dat
 
-*~                      # avoid to commit vim backup & swap files
+                        # avoid to commit vim backup & swap files
+*~
 *swp
 
 # EOF
