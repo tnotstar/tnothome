@@ -3,7 +3,7 @@
 #
 
 # Don't print a new line at the start of the prompt
-add_newline = false
+add_newline = true
 
 # Wait 10 milliseconds for starship to check files
 # under the current directory
@@ -15,27 +15,31 @@ format = """\
     $directory\
     $time\
     $cmd_duration\
+    $package\
     $git_branch\
     $git_status\
     $conda\
+    $python\
     $nodejs\
-    $package\
     $line_break\
     $character\
     """
 
 [username]
+disabled = false
 format = "[\uE0B0](fg:black bg:white)[ $user]($style)"
 style_user = "fg:purple bg:white"
 style_root = "fg:red bg:white"
 show_always = true
 
 [hostname]
+disabled = false
 format = "[@$hostname ]($style)[\uE0B4](fg:white bg:blue)"
 style = "fg:blue bg:white"
 ssh_only = false
 
 [directory]
+disabled = false
 format = "[ in $path$read_only ]($style)[\uE0B4](fg:blue bg:yellow)"
 style = "fg:yellow bg:blue"
 read_only = " \uE0A2"
@@ -44,25 +48,32 @@ truncation_length = 4
 
 [time]
 disabled = false
-format = "[ at $time ]($style)[\uE0B4](fg:yellow bg:black)"
+format = "[ at $time ]($style)[\uE0B4](fg:yellow)"
 style = "fg:blue bg:yellow"
 
 [cmd_duration]
+disabled = false
 format = "[ tooks $duration]($style) "
-style = "fg:yellow bg:black"
-show_milliseconds = true
+style = "fg:yellow"
 min_time = 0
+show_milliseconds = true
+
+[python]
+disabled = false
 
 [nodejs]
+disabled = false
 format = " via [$symbol$version]($style) "
 style = "fg:bold green"
 
 [git_branch]
+disabled = false
 format = "on [$symbol$branch]($style) "
 style = "bold purple"
 symbol = " "
 
 [git_status]
+disabled = false
 format = "[$all_status$ahead_behind]($style)"
 conflicted = "%"
 ahead      = "<"
@@ -76,6 +87,7 @@ renamed    = "*"
 deleted    = "X"
 
 [character]
+disabled = false
 error_symbol = "[X](bold red)"
 success_symbol = "[❯](bold green)"
 vicmd_symbol = "[❮](bold green)"
