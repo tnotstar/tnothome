@@ -6,6 +6,27 @@
 " graphical settings
 "
 
+"
+"map Q gq
+"inoremap <C-U> <C-G>u<C-U>
+
+if has("clipboard")
+    " Ctrl-Shift-X and Shift-Del are `Cut`
+    vnoremap <C-S-X> "+x
+    vnoremap <S-Del> "+x
+
+    " Ctrl-Shift-C and Ctrl-Insert are `Copy`
+    vnoremap <C-S-C> "+y
+    vnoremap <C-Insert> "+y
+
+    " Ctrl-V and Shift-Insert are `Paste`
+    map <C-S-V> "+gP
+    map <S-Insert> "+gP
+
+    cmap <C-V> <C-R>+
+    cmap <S-Insert> <C-R>+
+endif
+
 " if we are running on a graphical ui, set up custom options
 if has("gui_running")
     set guioptions+=!                  " execute external commands in a terminal
@@ -17,25 +38,30 @@ if has("gui_running")
     set guioptions+=r                  " add right-hand (vertical) scroll bar
     set guioptions-=T                  " remove toolbar
 
-    if has("win32")
-        set guioptions-=t              " win32: no tearoff menu entries
-    endif
-
-    if has("win32")                    " set font and cursor options
-        set guifont="Delugia_Nerd_Font:h10"
-        set guifont="Delugia 10"
-    endif
+    set guifont=Delugia\ Regular\ 10
     set guicursor=a:blinkon0
 
     set lines=255                      " the tallest window possible
     set columns=96                     " the widest window possible
-
     if exists(":winpos") == 2          " set the window size & position
-        winpos 0 0
+"        winpos 0 0
     endif
 
     syntax on                          " enable syntax highlighting
     colorscheme desert                 " set the gui color scheme
+endif
+
+
+"""
+" windows settings
+"
+
+if has("win32")
+    behave mswin
+
+    set guioptions-=t                  " win32: no tearoff menu entries
+
+    set guifont=Delugia_Nerd_Font:h10
 endif
 
 " EOF vim:ft=vim:tw=78
