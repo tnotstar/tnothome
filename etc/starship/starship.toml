@@ -58,14 +58,6 @@ style = "fg:yellow"
 min_time = 0
 show_milliseconds = true
 
-[python]
-disabled = false
-
-[nodejs]
-disabled = false
-format = " via [$symbol$version]($style) "
-style = "fg:bold green"
-
 [git_branch]
 disabled = false
 format = "on [$symbol$branch]($style) "
@@ -85,6 +77,17 @@ modified   = "!"
 staged     = "+"
 renamed    = "*"
 deleted    = "X"
+
+[conda]
+disabled = false
+
+[python]
+disabled = false
+
+[nodejs]
+disabled = false
+format = " via [$symbol$version]($style) "
+style = "fg:bold green"
 
 [character]
 disabled = false
