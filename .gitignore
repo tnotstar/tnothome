@@ -17,5 +17,6 @@ var/**
                         # avoid to commit vim backup & swap files
 *~
 *swp
+.netrwhist
 
 # EOF
