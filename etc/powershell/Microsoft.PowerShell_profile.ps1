@@ -4,9 +4,9 @@
 #region conda initialize
 # !! Contents within this block are managed by 'conda init' !!
 #(& "C:\Library\Conda\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
-$Env:_CONDA_ROOT = "C:\Library\Conda"
-$Env:_CONDA_EXE = "$Env:_CONDA_ROOT\Scripts\conda.exe"
-$Env:CONDA_EXE = "$Env:_CONDA_EXE"
+##$Env:_CONDA_ROOT = "C:\Library\Conda"
+##$Env:_CONDA_EXE = "$Env:_CONDA_ROOT\Scripts\conda.exe"
+##$Env:CONDA_EXE = "$Env:_CONDA_EXE"
 #endregion
 
 function scoop {
@@ -23,8 +23,13 @@ function vcvars {
 }
 
 function condavars {
+    if (-not "$Env:_CONDA_ROOT") {
+        $conda = Get-Command -Name "conda" -ErrorAction SilentlyContinue
+        if ($conda) {
+            (& $conda "shell.powershell" "hook") | Out-String | Invoke-Expresion
+        }
+    }
     Import-Module "$Env:_CONDA_ROOT\shell\condabin\Conda.psm1"
-    conda activate base
 }
 
 function lsdsk {
@@ -54,10 +59,14 @@ function lsvol {
 }
 
 function Unalias {
-    if (Get-Command 'Remove-Alias' -ErrorAction SilentlyContinue) {
-        Remove-Alias -Name "$($args[0])" -Force
-    } else {
-        Remove-Item -Path "Alias:$($args[0])" -Force
+    $cmd = Get-Alias -Name "$($args[0])" -ErrorAction SilentlyContinue
+
+    if ($cmd -and $cmd.CommandType -eq 'Alias') {
+        if (Get-Command -Name 'Remove-Alias' -ErrorAction SilentlyContinue) {
+            Remove-Alias -Name "$($args[0])" -Force
+        } else {
+            Remove-Item -Path "Alias:$($args[0])" -Force
+        }
     }
 }
 
@@ -68,9 +77,9 @@ Unalias 'rm'
 Unalias 'cat'
 Unalias 'clear'
 
-New-Alias -Name pad -Value tnotpad.exe
-New-Alias -Name vi -Value C:\Scoop\apps\vim\current\gvim.exe
-New-Alias -Name nvim -Value C:\Scoop\apps\neovim\current\bin\nvim-qt.exe
+#New-Alias -Name pad -Value tnotpad.exe
+#New-Alias -Name vi -Value C:\Scoop\apps\vim\current\gvim.exe
+#New-Alias -Name nvim -Value C:\Scoop\apps\neovim\current\bin\nvim-qt.exe
 
 Invoke-Expression (&starship init powershell)
 

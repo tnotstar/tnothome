@@ -1,4 +1,6 @@
-# Copyright (c) 2020 Antonio Alvarado Hernández
+#!/usr/bin/env pwsh
+
+# Copyright 2020-2021, Antonio Alvarado Hernández
 
 try {
     Get-Command Invoke-Conda -ErrorAction Stop | Out-Null
@@ -6,6 +8,7 @@ try {
     try {
         Write-Host ">> Updating ``conda`` package..." -ForegroundColor DarkYellow
         Invoke-Conda update -y conda
+
         Write-Host ">> Updating ``base`` environment..." -ForegroundColor DarkYellow
         Invoke-Conda update -y --all
 
