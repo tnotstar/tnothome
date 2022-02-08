@@ -1,13 +1,6 @@
-# Copyright 2020-21, Antonio Alvarado Hernández
+# Copyright 2020-22, Antonio Alvarado Hernández
 
 
-#region conda initialize
-# !! Contents within this block are managed by 'conda init' !!
-#(& "C:\Library\Conda\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
-##$Env:_CONDA_ROOT = "C:\Library\Conda"
-##$Env:_CONDA_EXE = "$Env:_CONDA_ROOT\Scripts\conda.exe"
-##$Env:CONDA_EXE = "$Env:_CONDA_EXE"
-#endregion
 
 function scoop {
     if ($args[0] -eq "search") {
@@ -26,7 +19,7 @@ function condavars {
     if (-not "$Env:_CONDA_ROOT") {
         $conda = Get-Command -Name "conda" -ErrorAction SilentlyContinue
         if ($conda) {
-            (& $conda "shell.powershell" "hook") | Out-String | Invoke-Expresion
+            (& $conda "shell.powershell" "hook") | Out-String | Invoke-Expression
         }
     }
     Import-Module "$Env:_CONDA_ROOT\shell\condabin\Conda.psm1"
