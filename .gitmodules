@@ -3,7 +3,7 @@
 	url = https://github.com/editorconfig/editorconfig-vim.git
 [submodule "etc/vim/pack/contrib/start/vim-airline"]
 	path = etc/vim/pack/contrib/start/vim-airline
-	url = https://github.com/vim-airline/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
 [submodule "etc/vim/pack/contrib/start/vim-fugitive"]
 	path = etc/vim/pack/contrib/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
