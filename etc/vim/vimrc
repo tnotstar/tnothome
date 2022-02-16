@@ -53,7 +53,7 @@ if has("autocmd")
 endif
 
 " switch syntax highlighting on
-if has("syntax")                   
+if has("syntax")
     if !exists("g:syntax_on")
         syntax on
     endif
@@ -61,7 +61,7 @@ endif
 
 " set up search options
 set hlsearch                           " highlight the last used search pattern
-if has("reltime")                      
+if has("reltime")
     set incsearch                      " do incremental searching
 endif
 
@@ -75,7 +75,7 @@ set directory^=$HOME/.vimswap//        " put all swap files together here
 
 if &t_Co > 2
     set t_Co=256                       " try with 256 colors
-    colorscheme blackdust              " set default color scheme
+    colorscheme pablo                  " set default color scheme
 endif
 
 " set up terminal options
@@ -87,8 +87,7 @@ let mapleader="\<Space>"               " first, set leader key up!
 
 nnoremap <Space> <Nop>
 
-nmap <Leader>w :w!<CR>
-nmap <Leader>e :Lexplore<CR>
+nmap <Leader>n :NERDTree<CR>
 nmap <Leader>g :noh<CR>
 
 nmap Y y$

@@ -27,7 +27,7 @@ if has("gui_running")
     endif
 
     syntax on                          " enable syntax highlighting
-    colorscheme blackdust              " set the gui color scheme
+    colorscheme desert                 " set the gui color scheme
 endif
 
 
