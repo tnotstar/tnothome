@@ -23,6 +23,7 @@ set noguipty                           " make external commands work with a pty
 set nomodeline                         " disable modelines for security
 set notimeout                          " never time out on mappings
 set ttimeout                           " quickly time out on key codes
+
 set ttimeoutlen=100                    " wait to 100ms after Esc for specials
 set laststatus=2                       " always display status lines
 set cmdheight=2                        " set the command window height to 2
@@ -87,8 +88,9 @@ let mapleader="\<Space>"               " first, set leader key up!
 
 nnoremap <Space> <Nop>
 
-nmap <Leader>n :NERDTree<CR>
 nmap <Leader>g :noh<CR>
+nmap <Leader>t :NERDTree<CR>
+nmap <Leader>w :StripWhitespace<CR>
 
 nmap Y y$
 
