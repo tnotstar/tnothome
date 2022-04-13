@@ -34,13 +34,13 @@ show_always = true
 
 [hostname]
 disabled = false
-format = "[@$hostname ]($style)[\uE0B4](fg:white bg:blue)"
+format = "[@$hostname ]($style)[\uE0B0](fg:white bg:blue)"
 style = "fg:blue bg:white"
 ssh_only = false
 
 [directory]
 disabled = false
-format = "[ in $path$read_only ]($style)[\uE0B4](fg:blue bg:yellow)"
+format = "[ in $path$read_only ]($style)[\uE0B0](fg:blue bg:yellow)"
 style = "fg:yellow bg:blue"
 read_only = " \uE0A2"
 truncation_symbol = "…/"
@@ -48,7 +48,7 @@ truncation_length = 4
 
 [time]
 disabled = false
-format = "[ at $time ]($style)[\uE0B4](fg:yellow)"
+format = "[ at $time ]($style)[\uE0B0](fg:yellow)"
 style = "fg:blue bg:yellow"
 
 [cmd_duration]
