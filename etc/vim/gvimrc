@@ -8,6 +8,15 @@
 
 " if we are running on a graphical ui, set up custom options
 if has("gui_running")
+
+    syntax on                          " enable syntax highlighting
+    colorscheme desert                 " set the gui color scheme
+
+    set guifont=Cascadia\ Code\ PL\ 10
+    set guicursor=a:blinkon0
+
+    set lines=255                      " the tallest window possible
+    set columns=96                     " the widest window possible
     set guioptions+=!                  " execute external commands in a terminal
     set guioptions-=a                  " disable copy-on-select behaviour
     set guioptions+=c                  " use console dialogs instead of popups
@@ -16,18 +25,6 @@ if has("gui_running")
     set guioptions-=m                  " remove menu bar
     set guioptions+=r                  " add right-hand (vertical) scroll bar
     set guioptions-=T                  " remove toolbar
-
-    set guifont=Delugia\ Regular\ 10
-    set guicursor=a:blinkon0
-
-    set lines=255                      " the tallest window possible
-    set columns=96                     " the widest window possible
-    if exists(":winpos") == 2          " set the window size & position
-"        winpos 0 0
-    endif
-
-    syntax on                          " enable syntax highlighting
-    colorscheme desert                 " set the gui color scheme
 endif
 
 
@@ -39,7 +36,7 @@ if has("win32")
     behave mswin
 
     set guioptions-=t                  " win32: no tearoff menu entries
-    set guifont=Delugia_Nerd_Font:h10
+    set guifont=Cascadia_Code_PL:h10
 endif
 
 " EOF vim:ft=vim:tw=78
