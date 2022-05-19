@@ -16,3 +16,6 @@
 [submodule "etc/vim/pack/contrib/start/syntastic"]
 	path = etc/vim/pack/contrib/start/syntastic
 	url = https://github.com/vim-syntastic/syntastic
+[submodule "etc/vim/pack/contrib/start/rust.vim"]
+	path = etc/vim/pack/contrib/start/rust.vim
+	url = https://github.com/rust-lang/rust.vim
