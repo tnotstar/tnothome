@@ -1,0 +1,8 @@
+#
+# ~/Local/etc/fish/.gitignore
+#
+
+# do not commit `fish_*` files
+fish_*
+
+# EOF
