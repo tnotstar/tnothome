@@ -1,4 +1,6 @@
-# Copyright 2021, Antonio Alvarado Hernández
+#!/usr/bin/env pwsh
+
+# Copyright (c) 2021-2022, Antonio Alvarado Hernández
 
 <#
 .NAME
@@ -25,7 +27,7 @@ param (
 
 $Part = '#'
 if ($Query) {
-    $Cleaned = @( $Query; $args ) | %{ $_.Trim() } | Join-String -Separator ' '
+    $Cleaned = @( $Query; $args ) | %{ "$_".Trim() } | Join-String -Separator ' '
     $Part = "?q=$($Cleaned.Replace(' ', '+'))"
 }
 
