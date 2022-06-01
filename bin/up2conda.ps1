@@ -1,6 +1,21 @@
 #!/usr/bin/env pwsh
 
-# Copyright 2020-2022, Antonio Alvarado Hernández
+# Copyright (c) 2021-2022, Antonio Alvarado Hernández
+
+<#
+.NAME
+    up2conda
+
+.SYNOPSYS
+    Launch all `conda` commands to keep current installation and their local
+    environments up to date.
+
+.SYNTAX
+    up2conda
+
+.EXAMPLE
+    up2conda
+#>
 
 try {
     $Conda = Get-Command conda -ErrorAction Stop
