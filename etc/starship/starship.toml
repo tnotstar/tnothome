@@ -12,16 +12,22 @@ scan_timeout = 10
 format = """\
     $username\
     $hostname\
-    $directory\
     $time\
-    $cmd_duration\
+    $directory\
     $package\
     $git_branch\
+    $git_commit\
     $git_status\
-    $conda\
-    $python\
-    $nodejs\
     $line_break\
+    $rust\
+    $python\
+    $conda\
+    $deno\
+    $nodejs\
+    $shell\
+    $shlvl\
+    $status\
+    $cmd_duration\
     $character\
     """
 
@@ -34,65 +40,113 @@ show_always = true
 
 [hostname]
 disabled = false
-format = "[@$hostname ]($style)[\uE0B0](fg:white bg:blue)"
+format = "[@$hostname ]($style)[\uE0B0](fg:white bg:yellow)"
 style = "fg:blue bg:white"
 ssh_only = false
 
+[time]
+disabled = false
+format = "[ on $time ]($style)[\uE0B0](fg:yellow bg:blue)"
+style = "fg:blue bg:yellow"
+time_format = "%Y-%m-%d %H:%M:%S"
+
 [directory]
 disabled = false
-format = "[ in $path$read_only ]($style)[\uE0B0](fg:blue bg:yellow)"
+format = "[ in $path$read_only ]($style)[\uE0B0](fg:blue bg:black)"
 style = "fg:yellow bg:blue"
 read_only = " \uE0A2"
 truncation_symbol = "…/"
 truncation_length = 4
 
-[time]
+[package]
 disabled = false
-format = "[ at $time ]($style)[\uE0B0](fg:yellow)"
-style = "fg:blue bg:yellow"
-
-[cmd_duration]
-disabled = false
-format = "[ tooks $duration]($style) "
-style = "fg:yellow"
-min_time = 0
-show_milliseconds = true
+format = " [$symbol$version]($style)"
+style = "fg:bold green"
 
 [git_branch]
 disabled = false
-format = "on [$symbol$branch]($style) "
-style = "bold purple"
+format = " [$symbol$branch]($style)"
+style = "fg:bold purple"
 symbol = " "
 
+[git_commit]
+disabled = false
+format = "[ \\[$hash$tag\\] ]($style)"
+style = "bold purple"
+commit_hash_length = 8
+only_detached = false
+tag_disabled = false
+
 [git_status]
-disabled = false
-format = "[$all_status$ahead_behind]($style)"
-conflicted = "%"
-ahead      = "<"
-behind     = ">"
-diverged   = "#"
-untracked  = "?"
-stashed    = "@"
-modified   = "!"
-staged     = "+"
-renamed    = "*"
-deleted    = "X"
+disabled   = false
+format     = "[\\($all_status$ahead_behind\\)]($style)"
+style      = "fg:bold yellow"
+up_to_date = "🙂"
+behind     = "\u2190"
+ahead      = "\u2192"
+diverged   = "\u2194"
+stashed    = "📦"
+staged     = "[😎\\($count\\)](green)"
+modified   = "📝"
+conflicted = "😵"
+renamed    = "🧐"
+deleted    = "🗑"
+untracked  = "🤷"
 
-[conda]
+[rust]
 disabled = false
+format = "[$symbol$version]($style) "
+style = "fg:bold green"
 
-[python]
+[deno]
 disabled = false
+format = "[$symbol$version]($style) "
+style = "fg:bold green"
 
 [nodejs]
 disabled = false
-format = " via [$symbol$version]($style) "
+format = "[$symbol$version]($style) "
 style = "fg:bold green"
+
+[python]
+disabled = false
+format = "[$symbol$version]($style) "
+style = "fg:bold green"
+
+[conda]
+disabled = false
+format = "[$symbol$version]($style) "
+style = "fg:bold green"
+
+[shell]
+disabled = false
+format = "[$indicator]($style) "
+nu_indicator = "🔥"
+fish_indicator = "🐟"
+bash_indicator = "🐚"
+powershell_indicator = "_"
+
+[shlvl]
+disabled = false
+format = "$shlvl level\\(s\\) down "
+threshold = 2
+
+[status]
+disabled = false
+format = "[$symbol$signal_name]($style) "
+symbol = "🔴 \\[err:$hex_status\\($maybe_int\\)\\]"
+success_symbol = "🟢"
+
+[cmd_duration]
+disabled = false
+format = "[tooks $duration]($style) "
+style = "fg:yellow"
+min_time = 1
+show_milliseconds = true
 
 [character]
 disabled = false
-error_symbol = "[X](bold red)"
+error_symbol = "[❯](bold red)"
 success_symbol = "[❯](bold green)"
-vicmd_symbol = "[❮](bold green)"
 
 # EOF
