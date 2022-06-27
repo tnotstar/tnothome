@@ -6,6 +6,6 @@
 " graphical settings
 "
 
-set guifont=Cascadia\ Code\ PL:h10
+set guifont=DejaVu\ Sans\ Mono:h10
 
 " EOF vim:ft=vim:tw=78
