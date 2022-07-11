@@ -115,7 +115,7 @@ style = "fg:bold green"
 
 [conda]
 disabled = false
-format = "[$symbol$version]($style) "
+format = "[$symbol$environment]($style) "
 style = "fg:bold green"
 
 [shell]
