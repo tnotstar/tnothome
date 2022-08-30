@@ -96,8 +96,8 @@ $hr
 ${color 7F7F7F}External IP:${color}
 ${color 7F7F7F}❯${color} ${execi 1000 wget -q -O- http://ipecho.net/plain}
 ${color 7F7F7F}Wired Networking:${color}
-${color 7F7F7F}❯ IP:${color} ${addr enx00e04c68030b}
-${color 7F7F7F}❯ Up:${color} ${upspeed enx00e04c68030b} ${color 7F7F7F}Down:${color} ${downspeed enx00e04c68030b}
+${color 7F7F7F}❯ IP:${color} ${addr enx0023552c5402}
+${color 7F7F7F}❯ Up:${color} ${upspeed enx0023552c5402} ${color 7F7F7F}Down:${color} ${downspeed enx0023552c5402}
 ${color 7F7F7F}Wireless Networking:${color}
 ${color 7F7F7F}❯ IP:${color} ${addr wlp1s0}
 ${color 7F7F7F}❯ Up:${color} ${upspeed wlp1s0} ${color 7F7F7F}Down:${color} ${downspeed wlp1s0}
