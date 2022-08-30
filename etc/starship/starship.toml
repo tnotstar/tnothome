@@ -9,6 +9,10 @@ add_newline = true
 # under the current directory
 scan_timeout = 10
 
+# Wait 200 milliseconds for starship to execute commands
+# under the current directory
+command_timeout = 200
+
 format = """\
     $username\
     $hostname\
