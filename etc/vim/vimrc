@@ -75,7 +75,7 @@ set directory^=$HOME/.vimswap//        " put all swap files together here
 
 if &t_Co > 2
     set t_Co=256                       " try with 256 colors
-    colorscheme ron                    " set default color scheme
+    colorscheme desert                 " set default color scheme
 endif
 
 " set up terminal options
