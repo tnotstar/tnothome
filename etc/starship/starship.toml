@@ -38,26 +38,26 @@ format = """\
 [username]
 disabled = false
 format = "[\uE0B0](fg:black bg:white)[ $user]($style)"
-style_user = "fg:purple bg:white"
+style_user = "fg:#6600CC bg:white"
 style_root = "fg:red bg:white"
 show_always = true
 
 [hostname]
 disabled = false
 format = "[@$hostname ]($style)[\uE0B0](fg:white bg:yellow)"
-style = "fg:blue bg:white"
+style = "fg:black bg:white"
 ssh_only = false
 
 [time]
 disabled = false
-format = "[ on $time ]($style)[\uE0B0](fg:yellow bg:blue)"
-style = "fg:blue bg:yellow"
+format = "[ on $time ]($style)[\uE0B0](fg:yellow bg:black)"
+style = "fg:black bg:yellow"
 time_format = "%Y-%m-%d %H:%M:%S"
 
 [directory]
 disabled = false
-format = "[ in $path$read_only ]($style)[\uE0B0](fg:blue bg:black)"
-style = "fg:yellow bg:blue"
+format = "[ in $path$read_only ]($style)[\uE0B0](fg:black bg:navy)"
+style = "fg:yellow bg:black"
 read_only = " \uE0A2"
 truncation_symbol = "…/"
 truncation_length = 4
