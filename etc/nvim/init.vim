@@ -60,7 +60,8 @@ endif
 
 if &t_Co > 2
     set t_Co=256                       " try with 256 colors
-    colorscheme default                " set default color scheme
+    set termguicolors                  " enable 24-bit rgb color in the tui
+    colorscheme desert                 " set default color scheme
 endif
 
 " set up terminal options
