@@ -2,6 +2,11 @@
 # ~/Local/etc/fish/conf.d/conda.fish
 #
 
+# N.B. to avoid `base` environment (auto)activation we need to
+# issua the following command:
+#
+# $ conda config --set auto_activate_base false
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 eval /home/tnotstar/Library/Conda/bin/conda "shell.fish" "hook" $argv | source
