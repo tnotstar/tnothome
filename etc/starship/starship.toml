@@ -2,16 +2,13 @@
 # ~/Local/etc/starship/starship.toml
 #
 
-# Don't print a new line at the start of the prompt
-add_newline = true
-
-# Wait 10 milliseconds for starship to check files
+# Wait 50 milliseconds for starship to check files
 # under the current directory
-scan_timeout = 10
+scan_timeout = 50
 
-# Wait 200 milliseconds for starship to execute commands
+# Wait 500 milliseconds for starship to execute commands
 # under the current directory
-command_timeout = 200
+command_timeout = 500
 
 format = """\
     $username\
@@ -20,10 +17,10 @@ format = """\
     $directory\
     $package\
     $git_branch\
-    $git_commit\
     $git_status\
     $line_break\
     $rust\
+    $golang\
     $python\
     $conda\
     $deno\
@@ -35,92 +32,96 @@ format = """\
     $character\
     """
 
+palette = "selenized"
+
+[palettes.selenized]
+black              = "0x184956"
+red                = "0xfa5750"
+green              = "0x75b938"
+yellow             = "0xdbb32d"
+blue               = "0x4695f7"
+magenta            = "0xf275be"
+cyan               = "0x41c7b9"
+white              = "0x72898f"
+bright-black       = "0x2d5b69"
+bright-red         = "0xff665c"
+bright-green       = "0x84c747"
+bright-yellow      = "0xebc13d"
+bright-blue        = "0x58a3ff"
+bright-magenta     = "0xff84cd"
+bright-cyan        = "0x53d6c7"
+bright-white       = "0xcad8d9"
+
 [username]
 disabled = false
-format = "[\uE0B0](fg:black bg:white)[ $user]($style)"
-style_user = "fg:#6600CC bg:white"
-style_root = "fg:red bg:white"
+format = "[🙈 $user]($style)"
 show_always = true
 
 [hostname]
 disabled = false
-format = "[@$hostname ]($style)[\uE0B0](fg:white bg:yellow)"
-style = "fg:black bg:white"
+format = "[@$hostname ]($style)"
 ssh_only = false
 
 [time]
 disabled = false
-format = "[ on $time ]($style)[\uE0B0](fg:yellow bg:black)"
-style = "fg:black bg:yellow"
+format = "[🙉 $time ]($style)"
 time_format = "%Y-%m-%d %H:%M:%S"
 
 [directory]
 disabled = false
-format = "[ in $path$read_only ]($style)[\uE0B0](fg:black bg:navy)"
-style = "fg:yellow bg:black"
+format = "[🙊 $path$read_only]($style)"
 read_only = " \uE0A2"
 truncation_symbol = "…/"
 truncation_length = 4
 
 [package]
 disabled = false
-format = " [$symbol$version]($style)"
-style = "fg:bold green"
+format = "[ $symbol$version]($style)"
+symbol = "📦 "
 
 [git_branch]
 disabled = false
-format = " [$symbol$branch]($style)"
-style = "fg:bold purple"
+format = "[ $symbol$branch]($style)"
 symbol = " "
 
-[git_commit]
-disabled = false
-format = "[ \\[$hash$tag\\] ]($style)"
-style = "bold purple"
-commit_hash_length = 8
-only_detached = false
-tag_disabled = false
-
 [git_status]
-disabled   = false
-format     = "[\\($all_status$ahead_behind\\)]($style)"
-style      = "fg:bold yellow"
+disabled = false
+format = " [\\($all_status$ahead_behind\\)]($style)"
 up_to_date = "🙂"
-behind     = "\u2190"
-ahead      = "\u2192"
-diverged   = "\u2194"
-stashed    = "📦"
-staged     = "[😎\\($count\\)](green)"
-modified   = "📝"
+behind = "\u2190"
+ahead = "\u2192"
+diverged = "\u2194"
+stashed = "🧊"
+staged = "[😎\\($count\\)](green)"
+modified = "📝"
 conflicted = "😵"
-renamed    = "🧐"
-deleted    = "🗑"
-untracked  = "🤷"
+renamed = "🧐"
+deleted = "🗑"
+untracked = "🤷"
 
 [rust]
 disabled = false
 format = "[$symbol$version]($style) "
-style = "fg:bold green"
+
+[golang]
+disabled = false
+format = "[$symbol$version]($style) "
 
 [deno]
 disabled = false
 format = "[$symbol$version]($style) "
-style = "fg:bold green"
 
 [nodejs]
 disabled = false
 format = "[$symbol$version]($style) "
-style = "fg:bold green"
 
 [python]
 disabled = false
 format = "[$symbol$version]($style) "
-style = "fg:bold green"
 
 [conda]
 disabled = false
 format = "[$symbol$environment]($style) "
-style = "fg:bold green"
 
 [shell]
 disabled = false
@@ -138,7 +139,7 @@ threshold = 2
 [status]
 disabled = false
 format = "[$symbol$signal_name]($style) "
-symbol = "🔴 \\[err:$hex_status\\($maybe_int\\)\\]"
+symbol = "🔴 \\[err:$hex_status\\]"
 success_symbol = "🟢"
 
 [cmd_duration]
