@@ -9,6 +9,8 @@ alias rm='/usr/bin/rm -i'
 alias mv='/usr/bin/mv -i'
 alias cp='/usr/bin/cp -i'
 
+alias hx='helix'
+
 alias vi='nvim'
 alias vim='nvim'
 alias gvim='nvim-qt'
