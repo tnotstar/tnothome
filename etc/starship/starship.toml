@@ -6,9 +6,9 @@
 # under the current directory
 scan_timeout = 50
 
-# Wait 500 milliseconds for starship to execute commands
+# Wait 1 second(s) for starship to execute commands
 # under the current directory
-command_timeout = 500
+command_timeout = 1000
 
 format = """\
     $username\
