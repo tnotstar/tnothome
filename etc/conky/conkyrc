@@ -48,7 +48,7 @@ conky.config = {
 
     use_xft = true,
     xftalpha = 0.5,
-    xinerama_head = 1,
+    xinerama_head = 0,
 
     alignment = 'top_left',
     default_color = '#E95420',
