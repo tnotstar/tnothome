@@ -6,6 +6,16 @@
 bin/**
 var/**
 
+                        # (re)include valid files excluded above
+!bin/*.c
+!bin/*.sh
+!bin/*.js
+!bin/*.py
+!bin/*.ps1
+!bin/*.cmd
+!bin/*.ini
+!bin/*.vbs
+
                         # avoid to commit binary files
 *.exe
 *.dll
