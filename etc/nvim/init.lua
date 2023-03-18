@@ -2,8 +2,12 @@
 -- ~/Local/etc/nvim/init.lua
 --
 
+require('my.disabled')
 require('my.packer')
+require('my.tree')
 require('my.mason')
+require('my.treesitter')
+require('my.lualine')
 require('my.colors')
 require('my.keymaps')
 
@@ -36,9 +40,9 @@ vim.opt.softtabstop = 4                -- backspace key treat 4 spaces as 1 tab
 
 -- set up encoding and file format
 --
-vim.opt.fileformat = 'unix'            -- use `unix` file formats by default
-vim.opt.fileencoding = 'utf-8'         -- the encoding written to file
 vim.opt.encoding = 'utf-8'             -- the encoding displayed
+vim.opt.fileencoding = 'utf-8'         -- the encoding written to file
+vim.opt.fileformat = 'unix'            -- use `unix` file formats by default
 
 -- enable file type, plugins and indent
 --
@@ -56,10 +60,12 @@ end
 
 -- terminal settings
 --
-vim.opt.visualbell = true                -- use visual bell instead of beeping
+vim.opt.termguicolors = true           -- enable gui colors for terminal
+vim.opt.visualbell = true              -- use visual bell instead of beeping
 
 -- set up mouse options
 --
 if vim.fn.has('mouse') then            -- if has('mouse'),enable mouse mode 
   vim.opt.mouse = 'a'                    -- and copy&paste with the `shift` key
 end
+

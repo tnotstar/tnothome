@@ -1,1 +1,5 @@
-require("mason").setup()
+--
+-- ~/Local/etc/nvim/lua/my/mason.lua
+--
+
+require('mason').setup()
