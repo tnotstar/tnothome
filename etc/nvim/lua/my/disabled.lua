@@ -1,7 +1,8 @@
 --
+vim.keymap.set('n', '<Leader>tt', vim.cmd.NvimTreeToggle)
+vim.keymap.set('n', '<Leader>tf', vim.cmd.NvimTreeFocus)
+vim.keymap.set('n', '<Leader>tp', vim.cmd.NvimTreeFindFile)
+vim.keymap.set('n', '<Leader>tx', vim.cmd.NvimTreeCollapse)
+
 -- ~/Local/etc/nvim/lua/my/disabled.lua
 --
-
--- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1

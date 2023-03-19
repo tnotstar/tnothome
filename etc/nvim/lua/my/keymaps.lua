@@ -4,13 +4,11 @@
 
 vim.g.mapleader = ' '
 
+vim.keymap.set('n', '<Leader>nx', vim.cmd.NnnExplorer)
+vim.keymap.set('n', '<Leader>nn', function() vim.cmd.NnnPicker('%:p:h') end)
+
 vim.keymap.set('n', '<C-p>', ':bprevious<CR>')
 vim.keymap.set('n', '<C-n>', ':bnext<CR>')
-
-vim.keymap.set('n', '<Leader>tt', vim.cmd.NvimTreeToggle)
-vim.keymap.set('n', '<Leader>tf', vim.cmd.NvimTreeFocus)
-vim.keymap.set('n', '<Leader>tp', vim.cmd.NvimTreeFindFile)
-vim.keymap.set('n', '<Leader>tx', vim.cmd.NvimTreeCollapse)
 
 local telescope_builtin = require('telescope.builtin')
 
