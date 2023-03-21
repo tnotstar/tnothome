@@ -1,0 +1,5 @@
+--
+-- ~/Local/etc/nvim/.gitignore
+--
+
+plugin/packer_compiled.lua
