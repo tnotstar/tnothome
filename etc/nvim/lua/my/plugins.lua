@@ -44,7 +44,7 @@ require('packer').startup(function(use)
   -- Treesitter configurations and abstraction layer for Neovim
   use({
     'nvim-treesitter/nvim-treesitter',
-    { run = ':TSUpdate' },
+    run = ':TSUpdate',
   })
 
   -- Rosé Pine, all natural pine, faux fur and a bit of soho vibes
