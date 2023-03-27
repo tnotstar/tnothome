@@ -7,6 +7,8 @@ set -gx LS_OPTIONS --group-directories-first --color=auto
 set -gx VISUAL nvim
 set -gx EDITOR nvim
 
-fish_add_path --prepend ~/Local/bin ~/.local/bin
+set -gx WINEPREFIX "$HOME/.wine" 
+
+fish_add_path --prepend "$HOME/Local/bin" "$HOME/.local/bin"
 
 # EOF
