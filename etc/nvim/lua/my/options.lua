@@ -58,4 +58,3 @@ vim.opt.visualbell = true              -- use visual bell instead of beeping
 if vim.fn.has('mouse') then            -- if has('mouse'),enable mouse mode 
   vim.opt.mouse = 'a'                    -- and copy&paste with the `shift` key
 end
-
