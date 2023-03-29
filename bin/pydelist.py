@@ -1,20 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
-# Copyright 2019-2022, Antonio Alvarado Hernández
-#
-#   Licensed under the Apache License, Version 2.0 (the "License");
-#   you may not use this file except in compliance with the License.
-#   You may obtain a copy of the License at
-#
-#       http://www.apache.org/licenses/LICENSE-2.0
-#
-#   Unless required by applicable law or agreed to in writing, software
-#   distributed under the License is distributed on an "AS IS" BASIS,
-#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#   See the License for the specific language governing permissions and
-#   limitations under the License.
-#
+
+# Copyright 2019-2023, Antonio Alvarado Hernández <tnotstar@gmail.com>
 
 from argparse import ArgumentParser
 
@@ -42,11 +29,15 @@ def delete_files_from(input_file):
 
 def main():
     parser = ArgumentParser(description="a list-based batch delete utility")
-    parser.add_argument("-i", "--input-file", required=True,
+    parser.add_argument("-i", "--input-list", required=True,
         help="a `jdupes`' json result file with the entries to be deleted")
+    parser.add_argument("-D", "--delete-list", action='store_true', default=False,
+        help="check if you want to delete the input file after clean-up")
     args = parser.parse_args()
     try:
-        delete_files_from(args.input_file)
+        delete_files_from(args.input_list)
+        if args.delete_list:
+            os.remove(args.input_list)
     except OSError as ex:
         print("Oops: " + str(ex))
 
