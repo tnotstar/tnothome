@@ -6,9 +6,9 @@
 # under the current directory
 scan_timeout = 50
 
-# Wait 1 second(s) for starship to execute commands
+# Wait 1500 milliseconds for starship to execute commands
 # under the current directory
-command_timeout = 1000
+command_timeout = 1500
 
 format = """\
     $username\
@@ -86,7 +86,7 @@ symbol = " "
 
 [git_status]
 disabled = false
-format = " [\\($all_status$ahead_behind\\)]($style)"
+format = " [\\[$all_status$ahead_behind\\]]($style)"
 up_to_date = "🙂"
 behind = "\u2190"
 ahead = "\u2192"
@@ -117,7 +117,7 @@ format = "[$symbol$version]($style) "
 
 [python]
 disabled = false
-format = "[$symbol$version]($style) "
+format = "[$symbol$version( \\[$virtualenv\\])]($style) "
 
 [conda]
 disabled = false
