@@ -176,7 +176,7 @@ lsp.ensure_installed({
 })
 
 local lspconfig = require('lspconfig')
-local util = require('lspconfig.util')
+local lsputil = require('lspconfig.util')
 
 lspconfig.lua_ls.setup(
   lsp.nvim_lua_ls()
@@ -188,6 +188,7 @@ lspconfig.denols.setup({
     lint = true,
     unstable = true,
   },
+  root_dir = lsputil.root_pattern('deps.ts'),
 });
 
 lspconfig.tsserver.setup({
@@ -198,7 +199,7 @@ lspconfig.tsserver.setup({
     },
   },
   single_file_support = false,
-  root_dir = util.root_pattern('package.json'),
+  root_dir = lsputil.root_pattern('package.json'),
 })
 
 lsp.on_attach(function(_, bufnr)
@@ -210,21 +211,21 @@ lsp.on_attach(function(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, options)
+  vim.keymap.set('n', '<Leader>K', vim.lsp.buf.signature_help, options)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, options)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, options)
   vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, options)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, options)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, options)
-  vim.keymap.set('n', '<Leader>K', vim.lsp.buf.signature_help, options)
   vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, options)
 end)
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mapping = lsp.defaults.cmp_mappings({
+  ['<C-Space>'] = cmp.mapping.complete(),
   ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
   ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-Space>'] = cmp.mapping.complete(),
 })
 
 lsp.setup_nvim_cmp({
