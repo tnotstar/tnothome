@@ -10,6 +10,7 @@ var/**
 !bin/*.c
 !bin/*.sh
 !bin/*.js
+!bin/*.ts
 !bin/*.py
 !bin/*.ps1
 !bin/*.cmd
