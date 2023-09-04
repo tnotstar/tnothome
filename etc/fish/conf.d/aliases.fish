@@ -12,6 +12,7 @@ alias cp='/usr/bin/cp -i'
 alias vi='nvim'
 alias vim='nvim'
 alias gvim='neovide'
+alias lide="$HOME/Local/bin/lunarvide.sh"
 
 alias charles="JRE_HOME=/usr/lib/jvm/java-8-openjdk/jre ~/Library/Charles/bin/charles"
 
