@@ -5,4 +5,8 @@
 # do not commit `fish_*` files
 fish_*
 
+# do not commit `fisher` files
+functions/fisher.fish
+completions/fisher.fish
+
 # EOF
