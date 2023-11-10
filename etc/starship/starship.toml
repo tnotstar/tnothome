@@ -72,9 +72,9 @@ threshold = 2
 
 [status]
 disabled = false
-format = "[$symbol$signal_name]($style) "
-symbol = "🔴 \\[err:$hex_status\\]"
-success_symbol = "🟢"
+format = "$symbol "
+symbol = "[🔴 \\[err:$hex_status\\]]($style)"
+success_symbol = "[🟢](bold green)"
 
 [cmd_duration]
 disabled = false
