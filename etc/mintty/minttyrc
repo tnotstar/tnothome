@@ -3,7 +3,7 @@
 #
 
 Language=en
-Locale=en_UK
+Locale=en_GB
 Charset=UTF-8
 
 Term=xterm-256color
@@ -38,12 +38,13 @@ CursorType=block
 CursorBlinks=no
 CursorColour=255,255,255
 
-BackgroundColour=31,29,41
-ForegroundColour=255,255,255
 BoldColour=255,255,255
 BlinkColour=255,255,255
 
 ThemeFile=Rosé Pine
+BackgroundColour=31,29,41
+ForegroundColour=255,255,255
+CursorColour=255,255,255
 Black=64,60,88
 BoldBlack=111,110,133
 Red=234,111,145
