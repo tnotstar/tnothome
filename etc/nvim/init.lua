@@ -1,10 +1,14 @@
+
+
 --
 -- ~/Local/etc/nvim/init.lua
 --
 
 -- ---
--- disable incompatible options
+-- set up common options
 --
+vim.scriptencoding = 'utf-8'           -- set the encoding of the current script
+vim.opt.nocompatible = true            -- disable vi compatibility
 
 -- disable non-vim or non-lua extension languages
 --
@@ -12,6 +16,97 @@ vim.g.loaded_python3_provider = 0      -- python3
 vim.g.loaded_ruby_provider = 0         -- ruby
 vim.g.loaded_node_provider = 0         -- node
 vim.g.loaded_perl_provider = 0         -- perl
+
+-- default legacy options
+--
+vim.opt.ruler = true                   -- show the cursor position all the time
+vim.opt.number = true                  -- display line numbers
+vim.opt.relativenumber = true          -- show numbers relative to current line
+vim.opt.cursorline = true              -- highlight the cursor line
+vim.opt.modeline = false               -- disable modelines for security
+vim.opt.showmatch = true               -- display matching brackets
+vim.opt.confirm = true                 -- ask to save changes before next one
+vim.opt.hidden = true                  -- allow hidden buffers when abandon them
+vim.opt.wrap = false                   -- by default, disable word wrap
+vim.opt.scrolloff = 5                  -- show some lines of context around the cursor
+vim.opt.history = 4096                 -- how many commands of history to recall
+vim.opt.cmdheight = 2                  -- set the command window height to 2
+vim.opt.display = 'truncate'           -- show @@@ in the last line, if truncated
+vim.opt.timeout = false                -- disable mappings timeout
+vim.opt.ttimeout = true                -- enable key code scan timeout
+                                       -- always use the global clipboard
+vim.opt.clipboard:append('unnamed')    -- put all text operations in the '*' register
+
+-- set up tabs/spaces options
+--
+vim.opt.expandtab = true               -- convert tabs to spaces
+vim.opt.tabstop = 4                    -- use 4 spaces for tabs
+vim.opt.shiftwidth = 4                 -- use 4 spaces for indentation
+vim.opt.softtabstop = 4                -- backspace key treat 4 spaces as 1 tab
+
+-- set up encoding and file format
+--
+vim.opt.encoding = 'utf-8'             -- the display encoding 
+vim.opt.fileencoding = 'utf-8'         -- the encoding written to file
+vim.opt.fileformat = 'unix'            -- use `unix` file formats by default
+
+-- enable file type, plugins and indent
+--
+if vim.fn.has('autocmd') then
+  vim.cmd.filetype('plugin indent on')
+end
+
+-- switch syntax highlighting on
+--
+if vim.fn.has('syntax') then
+  if not vim.g.syntax_on then
+    vim.cmd.syntax('on')
+  end
+end
+
+-- terminal settings
+--
+vim.opt.termguicolors = true           -- enable gui colors for terminal
+vim.opt.visualbell = true              -- use visual bell instead of beeping
+
+-- set up mouse options
+--
+if vim.fn.has('mouse') then            -- if has('mouse'), enable mouse mode 
+  vim.opt.mouse = 'a'                  -- and copy&paste with the `shift` key
+end
+
+
+-- ---
+-- set up personal keyboard mappings
+--
+vim.g.mapleader = ' '
+
+vim.keymap.set('n', '<C-p>', ':bprevious<CR>')
+vim.keymap.set('n', '<C-n>', ':bnext<CR>')
+
+vim.keymap.set('n', '<A-j>', ':m+1<CR>==', { noremap=true })
+vim.keymap.set('i', '<A-j>', '<Esc>:m+1<CR>==gi', { noremap=true })
+vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { noremap=true })
+
+vim.keymap.set('n', '<A-k>', ':m-2<CR>==', { noremap=true })
+vim.keymap.set('i', '<A-k>', '<Esc>:m-2<CR>==gi', { noremap=true })
+vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { noremap=true })
+
+vim.keymap.set('v', '<C-C>', '"+y', { noremap=true })
+vim.keymap.set('v', '<C-Insert>', '"+y', { noremap=true })
+
+vim.keymap.set('v', '<C-X>', '"+x', { noremap=true })
+vim.keymap.set('v', '<S-Del>', '"+x', { noremap=true })
+
+vim.keymap.set('n', '<C-V>', '"+gP', { noremap=true })
+vim.keymap.set('n', '<S-Insert>', '"+gP', { noremap=true })
+
+local telescope_builtin = require('telescope.builtin')
+vim.keymap.set('n', '<Leader>tf', telescope_builtin.find_files, {})
+vim.keymap.set('n', '<Leader>tg', telescope_builtin.git_files, {})
+
+vim.keymap.set('n', '<Leader>gG', vim.cmd.Git)
+vim.keymap.set('n', '<Leader>gh', '<ESC>:noh<CR>')
 
 
 -- ---
@@ -98,6 +193,19 @@ end)
 -- set up plugins options
 --
 
+-- settings of `lualine` plugin
+--
+require('lualine').setup()
+
+-- set up colors scheme
+--
+vim.cmd.colorscheme('rose-pine')
+
+-- set transparent background
+--
+vim.cmd.highlight({ 'Normal', 'guibg=none', 'ctermbg=none' })
+vim.cmd.highlight({ 'NormalFloat', 'guibg=none', 'ctermbg=none' })
+
 -- settings of `mason` plugin
 --
 require('mason').setup()
@@ -119,6 +227,8 @@ lsp.ensure_installed({
   'tsserver',
 })
 
+-- settings of `lspconfig` plugin
+--
 local lspconfig = require('lspconfig')
 local lsputil = require('lspconfig.util')
 
@@ -187,122 +297,13 @@ vim.diagnostic.config({
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_filetypes = {
   ['*'] = false,
-  ['javascript'] = true,
-  ['typescript'] = true,
   ['lua'] = true,
   ['go'] = true,
   ['python'] = true,
+  ['javascript'] = true,
+  ['typescript'] = true,
 }
 vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("<CR>")', { silent = true, expr = true })
-
--- settings of `lualine` plugin
---
-require('lualine').setup()
-
--- ---
--- set up colors scheme
---
-vim.cmd.colorscheme('rose-pine')
-                                       -- set transparent background
-vim.cmd.highlight({ 'Normal', 'guibg=none', 'ctermbg=none' })
-vim.cmd.highlight({ 'NormalFloat', 'guibg=none', 'ctermbg=none' })
-
-
--- ---
--- set up personal keyboard mappings
---
-vim.keymap.set('n', '<C-p>', ':bprevious<CR>')
-vim.keymap.set('n', '<C-n>', ':bnext<CR>')
-
-vim.keymap.set('n', '<A-j>', ':m+1<CR>==', { noremap=true })
-vim.keymap.set('n', '<A-k>', ':m-2<CR>==', { noremap=true })
-vim.keymap.set('i', '<A-j>', '<Esc>:m+1<CR>==gi', { noremap=true })
-vim.keymap.set('i', '<A-k>', '<Esc>:m-2<CR>==gi', { noremap=true })
-vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { noremap=true })
-vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { noremap=true })
-
-vim.keymap.set('v', '<C-C>', '"+y', { noremap=true })
-vim.keymap.set('v', '<C-Insert>', '"+y', { noremap=true })
-vim.keymap.set('v', '<C-X>', '"+x', { noremap=true })
-vim.keymap.set('v', '<S-Del>', '"+x', { noremap=true })
-vim.keymap.set('n', '<C-V>', '"+gP', { noremap=true })
-vim.keymap.set('n', '<S-Insert>', '"+gP', { noremap=true })
-
-vim.g.mapleader = ' '
-
-local telescope_builtin = require('telescope.builtin')
-vim.keymap.set('n', '<Leader>tf', telescope_builtin.find_files, {})
-vim.keymap.set('n', '<Leader>tg', telescope_builtin.git_files, {})
-
-vim.keymap.set('n', '<Leader>gG', vim.cmd.Git)
-                                       -- disable search highlighting
-vim.keymap.set('n', '<Leader>gh', '<ESC>:noh<CR>')
-
--- ---
--- set up legacy key remappings
---
-
--- ---
--- set up common options
---
-
--- my default legacy options
---
-vim.opt.ruler = true                   -- show the cursor position all the time
-vim.opt.number = true                  -- display line numbers
-vim.opt.relativenumber = true          -- show numbers relative to current line
-vim.opt.cursorline = true              -- highlight the cursor line
-vim.opt.modeline = false               -- disable modelines for security
-vim.opt.showmatch = true               -- display matching brackets
-vim.opt.confirm = true                 -- ask to save changes before next one
-vim.opt.hidden = true                  -- allow hidden buffers when abandon them
-vim.opt.wrap = false                   -- by default, disable word wrap
-vim.opt.scrolloff = 5                  -- show some lines of context around the cursor
-vim.opt.history = 4096                 -- how many commands of history to recall
-vim.opt.cmdheight = 2                  -- set the command window height to 2
-vim.opt.display = 'truncate'           -- show @@@ in the last line, if truncated
-vim.opt.timeout = false                -- disable mappings timeout
-vim.opt.ttimeout = true                -- enable key code scan timeout
-                                       -- always use the global clipboard
-vim.opt.clipboard:append('unnamed')    -- put all text operations in the '*' register
-
--- set up tabs/spaces options
---
-vim.opt.expandtab = true               -- convert tabs to spaces
-vim.opt.tabstop = 4                    -- use 4 spaces for tabs
-vim.opt.shiftwidth = 4                 -- use 4 spaces for indentation
-vim.opt.softtabstop = 4                -- backspace key treat 4 spaces as 1 tab
-
--- set up encoding and file format
---
-vim.opt.encoding = 'utf-8'             -- the display encoding 
-vim.opt.fileencoding = 'utf-8'         -- the encoding written to file
-vim.opt.fileformat = 'unix'            -- use `unix` file formats by default
-
--- enable file type, plugins and indent
---
-if vim.fn.has('autocmd') then
-  vim.cmd.filetype('plugin indent on')
-end
-
--- switch syntax highlighting on
---
-if vim.fn.has('syntax') then
-  if not vim.g.syntax_on then
-    vim.cmd.syntax('on')
-  end
-end
-
--- terminal settings
---
-vim.opt.termguicolors = true           -- enable gui colors for terminal
-vim.opt.visualbell = true              -- use visual bell instead of beeping
-
--- set up mouse options
---
-if vim.fn.has('mouse') then            -- if has('mouse'), enable mouse mode 
-  vim.opt.mouse = 'a'                  -- and copy&paste with the `shift` key
-end
 
 
 -- ---
