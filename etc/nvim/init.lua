@@ -5,6 +5,7 @@
 -- ---
 -- set up common options
 --
+
 vim.scriptencoding = 'utf-8'           -- set the encoding of the current script
 
 -- disable non-vim or non-lua extension languages
@@ -66,6 +67,11 @@ end
 vim.opt.termguicolors = true           -- enable gui colors for terminal
 vim.opt.visualbell = true              -- use visual bell instead of beeping
 
+-- set transparent background
+--
+vim.cmd.highlight({ 'Normal', 'guibg=none', 'ctermbg=none' })
+vim.cmd.highlight({ 'NormalFloat', 'guibg=none', 'ctermbg=none' })
+
 -- set up mouse options
 --
 if vim.fn.has('mouse') then            -- if has('mouse'), enable mouse mode 
@@ -76,6 +82,7 @@ end
 -- ---
 -- set up personal keyboard mappings
 --
+
 vim.g.mapleader = ' '
 
 vim.keymap.set('n', '<C-p>', ':bprevious<CR>')
@@ -98,13 +105,6 @@ vim.keymap.set('v', '<S-Del>', '"+x', { noremap=true })
 vim.keymap.set('n', '<C-V>', '"+gP', { noremap=true })
 vim.keymap.set('n', '<S-Insert>', '"+gP', { noremap=true })
 
-local telescope_builtin = require('telescope.builtin')
-vim.keymap.set('n', '<Leader>tf', telescope_builtin.find_files, {})
-vim.keymap.set('n', '<Leader>tg', telescope_builtin.git_files, {})
-
-vim.keymap.set('n', '<Leader>gG', vim.cmd.Git)
-vim.keymap.set('n', '<Leader>gh', '<ESC>:noh<CR>')
-
 
 -- ---
 -- load and preconfigure plugins
@@ -120,6 +120,36 @@ require('packer').startup(function(use)
 
   -- Package manager self-managed
   use('wbthomason/packer.nvim')
+
+  -- A blazing fast and easy to configure neovim statusline plugin
+  use({
+    'nvim-lualine/lualine.nvim', requires = {
+       'nvim-tree/nvim-web-devicons', opt = true,
+     },
+  })
+
+  -- Rosé Pine, all natural pine, faux fur and a bit of soho vibes
+  use({
+    'rose-pine/neovim', as = 'rose-pine',
+  })
+
+  -- Automatically adjusts 'shiftwidth' and 'expandtab' heuristically
+  use('tpope/vim-sleuth')
+
+  -- A Git wrapper so awesome, it should be illegal
+  use('tpope/vim-fugitive')
+
+  -- A GitHub extension for fugitive.vim
+  use('tpope/vim-rhubarb')
+
+  -- Git integration for buffers
+  use('lewis6991/gitsigns.nvim')
+
+  -- Nvim Treesitter configurations and abstraction layer 
+  use({
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+  })
 
   -- Mason, easily install and manage LSP servers, DAP servers,
   -- linters, and formatters
@@ -149,30 +179,6 @@ require('packer').startup(function(use)
     }
   })
 
-  -- Rosé Pine, all natural pine, faux fur and a bit of soho vibes
-  use({
-    'rose-pine/neovim', as = 'rose-pine',
-  })
-
-  -- A blazing fast and easy to configure neovim statusline plugin
-  use({
-    'nvim-lualine/lualine.nvim', requires = {
-       'nvim-tree/nvim-web-devicons', opt = true,
-     },
-  })
-
-  -- Automatically adjusts 'shiftwidth' and 'expandtab' heuristically
-  use('tpope/vim-sleuth')
-
-  -- A Git wrapper so awesome, it should be illegal
-  use('tpope/vim-fugitive')
-
-  -- A GitHub extension for fugitive.vim
-  use('tpope/vim-rhubarb')
-
-  -- Git integration for buffers
-  use('lewis6991/gitsigns.nvim')
-
   -- Telescope for Find, Filter, Preview, Pick, ...
   use({
     'nvim-telescope/telescope.nvim',
@@ -198,10 +204,40 @@ require('lualine').setup()
 --
 vim.cmd.colorscheme('rose-pine')
 
--- set transparent background
+-- settings of `nvim-treesitter` plugin
 --
-vim.cmd.highlight({ 'Normal', 'guibg=none', 'ctermbg=none' })
-vim.cmd.highlight({ 'NormalFloat', 'guibg=none', 'ctermbg=none' })
+require('nvim-treesitter.configs').setup({
+    -- A list of parser names, or 'all' (the four listed parsers should always be
+    -- installed)
+    ensure_installed = {
+      'vim', 'lua', 'go', 'python', 'javascript', 'typescript',
+    },
+
+    -- Install parsers synchronously (only applied to `ensure_installed`)
+    sync_install = false,
+
+    -- Automatically install missing parsers when entering buffer
+    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed
+    -- locally
+    auto_install = true,
+
+    -- Enable smart-indentation
+    indent = {
+        enable = true,
+    },
+
+    highlight = {
+        -- `false` will disable the whole extension
+        enable = true,
+
+        -- Setting this to true will run `:h syntax` and tree-sitter at the same
+        -- time. Set this to `true` if you depend on 'syntax' being enabled
+        -- (like for indentation). Using this option may slow down your editor,
+        -- and you may see some duplicate highlights. Instead of true it can
+        -- also be a list of languages
+        additional_vim_regex_highlighting = false,
+    },
+})
 
 -- settings of `mason` plugin
 --
@@ -230,7 +266,15 @@ local lspconfig = require('lspconfig')
 local lsputil = require('lspconfig.util')
 
 lspconfig.lua_ls.setup(
-  lsp.nvim_lua_ls()
+  lsp.nvim_lua_ls({
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = { 'vim', 'require' },
+        },
+      },
+    },
+  })
 )
 
 lspconfig.denols.setup({
@@ -302,6 +346,16 @@ vim.g.copilot_filetypes = {
 }
 vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("<CR>")', { silent = true, expr = true })
 
+
+-- ---
+-- set up plugins' keyboard mappings
+--
+local telescope_builtin = require('telescope.builtin')
+vim.keymap.set('n', '<Leader>tf', telescope_builtin.find_files, {})
+vim.keymap.set('n', '<Leader>tg', telescope_builtin.git_files, {})
+
+vim.keymap.set('n', '<Leader>gG', vim.cmd.Git)
+vim.keymap.set('n', '<Leader>gh', '<ESC>:noh<CR>')
 
 -- ---
 -- set up neovide options
