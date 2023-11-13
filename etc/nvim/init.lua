@@ -1,5 +1,3 @@
-
-
 --
 -- ~/Local/etc/nvim/init.lua
 --
@@ -8,7 +6,6 @@
 -- set up common options
 --
 vim.scriptencoding = 'utf-8'           -- set the encoding of the current script
-vim.opt.nocompatible = true            -- disable vi compatibility
 
 -- disable non-vim or non-lua extension languages
 --
