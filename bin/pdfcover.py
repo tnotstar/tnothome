@@ -3,9 +3,10 @@
 
 # Copyright 2023, Antonio Alvarado Hernández <tnotstar@gmail.com>
 
-from argparse import ArgumentParser
+from collections.abc import Iterable
 from pathlib import Path
 from tempfile import mkstemp
+from argparse import ArgumentParser
 
 from pdfrw import PdfReader, PdfWriter
 from wand.image import Image
