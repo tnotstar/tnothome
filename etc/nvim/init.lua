@@ -110,88 +110,85 @@ vim.keymap.set('n', '<S-Insert>', '"+gP', { noremap=true })
 -- load and preconfigure plugins
 --
 
--- load `packer` at first
+-- load `vim-plug` at first
 --
-vim.cmd 'packadd packer.nvim'
+local Plug = vim.fn['plug#']
 
--- load rest of plugins
+vim.call('plug#begin')
+
+-- All the lua functions I don't want to write twice.
+Plug('nvim-lua/plenary.nvim')
+
+-- Rosé Pine, all natural pine, faux fur and a bit of soho vibes
+Plug('rose-pine/neovim', {
+  as = 'rose-pine'
+})
+
+-- A blazing fast and easy to configure neovim statusline plugin
+Plug('nvim-lualine/lualine.nvim', {
+  requires = { 'nvim-tree/nvim-web-devicons' }
+})
+
+-- Automatically adjusts 'shiftwidth' and 'expandtab' heuristically
+Plug('tpope/vim-sleuth')
+
+-- A Git wrapper so awesome, it should be illegal
+Plug('tpope/vim-fugitive')
+
+-- A GitHub extension for fugitive.vim
+Plug('tpope/vim-rhubarb')
+
+-- Git integration for buffers
+Plug('lewis6991/gitsigns.nvim')
+
+-- Nvim Treesitter configurations and abstraction layer 
+Plug('nvim-treesitter/nvim-treesitter', {
+  run = ':TSUpdate'
+})
+
+-- Mason, easily install and manage LSP servers, DAP servers,
+-- linters, and formatters
+Plug('neovim/nvim-lspconfig')
+Plug('williamboman/mason.nvim')
+Plug('williamboman/mason-lspconfig.nvim')
+
+-- Telescope for Find, Filter, Preview, Pick, ...
+Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
+
+-- Neovim plugin for GitHub Copilot
+Plug('github/copilot.vim')
+
+vim.call('plug#end')
+
+---- load rest of plugins
+----
+--require('packer').startup(function(use)
 --
-require('packer').startup(function(use)
-
-  -- Package manager self-managed
-  use('wbthomason/packer.nvim')
-
-  -- A blazing fast and easy to configure neovim statusline plugin
-  use({
-    'nvim-lualine/lualine.nvim', requires = {
-       'nvim-tree/nvim-web-devicons', opt = true,
-     },
-  })
-
-  -- Rosé Pine, all natural pine, faux fur and a bit of soho vibes
-  use({
-    'rose-pine/neovim', as = 'rose-pine',
-  })
-
-  -- Automatically adjusts 'shiftwidth' and 'expandtab' heuristically
-  use('tpope/vim-sleuth')
-
-  -- A Git wrapper so awesome, it should be illegal
-  use('tpope/vim-fugitive')
-
-  -- A GitHub extension for fugitive.vim
-  use('tpope/vim-rhubarb')
-
-  -- Git integration for buffers
-  use('lewis6991/gitsigns.nvim')
-
-  -- Nvim Treesitter configurations and abstraction layer 
-  use({
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-  })
-
-  -- Mason, easily install and manage LSP servers, DAP servers,
-  -- linters, and formatters
-  use({
-    'neovim/nvim-lspconfig',
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
-  })
-
-  -- A starting point to setup some lsp related features in neovim
-  use({
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    requires = {
-      -- LSP Support
-      {'neovim/nvim-lspconfig'},             -- Required
-      {'williamboman/mason.nvim'},           -- Optional
-      {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},         -- Required
-      {'hrsh7th/cmp-nvim-lsp'},     -- Required
-      {'hrsh7th/cmp-nvim-lua'},     -- Optional
-      {'hrsh7th/cmp-path'},         -- Optional
-      {'hrsh7th/cmp-buffer'},       -- Optional
-      {'saadparwaiz1/cmp_luasnip'}, -- Optional
-    }
-  })
-
-  -- Telescope for Find, Filter, Preview, Pick, ...
-  use({
-    'nvim-telescope/telescope.nvim',
-    tag = '0.1.0',
-    requires = { {'nvim-lua/plenary.nvim'} },
-  })
-
-  -- Neovim plugin for GitHub Copilot
-  use('github/copilot.vim')
-
-end)
-
-
+--
+--
+--  -- A starting point to setup some lsp related features in neovim
+--  use({
+--    'VonHeikemen/lsp-zero.nvim',
+--    branch = 'v2.x',
+--    requires = {
+--      -- LSP Support
+--      {'neovim/nvim-lspconfig'},             -- Required
+--      {'williamboman/mason.nvim'},           -- Optional
+--      {'williamboman/mason-lspconfig.nvim'}, -- Optional
+--
+--      -- Autocompletion
+--      {'hrsh7th/nvim-cmp'},         -- Required
+--      {'hrsh7th/cmp-nvim-lsp'},     -- Required
+--      {'hrsh7th/cmp-nvim-lua'},     -- Optional
+--      {'hrsh7th/cmp-path'},         -- Optional
+--      {'hrsh7th/cmp-buffer'},       -- Optional
+--      {'saadparwaiz1/cmp_luasnip'}, -- Optional
+--    }
+--  })
+--
+--end)
+--
+--
 -- ---
 -- set up plugins options
 --
@@ -243,92 +240,96 @@ require('nvim-treesitter.configs').setup({
 --
 require('mason').setup()
 
--- settings of `lspzero` plugin
+---- settings of `lspzero` plugin
+----
+--local lsp = require('lsp-zero')
 --
-local lsp = require('lsp-zero')
-
-lsp.preset('recommended')
-
-lsp.set_preferences({
-  suggest_lsp_servers = true,
-})
-
-lsp.ensure_installed({
-  'gopls',
-  'pyright',
-  'denols',
-  'tsserver',
-})
-
--- settings of `lspconfig` plugin
+--lsp.preset('recommended')
 --
-local lspconfig = require('lspconfig')
-local lsputil = require('lspconfig.util')
-
-lspconfig.lua_ls.setup(
-  lsp.nvim_lua_ls({
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = { 'vim', 'require' },
-        },
-      },
-    },
-  })
-)
-
-lspconfig.denols.setup({
-  init_options = {
-    enable = true,
-    lint = true,
-    unstable = true,
-  },
-  root_dir = lsputil.root_pattern('deps.ts'),
-});
-
-lspconfig.tsserver.setup({
-  init_options = {
-    preferences = {
-      quotePreference = 'single',
-      disableSuggestions = true,
-    },
-  },
-  single_file_support = false,
-  root_dir = lsputil.root_pattern('package.json'),
-})
-
-lsp.on_attach(function(_, bufnr)
-  lsp.default_keymaps({ buffer = bufnr })
-
-  local options = { noremap = true, buffer = bufnr }
-
-  -- enable completion trigger by <C-x><C-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, options)
-  vim.keymap.set('n', '<Leader>K', vim.lsp.buf.signature_help, options)
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, options)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, options)
-  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, options)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, options)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, options)
-  vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, options)
-end)
-
-local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mapping = lsp.defaults.cmp_mappings({
-  ['<C-Space>'] = cmp.mapping.complete(),
-  ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
-})
-
-lsp.setup_nvim_cmp({
-  mapping = cmp_mapping
-})
-
-lsp.setup()
-
+--lsp.set_preferences({
+--  suggest_lsp_servers = true,
+--})
+--
+--lsp.ensure_installed({
+--  'gopls',
+--  'pyright',
+--  'denols',
+--  'tsserver',
+--})
+--
+---- settings of `lspconfig` plugin
+----
+--local lspconfig = require('lspconfig')
+--local lsputil = require('lspconfig.util')
+--
+--lspconfig.lua_ls.setup(
+--  lsp.nvim_lua_ls({
+--    settings = {
+--      Lua = {
+--        diagnostics = {
+--          globals = { 'vim', 'require' },
+--        },
+--      },
+--    },
+--  })
+--)
+--
+--lspconfig.denols.setup({
+--  init_options = {
+--    enable = true,
+--    lint = true,
+--    unstable = true,
+--  },
+--  root_dir = lsputil.root_pattern('deps.ts'),
+--});
+--
+--lspconfig.tsserver.setup({
+--  init_options = {
+--    preferences = {
+--      quotePreference = 'single',
+--      disableSuggestions = true,
+--    },
+--  },
+--  single_file_support = false,
+--  root_dir = lsputil.root_pattern('package.json'),
+--})
+--
+--lsp.on_attach(function(_, bufnr)
+--  lsp.default_keymaps({ buffer = bufnr })
+--
+--  local options = { noremap = true, buffer = bufnr }
+--
+--  -- enable completion trigger by <C-x><C-o>
+--  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+--
+--  vim.keymap.set('n', 'K', vim.lsp.buf.hover, options)
+--  vim.keymap.set('n', '<Leader>K', vim.lsp.buf.signature_help, options)
+--  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, options)
+--  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, options)
+--  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, options)
+--  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, options)
+--  vim.keymap.set('n', 'gr', vim.lsp.buf.references, options)
+--  vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, options)
+--end)
+--
+--local cmp = require('cmp')
+--local cmp_select = { behavior = cmp.SelectBehavior.Select }
+--local cmp_mapping = lsp.defaults.cmp_mappings({
+--  ['<C-K>'] = cmp.mapping.complete(),
+--  ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+--  ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+--  ['<CR>'] = cmp.mapping.confirm({
+--    behavior = cmp.ConfirmBehavior.Replace,
+--    select = false,
+--  }),
+--})
+--
+--lsp.setup_nvim_cmp({
+--  mapping = cmp_mapping
+--})
+--
+--lsp.setup()
+--
 vim.diagnostic.config({
   virtual_text = true,
 })
@@ -344,7 +345,9 @@ vim.g.copilot_filetypes = {
   ['javascript'] = true,
   ['typescript'] = true,
 }
-vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("<CR>")', { silent = true, expr = true })
+vim.api.nvim_set_keymap(
+  'i', '<C-J>', 'copilot#Accept("<CR>")', { silent = true, expr = true }
+)
 
 
 -- ---
