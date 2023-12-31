@@ -15,6 +15,13 @@ import os
 import math
 
 
+DEFAULT_IMAGE_FORMAT = r"pdf"
+DEFAULT_QUALITY_PERCENT = 100
+DEFAULT_DENSITY_POINTS = 96
+
+INCHES_PER_POINT = 1. / 72.
+
+
 def add_cover_page(output_path: Path, image_path: Path, pdf_path: Path) -> None:
     """Add a cover page to given PDF file."""
 
@@ -28,16 +35,19 @@ def add_cover_page(output_path: Path, image_path: Path, pdf_path: Path) -> None:
 
     # resize the image to fit the page
     with Image(filename=str(image_path)) as cover:
-        cover.compression_quality = 100
-        cover.resolution = 96
-        cover.format = "pdf"
-        cover.resize(width, height)
+        cover.format = DEFAULT_IMAGE_FORMAT
+        cover.compression_quality = DEFAULT_QUALITY_PERCENT
+        cover.resolution = DEFAULT_DENSITY_POINTS
+        adj_width = math.ceil(DEFAULT_DENSITY_POINTS * INCHES_PER_POINT * float(width))
+        adj_height = math.ceil(DEFAULT_DENSITY_POINTS * INCHES_PER_POINT * float(height))
+        resize_geometry=f"{adj_width}!x{adj_height}!"
+        cover.transform(resize=resize_geometry)
         cover.save(filename=str(cover_fname))
 
     # merge the cover page with the original PDF file
     pdf_writer = PdfWriter(output_path, trailer=pdf_reader)
     pdf_writer.addpages(PdfReader(cover_fname).pages)
-    pdf_writer.addpages(pdf_reader.pages)
+    pdf_writer.addpages(pdf_reader.pages[1:])
     pdf_writer.write()
 
     # remove the temporary cover page file
