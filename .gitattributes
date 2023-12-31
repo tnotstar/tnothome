@@ -1,0 +1,12 @@
+#
+# .gitattributes
+#
+
+# Text files have auto line endings
+* text=auto
+
+# Python source files always have LF line endings
+*.py text eol=lf
+
+# SVG files should not be modified
+*.svg -text
