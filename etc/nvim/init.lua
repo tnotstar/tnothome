@@ -32,8 +32,6 @@ vim.opt.cmdheight = 2               -- set the command window height to 2
 vim.opt.display = 'truncate'        -- show @@@ in the last line, if truncated
 vim.opt.timeout = false             -- disable mappings timeout
 vim.opt.ttimeout = true             -- enable key code scan timeout
--- always use the global clipboard
-vim.opt.clipboard:append('unnamed') -- put all text operations in the '*' register
 
 -- set up tabs/spaces options
 --
@@ -76,6 +74,24 @@ vim.cmd.highlight({ 'NormalFloat', 'guibg=none', 'ctermbg=none' })
 --
 if vim.fn.has('mouse') then -- if has('mouse'), enable mouse mode
   vim.opt.mouse = 'a'       -- and copy&paste with the `shift` key
+end
+
+-- set up clipboard options
+--
+vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
+
+if vim.fn.has('wsl') == 1 then
+  vim.g.clipboard = {
+    name = 'WslClipboard',
+    copy = {
+      ['+'] = 'win32yank.exe -i --crlf',
+      ['*'] = 'win32yank.exe -i --crlf',
+    },
+    paste = {
+      ['+'] = 'win32yank.exe -o --lf',
+      ['*'] = 'win32yank.exe -o --lf',
+    },
+  }
 end
 
 
@@ -356,20 +372,6 @@ if vim.g.neovide then
   vim.opt.linespace = 0
 
   vim.cmd.colorscheme('rose-pine')
-end
-
-if vim.fn.has('wsl') == 1 then
-  vim.g.clipboard = {
-    name = 'WslClipboard',
-    copy = {
-      ['+'] = 'win32yank.exe -i --crlf',
-      ['*'] = 'win32yank.exe -i --crlf',
-    },
-    paste = {
-      ['+'] = 'win32yank.exe -o --lf',
-      ['*'] = 'win32yank.exe -o --lf',
-    },
-  }
 end
 
 -- EOF
