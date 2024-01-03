@@ -6,7 +6,7 @@
 MDI = no
 
 ## Font.
-font = Hack
+font = Consolas
 points = 10
 style = normal
 
@@ -52,7 +52,7 @@ xgraphics = 0
 ygraphics = 0
 
 ## Language for messages
-language = en_GB
+language = C
 
 ## Default setting for console buffering: 'yes' or 'no'
 buffered = yes
