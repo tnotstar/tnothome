@@ -41,17 +41,20 @@ format = """\
     """
 
 [username]
-format = "[$user ]($style)"
+format = "[$user]($style) "
+style_user = "red"
+show_always = true
 
 [hostname]
 format = "@ [$hostname]($style) "
+style = "green"
 ssh_only = false
 
 [time]
 disabled = false
 format = "on [$time]($style) "
 time_format = "%Y-%m-%dT%H:%M:%S"
-style = "fg:yellow"
+style = "blue"
 
 [directory]
 format = "in [$path$read_only]($style) "
