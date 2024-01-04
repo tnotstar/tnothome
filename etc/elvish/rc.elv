@@ -4,29 +4,26 @@
 
 use path
 
-if (path:is-dir ~/Library/Neovim) {
-    set paths = [~/Library/Neovim $@paths]
+fn prepend_paths_with_dir {|@args|
+    if (and (> (count $args) 0) (path:is-dir $args[0])) {
+        set paths = [$args[0] $@paths]
+    }
 }
+prepend_paths_with_dir /usr/local/go/bin
 
-if (path:is-dir /usr/local/go/bin) {
-    set paths = [/usr/local/go/bin $@paths]
-}
-
-if (path:is-dir ~/Library/Go) {
+if (and (eq $E:GOPATH '') (path:is-dir ~/Library/Go)) {
     set E:GOPATH = ~/Library/Go
 }
+prepend_paths_with_dir $E:GOPATH/bin
 
-if (path:is-dir $E:GOPATH/bin) {
-    set paths = [$E:GOPATH/bin $@paths]
+if (and (eq $E:CARGO_HOME '') (path:is-dir ~/Library/Cargo)) {
+    set E:CARGO_HOME = ~/Library/Cargo
 }
+prepend_paths_with_dir $E:CARGO_HOME/bin
 
-if (path:is-dir ~/Library/System/bin) {
-    set paths = [~/Library/System/bin $@paths]
-}
-
-if (path:is-dir ~/Local/bin) {
-    set paths = [~/Local/bin $@paths]
-}
+prepend_paths_with_dir ~/Library/Neovim
+prepend_paths_with_dir ~/Library/System/bin
+prepend_paths_with_dir ~/Local/bin
 
 eval (carapace _carapace elvish | slurp)
 eval (starship init elvish --print-full-init | slurp)
