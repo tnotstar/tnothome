@@ -10,10 +10,10 @@ vim.scriptencoding = 'utf-8' -- set the encoding of the current script
 
 -- disable non-vim or non-lua extension languages
 --
-vim.g.loaded_python3_provider = 0 -- python3
-vim.g.loaded_ruby_provider = 0    -- ruby
-vim.g.loaded_node_provider = 0    -- node
-vim.g.loaded_perl_provider = 0    -- perl
+vim.g.loaded_python3_provider = 0   -- disable `python3` extensions
+vim.g.loaded_ruby_provider = 0      -- disable `ruby` extensions
+vim.g.loaded_node_provider = 0      -- disable `node` extensions
+vim.g.loaded_perl_provider = 0      -- disable `perl` extensions
 
 -- default legacy options
 --
@@ -133,14 +133,17 @@ vim.call('plug#begin')
 -- Rosé Pine, all natural pine, faux fur and a bit of soho vibes
 Plug('rose-pine/neovim', { as = 'rose-pine' })
 
+-- A blazing fast and easy to configure neovim statusline plugin
+Plug('nvim-lualine/lualine.nvim')
+
+-- A lua `fork` of vim-web-devicons for neovim
+Plug('nvim-tree/nvim-web-devicons')
+
 -- Automatically adjusts 'shiftwidth' and 'expandtab' heuristically
 Plug('tpope/vim-sleuth')
 
 -- All the lua functions I don't want to write twice.
 Plug('nvim-lua/plenary.nvim')
-
--- A blazing fast and easy to configure neovim statusline plugin
-Plug('nvim-lualine/lualine.nvim', { requires = { 'nvim-tree/nvim-web-devicons' } })
 
 -- A Git wrapper so awesome, it should be illegal
 Plug('tpope/vim-fugitive')
@@ -171,8 +174,14 @@ Plug('hrsh7th/cmp-nvim-lua')
 Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-buffer')
 
--- Snippet Engine for Neovim written in Lua
-Plug('L3MON4D3/LuaSnip', { tag = 'v2.*', ['do'] = 'make install_jsregexp' })
+-- Snippet Engine for Neovim written in Lua.
+Plug('L3MON4D3/LuaSnip')
+
+-- Luasnip completion source for nvim-cmp.
+Plug('saadparwaiz1/cmp_luasnip')
+
+-- A starting point to setup some lsp related features in neovim.
+Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
 
 -- Telescope for Find, Filter, Preview, Pick, ...
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
@@ -294,27 +303,41 @@ require('mason-lspconfig').setup({
 
 -- settings of autocompletion plugins
 --
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+
 local cmp = require('cmp')
+local luasnip = require('luasnip')
 
 cmp.setup({
-  mapping = cmp.mapping.preset.insert({
-    -- Ctrl+Space to trigger completion menu
-    ['<C-Space>'] = cmp.mapping.complete(),
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end
+  },
 
-    -- `Ctrl+E` to close completion menu
-    ['<C-e>'] = cmp.mapping.close(),
+  sources = {
+    { name = 'path' },
+    { name = 'nvim_lsp', keyword_length = 1 },
+    { name = 'luasnip', keyword_length = 2 },
+    { name = 'buffer', keyword_length = 3 },
+  },
+
+  mapping = cmp.mapping.preset.insert({
+    -- `Ctrl+w` to trigger completion menu
+    ['<C-w>'] = cmp.mapping.complete(),
+
+    -- `Enter` or `Ctrl+y` keys to confirm completion
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
 
     -- Move up and down between completion menu items
     ['<C-j>'] = cmp.mapping.select_next_item(),
     ['<C-k>'] = cmp.mapping.select_prev_item(),
 
     -- Scroll up and down in the completion documentation
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-
-    -- `Enter` key to confirm completion
-    ['<CR>'] = cmp.mapping.confirm({ select = false }),
-  })
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+  }),
 })
 
 -- settings of `copilot` plugin
