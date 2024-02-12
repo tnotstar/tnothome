@@ -2,6 +2,9 @@
 # ~/Local/etc/elvish/rc.elv
 #
 
+#eval (carapace _carapace elvish | slurp)
+eval (starship init elvish --print-full-init | slurp)
+
 use path
 
 fn prepend_paths_with_dir {|@args|
@@ -32,6 +35,18 @@ fn ls {|@args| e:ls --color $@args}
 fn cp {|@args| e:cp -i $@args}
 fn mv {|@args| e:mv -i $@args}
 fn rm {|@args| e:rm -i $@args}
-fn vi {|@args| nvim $@args}
+fn vi {|@args| e:nvim $@args}
 
-set E:EDITOR = vi
+fn open {|@args| e:cmd \/c start "" $@args}
+fn mamba {|@args| e:micromamba $@args}
+
+fn shmypass {
+    if (has-env GOPASS_MYPASS_ID) {
+        e:gopass show -c $E:GOPASS_MYPASS_ID
+    } else {
+        echo "Oops: Environment variable GOPASS_MYPASS_ID has not been set"
+    }
+}
+
+set-env EDITOR vi
+
