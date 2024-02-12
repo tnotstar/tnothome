@@ -186,8 +186,11 @@ Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
 -- Telescope for Find, Filter, Preview, Pick, ...
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 
--- Neovim plugin for GitHub Copilot
-Plug('github/copilot.vim')
+-- Fully featured & enhanced replacement for copilot.vim
+Plug('zbirenbaum/copilot.lua')
+
+-- Lua plugin to turn github copilot into a cmp source
+Plug('zbirenbaum/copilot-cmp')
 
 vim.call('plug#end')
 
@@ -316,10 +319,12 @@ cmp.setup({
   },
 
   sources = {
-    { name = 'path' },
-    { name = 'nvim_lsp', keyword_length = 1 },
-    { name = 'luasnip', keyword_length = 2 },
-    { name = 'buffer', keyword_length = 3 },
+    { name = 'copilot', group_index = 2 },
+    { name = 'path', group_index = 2 },
+    { name = 'nvim_lsp', group_index = 2, keyword_length = 1 },
+    { name = 'luasnip', group_index = 2, keyword_length = 3 },
+    { name = 'luasnip', group_index = 2, keyword_length = 3 },
+    { name = 'buffer', group_index = 2, keyword_length = 3 },
   },
 
   mapping = cmp.mapping.preset.insert({
@@ -342,6 +347,17 @@ cmp.setup({
 
 -- settings of `copilot` plugin
 --
+local copilot = require("copilot")
+local copilotcmp = require('copilot_cmp')
+
+copilot.setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
+
+copilotcmp.setup()
+
+vim.g.copilot_no_tab_map = true
 vim.g.copilot_filetypes = {
   ['*'] = false,
   ['lua'] = true,
