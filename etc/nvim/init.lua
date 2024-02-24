@@ -130,19 +130,17 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 
--- All the lua functions I don't want to write twice.
-Plug('nvim-lua/plenary.nvim')
-
 -- Rosé Pine, all natural pine, faux fur and a bit of soho vibes
-Plug('rose-pine/neovim', {
-  as = 'rose-pine'
-})
-
--- A blazing fast and easy to configure neovim statusline plugin
-Plug('nvim-lualine/lualine.nvim', { requires = { 'nvim-tree/nvim-web-devicons' } })
+Plug('rose-pine/neovim', { as = 'rose-pine' })
 
 -- Automatically adjusts 'shiftwidth' and 'expandtab' heuristically
 Plug('tpope/vim-sleuth')
+
+-- All the lua functions I don't want to write twice.
+Plug('nvim-lua/plenary.nvim')
+
+-- A blazing fast and easy to configure neovim statusline plugin
+Plug('nvim-lualine/lualine.nvim', { requires = { 'nvim-tree/nvim-web-devicons' } })
 
 -- A Git wrapper so awesome, it should be illegal
 Plug('tpope/vim-fugitive')
@@ -156,10 +154,13 @@ Plug('lewis6991/gitsigns.nvim')
 -- Nvim Treesitter configurations and abstraction layer
 Plug('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 
+-- A starting point to setup some lsp related features in neovim
+Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
+
 -- Quickstart configs for Nvim LSP
 Plug('neovim/nvim-lspconfig')
 
--- Easily install and manage LSP servers, DAP servers, linters, and formatters.
+-- Easily install and manage LSP servers, DAP servers, linters, and formatters
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 
@@ -170,7 +171,8 @@ Plug('hrsh7th/cmp-nvim-lua')
 Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-buffer')
 
-Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
+-- Snippet Engine for Neovim written in Lua
+Plug('L3MON4D3/LuaSnip', { tag = 'v2.*', ['do'] = 'make install_jsregexp' })
 
 -- Telescope for Find, Filter, Preview, Pick, ...
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
@@ -235,14 +237,6 @@ local lsputil = require('lspconfig.util')
 --
 lspzero.on_attach(function(_, bufnr)
   lspzero.default_keymaps({ buffer = bufnr })
-
-  local options = { noremap = true, buffer = bufnr }
-
-  -- enable completion trigger by <C-x><C-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- enable custom keyboard mappings
-  vim.keymap.set('n', '<Leader>K', vim.lsp.buf.signature_help, options)
 end)
 
 -- settings of `mason` plugin
@@ -253,7 +247,9 @@ require('mason').setup()
 --
 require('mason-lspconfig').setup({
   ensure_installed = {
+    'lua_ls',
     'gopls',
+    'rust_analyzer',
     'pyright',
     'denols',
     'tsserver',
@@ -266,7 +262,7 @@ require('mason-lspconfig').setup({
       settings = {
         Lua = {
           diagnostics = {
-            globals = { 'vim', 'require' },
+            globals = { 'vim', 'require', 'use', 'print' },
           },
         },
       },
@@ -305,43 +301,40 @@ cmp.setup({
     -- Ctrl+Space to trigger completion menu
     ['<C-Space>'] = cmp.mapping.complete(),
 
-    -- `Enter` key to confirm completion
-    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    -- `Ctrl+E` to close completion menu
+    ['<C-e>'] = cmp.mapping.close(),
 
     -- Move up and down between completion menu items
     ['<C-j>'] = cmp.mapping.select_next_item(),
     ['<C-k>'] = cmp.mapping.select_prev_item(),
 
-    -- `Ctrl+e` to close completion menu
-    ['<C-e>'] = cmp.mapping.close(),
-
     -- Scroll up and down in the completion documentation
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+
+    -- `Enter` key to confirm completion
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
   })
 })
 
 -- settings of `copilot` plugin
 --
-vim.g.copilot_no_tab_map = true
 vim.g.copilot_filetypes = {
   ['*'] = false,
   ['lua'] = true,
   ['go'] = true,
+  ['rust'] = true,
   ['python'] = true,
   ['javascript'] = true,
   ['typescript'] = true,
 }
-vim.api.nvim_set_keymap(
-  'i', '<C-J>', 'copilot#Accept("<CR>")', { silent = true, expr = true }
-)
 
 
 -- ---
 -- set up plugins' keyboard mappings
 --
 
--- set up mappings for `telecope` plugin
+-- set up mappings for `telescope` plugin
 --
 local telescope_builtin = require('telescope.builtin')
 
@@ -349,7 +342,7 @@ vim.keymap.set('n', '<Leader>tf', telescope_builtin.find_files, {})
 vim.keymap.set('n', '<Leader>tg', telescope_builtin.git_files, {})
 
 vim.keymap.set('n', '<Leader>gg', vim.cmd.Git)
-vim.keymap.set('n', '<Leader>gh', '<ESC>:noh<CR>')
+vim.keymap.set('n', '<Leader>sh', '<ESC>:noh<CR>')
 
 -- ---
 -- set up diagnostics

@@ -25,7 +25,7 @@ prepend_paths_with_dir ~/Library/Neovim
 prepend_paths_with_dir ~/Library/System/bin
 prepend_paths_with_dir ~/Local/bin
 
-eval (carapace _carapace elvish | slurp)
+#eval (carapace _carapace elvish | slurp)
 eval (starship init elvish --print-full-init | slurp)
 
 fn ls {|@args| e:ls --color $@args}
