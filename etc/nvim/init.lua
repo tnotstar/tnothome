@@ -65,11 +65,6 @@ end
 vim.opt.termguicolors = true -- enable gui colors for terminal
 vim.opt.visualbell = true    -- use visual bell instead of beeping
 
--- set transparent background
---
-vim.cmd.highlight({ 'Normal', 'guibg=none', 'ctermbg=none' })
-vim.cmd.highlight({ 'NormalFloat', 'guibg=none', 'ctermbg=none' })
-
 -- set up mouse options
 --
 if vim.fn.has('mouse') then -- if has('mouse'), enable mouse mode
@@ -345,6 +340,7 @@ cmp.setup({
   }),
 })
 
+
 -- settings of `copilot` plugin
 --
 local copilot = require("copilot")
@@ -383,19 +379,18 @@ vim.keymap.set('n', '<Leader>tg', telescope_builtin.git_files, {})
 vim.keymap.set('n', '<Leader>gg', vim.cmd.Git)
 vim.keymap.set('n', '<Leader>sh', '<ESC>:noh<CR>')
 
+
 -- ---
--- set up diagnostics
+-- set up final options
 --
 
-vim.diagnostic.config({
-  virtual_text = true,
-})
+-- set transparent background
+--
+vim.cmd.highlight({ 'Normal', 'guibg=none', 'ctermbg=none' })
+vim.cmd.highlight({ 'NormalFloat', 'guibg=none', 'ctermbg=none' })
 
-
--- ---
 -- set up neovide options
 --
-
 if vim.g.neovide then
   vim.g.neovide_transparency = 0.9
   vim.g.neovide_hide_mouse_when_typing = true
@@ -405,5 +400,11 @@ if vim.g.neovide then
 
   vim.cmd.colorscheme('rose-pine')
 end
+
+-- set up diagnostics
+--
+vim.diagnostic.config({
+  virtual_text = true,
+})
 
 -- EOF
