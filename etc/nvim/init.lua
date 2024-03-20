@@ -395,7 +395,7 @@ if vim.g.neovide then
   vim.g.neovide_transparency = 0.9
   vim.g.neovide_hide_mouse_when_typing = true
 
-  vim.opt.guifont = 'Fira\\ Code:h10'
+  vim.opt.guifont = 'CaskaydiaCove Nerd Font:h12'
   vim.opt.linespace = 0
 
   vim.cmd.colorscheme('rose-pine')
