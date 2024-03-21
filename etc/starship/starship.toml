@@ -24,7 +24,6 @@ format = """\
     $directory\
     $package\
     $git_branch\
-    $git_status\
     $line_break\
     $rust\
     $golang\
@@ -60,9 +59,6 @@ style = "blue"
 format = "in [$path$read_only]($style) "
 truncation_symbol = ".../"
 truncation_length = 4
-
-[git_status]
-windows_starship = "/mnt/c/Users/antonio.alvarado/Scoop/apps/starship/current/starship.exe"
 
 [shell]
 disabled = false
