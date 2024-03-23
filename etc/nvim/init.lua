@@ -150,7 +150,7 @@ Plug('tpope/vim-rhubarb')
 Plug('lewis6991/gitsigns.nvim')
 
 -- Nvim Treesitter configurations and abstraction layer
-Plug('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 
 -- A starting point to setup some lsp related features in neovim
 Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
@@ -170,7 +170,7 @@ Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-buffer')
 
 -- Snippet Engine for Neovim written in Lua.
-Plug('L3MON4D3/LuaSnip')
+Plug('L3MON4D3/LuaSnip', { tag = 'v2.*', ['do'] = 'make install_jsregexp' })
 
 -- Luasnip completion source for nvim-cmp.
 Plug('saadparwaiz1/cmp_luasnip')
