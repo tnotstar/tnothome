@@ -2,9 +2,6 @@
 # ~/Local/etc/elvish/rc.elv
 #
 
-#eval (carapace _carapace elvish | slurp)
-eval (starship init elvish --print-full-init | slurp)
-
 use path
 
 fn prepend_paths_with_dir {|@args|
