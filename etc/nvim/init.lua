@@ -125,20 +125,20 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 
+-- All the lua functions I don't want to write twice.
+Plug('nvim-lua/plenary.nvim')
+
 -- Rosé Pine, all natural pine, faux fur and a bit of soho vibes
 Plug('rose-pine/neovim', { as = 'rose-pine' })
-
--- A blazing fast and easy to configure neovim statusline plugin
-Plug('nvim-lualine/lualine.nvim')
 
 -- A lua `fork` of vim-web-devicons for neovim
 Plug('nvim-tree/nvim-web-devicons')
 
+-- A blazing fast and easy to configure neovim statusline plugin
+Plug('nvim-lualine/lualine.nvim')
+
 -- Automatically adjusts 'shiftwidth' and 'expandtab' heuristically
 Plug('tpope/vim-sleuth')
-
--- All the lua functions I don't want to write twice.
-Plug('nvim-lua/plenary.nvim')
 
 -- A Git wrapper so awesome, it should be illegal
 Plug('tpope/vim-fugitive')
@@ -165,27 +165,21 @@ Plug('williamboman/mason-lspconfig.nvim')
 -- A completion plugins for neovim (coded in Lua)
 Plug('hrsh7th/nvim-cmp')
 Plug('hrsh7th/cmp-nvim-lsp')
-Plug('hrsh7th/cmp-nvim-lua')
 Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-buffer')
-
--- Snippet Engine for Neovim written in Lua.
-Plug('L3MON4D3/LuaSnip', { tag = 'v2.*', ['do'] = 'make install_jsregexp' })
-
--- Luasnip completion source for nvim-cmp.
-Plug('saadparwaiz1/cmp_luasnip')
+Plug('hrsh7th/cmp-nvim-lua')
 
 -- A starting point to setup some lsp related features in neovim.
 Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
-
--- Telescope for Find, Filter, Preview, Pick, ...
-Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 
 -- Fully featured & enhanced replacement for copilot.vim
 Plug('zbirenbaum/copilot.lua')
 
 -- Lua plugin to turn github copilot into a cmp source
 Plug('zbirenbaum/copilot-cmp')
+
+-- Telescope for Find, Filter, Preview, Pick, ...
+Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 
 vim.call('plug#end')
 
@@ -197,6 +191,10 @@ vim.call('plug#end')
 --
 vim.cmd.colorscheme('rose-pine')
 
+-- settings of `nvim-web-devicons` plugin
+--
+require('nvim-web-devicons').setup()
+
 -- settings of `lualine` plugin
 --
 require('lualine').setup()
@@ -207,7 +205,7 @@ require('nvim-treesitter.configs').setup({
   -- A list of parser names, or 'all' (the four listed parsers should always be
   -- installed)
   ensure_installed = {
-    'vim', 'lua', 'go', 'python', 'javascript', 'typescript',
+    'vim', 'lua', 'go', 'rust', 'python', 'javascript', 'typescript',
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -236,12 +234,12 @@ require('nvim-treesitter.configs').setup({
   },
 })
 
+-- settings of `lspzero` plugin
+--
 local lspzero = require('lsp-zero')
 local lspconf = require('lspconfig')
 local lsputil = require('lspconfig.util')
 
--- settings of `lspzero` plugin
---
 lspzero.on_attach(function(_, bufnr)
   lspzero.default_keymaps({ buffer = bufnr })
 end)
@@ -304,21 +302,19 @@ require('mason-lspconfig').setup({
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 local cmp = require('cmp')
-local luasnip = require('luasnip')
+--local luasnip = require('luasnip')
 
 cmp.setup({
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end
-  },
+--  snippet = {
+--    expand = function(args)
+--      luasnip.lsp_expand(args.body)
+--    end
+--  },
 
   sources = {
     { name = 'copilot', group_index = 2 },
     { name = 'path', group_index = 2 },
     { name = 'nvim_lsp', group_index = 2, keyword_length = 1 },
-    { name = 'luasnip', group_index = 2, keyword_length = 3 },
-    { name = 'luasnip', group_index = 2, keyword_length = 3 },
     { name = 'buffer', group_index = 2, keyword_length = 3 },
   },
 
