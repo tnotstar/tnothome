@@ -149,6 +149,9 @@ Plug('tpope/vim-rhubarb')
 -- Git integration for buffers
 Plug('lewis6991/gitsigns.nvim')
 
+-- Orgmode clone written in Lua for Neovim 0.9+
+Plug('nvim-orgmode/orgmode')
+
 -- Nvim Treesitter configurations and abstraction layer
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 
@@ -198,6 +201,20 @@ require('nvim-web-devicons').setup()
 -- settings of `lualine` plugin
 --
 require('lualine').setup()
+
+-- settings of `orgmode` plugin
+--
+require('orgmode').setup({
+  org_default_notes_file = '~/Workspaces/Company/notes',
+  org_hide_leading_stars = true,
+  org_startup_indent = 'noindent',
+  org_todo_keywords = { 'TODO', 'DOING', 'DONE' },
+  org_agenda_files = { '~/Workspaces/Company/notes/Agenda/*' },
+  org_agenda_templates = {
+    T = { description = 'Task', template = '* TODO %?\n' },
+    n = { description = 'Note', template = '* %?\n' },
+  },
+})
 
 -- settings of `nvim-treesitter` plugin
 --
