@@ -9,9 +9,9 @@
 # under the current directory
 scan_timeout = 50
 
-# Wait 2000 milliseconds for starship to execute commands
+# Wait 250 milliseconds for starship to execute commands
 # under the current directory
-command_timeout = 2000
+command_timeout = 250
 
 # Inserts a blank line between shell prompts
 add_newline = true
@@ -62,9 +62,11 @@ truncation_length = 4
 
 [shell]
 disabled = false
+style = "blue"
 nu_indicator = "🔥"
 fish_indicator = "🐟"
 bash_indicator = "🐚"
+elvish_indicator = "λ"
 powershell_indicator = "_"
 
 [shlvl]
