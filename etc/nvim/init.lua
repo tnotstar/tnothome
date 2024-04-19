@@ -333,6 +333,7 @@ cmp.setup({
     { name = 'path', group_index = 2 },
     { name = 'nvim_lsp', group_index = 2, keyword_length = 1 },
     { name = 'buffer', group_index = 2, keyword_length = 3 },
+    { name = 'orgmode' },
   },
 
   mapping = cmp.mapping.preset.insert({
