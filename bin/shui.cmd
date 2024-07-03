@@ -1,6 +1,6 @@
 @rem -*- coding: utf-8 -*-
 @rem
-@rem Copyright (c) 2012-2020 Antonio Alvarado Hernández - All rights reserved
+@rem Copyright 2012-2024, Antonio Alvarado Hernández <tnotstar@gmail.com>
 @rem
 @rem Licensed under the Apache License, Version 2.0 (the "License");
 @rem you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@
 @if "%1" == "disks" goto :disks
 @if "%1" == "eject" goto :eject
 @if "%1" == "taskbar" goto :taskbar
+@if "%1" == "scheduler" goto :taskschd
 @if "%1" == "troubles" goto :troubles
 @if "%1" == "certificates" goto :certificates
 @goto :help
@@ -44,6 +45,7 @@
 @echo     %~n0 disks
 @echo     %~n0 eject
 @echo     %~n0 taskbar
+@echo     %~n0 scheduler
 @echo     %~n0 troubles
 @echo     %~n0 certificates
 @echo.
@@ -91,6 +93,10 @@
 
 :taskbar
 @control.exe /name Microsoft.TaskbarandStartMenu
+@goto :eof
+
+:taskschd
+@start taskschd.msc
 @goto :eof
 
 :troubles
