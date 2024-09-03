@@ -125,6 +125,15 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 
+-- Heuristically set buffer options
+Plug('tpope/vim-sleuth')
+
+-- A Git wrapper so awesome, it should be illegal
+Plug('tpope/vim-fugitive')
+
+-- A GitHub extension for fugitive.vim
+Plug('tpope/vim-rhubarb')
+
 -- All the lua functions I don't want to write twice.
 Plug('nvim-lua/plenary.nvim')
 
@@ -137,33 +146,14 @@ Plug('nvim-tree/nvim-web-devicons')
 -- A blazing fast and easy to configure neovim statusline plugin
 Plug('nvim-lualine/lualine.nvim')
 
--- Automatically adjusts 'shiftwidth' and 'expandtab' heuristically
-Plug('tpope/vim-sleuth')
-
--- A Git wrapper so awesome, it should be illegal
-Plug('tpope/vim-fugitive')
-
--- A GitHub extension for fugitive.vim
-Plug('tpope/vim-rhubarb')
+-- Nvim Treesitter configurations and abstraction layer
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 
 -- Git integration for buffers
 Plug('lewis6991/gitsigns.nvim')
 
--- Orgmode clone written in Lua for Neovim 0.9+
-Plug('nvim-orgmode/orgmode')
-
--- Nvim Treesitter configurations and abstraction layer
-Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
-
--- A starting point to setup some lsp related features in neovim
-Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
-
 -- Quickstart configs for Nvim LSP
 Plug('neovim/nvim-lspconfig')
-
--- Easily install and manage LSP servers, DAP servers, linters, and formatters
-Plug('williamboman/mason.nvim')
-Plug('williamboman/mason-lspconfig.nvim')
 
 -- A completion plugins for neovim (coded in Lua)
 Plug('hrsh7th/nvim-cmp')
@@ -172,17 +162,21 @@ Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-buffer')
 Plug('hrsh7th/cmp-nvim-lua')
 
--- A starting point to setup some lsp related features in neovim.
-Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v3.x' })
+-- A starting point to setup some lsp related features in neovim
+Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v4.x' })
 
--- Fully featured & enhanced replacement for copilot.vim
-Plug('zbirenbaum/copilot.lua')
-
--- Lua plugin to turn github copilot into a cmp source
-Plug('zbirenbaum/copilot-cmp')
+-- Easily install and manage LSP servers, DAP servers, linters, and formatters
+Plug('williamboman/mason.nvim')
+Plug('williamboman/mason-lspconfig.nvim')
 
 -- Telescope for Find, Filter, Preview, Pick, ...
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
+
+-- A native neovim extension for Codeium
+Plug('Exafunction/codeium.nvim')
+
+-- Orgmode clone written in Lua for Neovim 0.9+
+Plug('nvim-orgmode/orgmode')
 
 vim.call('plug#end')
 
@@ -201,20 +195,6 @@ require('nvim-web-devicons').setup()
 -- settings of `lualine` plugin
 --
 require('lualine').setup()
-
--- settings of `orgmode` plugin
---
-require('orgmode').setup({
-  org_default_notes_file = '~/Workspaces/Company/notes',
-  org_hide_leading_stars = true,
-  org_startup_indent = 'noindent',
-  org_todo_keywords = { 'TODO', 'DOING', 'DONE' },
-  org_agenda_files = { '~/Workspaces/Company/notes/Agenda/*' },
-  org_agenda_templates = {
-    T = { description = 'Task', template = '* TODO %?\n' },
-    n = { description = 'Note', template = '* %?\n' },
-  },
-})
 
 -- settings of `nvim-treesitter` plugin
 --
@@ -251,22 +231,34 @@ require('nvim-treesitter.configs').setup({
   },
 })
 
+-- settings of `gitsigns.nvim` plugin
+--
+require('gitsigns').setup()
+
 -- settings of `lspzero` plugin
 --
 local lspzero = require('lsp-zero')
+local cmpnvimlsp = require('cmp_nvim_lsp')
+
+local lsp_attach = function(_, bufnr)
+  lspzero.default_keymaps({ buffer = bufnr })
+end
+
+lspzero.extend_lspconfig({
+  sign_text = true,
+  lsp_attach = lsp_attach,
+  capabilities = cmpnvimlsp.default_capabilities(),
+})
+
+-- settings of plugin
+--
+
+-- settings of `mason` & `mason-lspconfig` plugins
+--
 local lspconf = require('lspconfig')
 local lsputil = require('lspconfig.util')
 
-lspzero.on_attach(function(_, bufnr)
-  lspzero.default_keymaps({ buffer = bufnr })
-end)
-
--- settings of `mason` plugin
---
 require('mason').setup()
-
--- settings of `mason-lspconfig` plugin
---
 require('mason-lspconfig').setup({
   ensure_installed = {
     'lua_ls',
@@ -329,7 +321,6 @@ cmp.setup({
 --  },
 
   sources = {
-    { name = 'copilot', group_index = 2 },
     { name = 'path', group_index = 2 },
     { name = 'nvim_lsp', group_index = 2, keyword_length = 1 },
     { name = 'buffer', group_index = 2, keyword_length = 3 },
@@ -355,29 +346,23 @@ cmp.setup({
 })
 
 
--- settings of `copilot` plugin
+-- settings of `orgmode` plugin
 --
-local copilot = require("copilot")
-local copilotcmp = require('copilot_cmp')
-
-copilot.setup({
-  suggestion = { enabled = false },
-  panel = { enabled = false },
+require('orgmode').setup({
+  org_default_notes_file = '~/Workspaces/Company/notes',
+  org_hide_leading_stars = true,
+  org_startup_indent = 'noindent',
+  org_todo_keywords = { 'TODO', 'DOING', 'DONE' },
+  org_agenda_files = { '~/Workspaces/Company/notes/Agenda/*' },
+  org_agenda_templates = {
+    T = { description = 'Task', template = '* TODO %?\n' },
+    n = { description = 'Note', template = '* %?\n' },
+  },
 })
 
-copilotcmp.setup()
-
-vim.g.copilot_no_tab_map = true
-vim.g.copilot_filetypes = {
-  ['*'] = false,
-  ['lua'] = true,
-  ['go'] = true,
-  ['rust'] = true,
-  ['python'] = true,
-  ['javascript'] = true,
-  ['typescript'] = true,
-}
-
+-- settings for `codeium` plugin
+--
+require('codeium').setup()
 
 -- ---
 -- set up plugins' keyboard mappings
@@ -387,11 +372,16 @@ vim.g.copilot_filetypes = {
 --
 local telescope_builtin = require('telescope.builtin')
 
-vim.keymap.set('n', '<Leader>tf', telescope_builtin.find_files, {})
-vim.keymap.set('n', '<Leader>tg', telescope_builtin.git_files, {})
+vim.keymap.set('n', '<Leader>ff', telescope_builtin.find_files, {})
+vim.keymap.set('n', '<Leader>fg', telescope_builtin.git_files, {})
+vim.keymap.set('n', '<Leader>lg', telescope_builtin.live_grep, {})
+vim.keymap.set('n', '<Leader>fb', telescope_builtin.buffers, {})
+vim.keymap.set('n', '<Leader>fh', telescope_builtin.help_tags, {})
 
+-- set up miscellaneus keyboard mappings
+--
 vim.keymap.set('n', '<Leader>gg', vim.cmd.Git)
-vim.keymap.set('n', '<Leader>sh', '<ESC>:noh<CR>')
+vim.keymap.set('n', '<Leader>nh', '<ESC>:noh<CR>')
 
 
 -- ---
@@ -406,7 +396,7 @@ vim.cmd.highlight({ 'NormalFloat', 'guibg=none', 'ctermbg=none' })
 -- set up neovide options
 --
 if vim.g.neovide then
-  vim.g.neovide_transparency = 0.9
+  vim.g.neovide_transparency = 0.85
   vim.g.neovide_hide_mouse_when_typing = true
 
   vim.opt.guifont = 'CaskaydiaCove Nerd Font:h12'
