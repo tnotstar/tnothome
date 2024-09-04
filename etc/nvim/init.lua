@@ -175,6 +175,9 @@ Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 -- A native neovim extension for Codeium
 Plug('Exafunction/codeium.nvim')
 
+-- Go development plugin for Vim
+Plug('fatih/vim-go', { ['do'] = ':GoUpdateBinaries' })
+
 -- Orgmode clone written in Lua for Neovim 0.9+
 Plug('nvim-orgmode/orgmode')
 
