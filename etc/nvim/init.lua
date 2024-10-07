@@ -10,41 +10,39 @@ vim.scriptencoding = 'utf-8' -- set the encoding of the current script
 
 -- disable non-vim or non-lua extension languages
 --
-vim.g.loaded_python3_provider = 0   -- disable `python3` extensions
-vim.g.loaded_ruby_provider = 0      -- disable `ruby` extensions
-vim.g.loaded_node_provider = 0      -- disable `node` extensions
-vim.g.loaded_perl_provider = 0      -- disable `perl` extensions
+vim.g.loaded_python3_provider = 0 -- disable `python3` extensions
+vim.g.loaded_ruby_provider = 0    -- disable `ruby` extensions
+vim.g.loaded_node_provider = 0    -- disable `node` extensions
+vim.g.loaded_perl_provider = 0    -- disable `perl` extensions
 
 -- default legacy options
 --
-vim.opt.ruler = true                -- show the cursor position all the time
-vim.opt.number = true               -- display line numbers
-vim.opt.relativenumber = true       -- show numbers relative to current line
-vim.opt.cursorline = true           -- highlight the cursor line
-vim.opt.modeline = false            -- disable modelines for security
-vim.opt.showmatch = true            -- display matching brackets
-vim.opt.confirm = true              -- ask to save changes before next one
-vim.opt.hidden = true               -- allow hidden buffers when abandon them
-vim.opt.wrap = false                -- by default, disable word wrap
-vim.opt.scrolloff = 5               -- show some lines of context around the cursor
-vim.opt.history = 4096              -- how many commands of history to recall
-vim.opt.cmdheight = 2               -- set the command window height to 2
-vim.opt.display = 'truncate'        -- show @@@ in the last line, if truncated
-vim.opt.timeout = false             -- disable mappings timeout
-vim.opt.ttimeout = true             -- enable key code scan timeout
+vim.opt.ruler = true              -- show the cursor position all the time
+vim.opt.number = true             -- display line numbers
+vim.opt.relativenumber = true     -- show numbers relative to current line
+vim.opt.cursorline = true         -- highlight the cursor line
+vim.opt.modeline = false          -- disable modelines for security
+vim.opt.hidden = true             -- allow hidden buffers when abandon them
+vim.opt.wrap = false              -- by default, disable word wrap
+vim.opt.scrolloff = 5             -- show some lines of context around the cursor
+vim.opt.history = 4096            -- how many commands of history to recall
+vim.opt.cmdheight = 2             -- set the command window height to 2
+vim.opt.display = 'truncate'      -- show @@@ in the last line, if truncated
+vim.opt.timeout = false           -- disable mappings timeout
+vim.opt.ttimeout = true           -- enable key code scan timeout
 
 -- set up tabs/spaces options
 --
-vim.opt.expandtab = true -- convert tabs to spaces
-vim.opt.tabstop = 4      -- use 4 spaces for tabs
-vim.opt.shiftwidth = 4   -- use 4 spaces for indentation
-vim.opt.softtabstop = 4  -- backspace key treat 4 spaces as 1 tab
+vim.opt.expandtab = true          -- convert tabs to spaces
+vim.opt.tabstop = 4               -- use 4 spaces for tabs
+vim.opt.shiftwidth = 4            -- use 4 spaces for indentation
+vim.opt.softtabstop = 4           -- backspace key treat 4 spaces as 1 tab
 
 -- set up encoding and file format
 --
-vim.opt.encoding = 'utf-8'     -- the display encoding
-vim.opt.fileencoding = 'utf-8' -- the encoding written to file
-vim.opt.fileformat = 'unix'    -- use `unix` file formats by default
+vim.opt.encoding = 'utf-8'        -- the display encoding
+vim.opt.fileencoding = 'utf-8'    -- the encoding written to file
+vim.opt.fileformat = 'unix'       -- use `unix` file formats by default
 
 -- enable file type, plugins and indent
 --
@@ -62,13 +60,13 @@ end
 
 -- terminal settings
 --
-vim.opt.termguicolors = true -- enable gui colors for terminal
-vim.opt.visualbell = true    -- use visual bell instead of beeping
+vim.opt.termguicolors = true      -- enable gui colors for terminal
+vim.opt.visualbell = true         -- use visual bell instead of beeping
 
 -- set up mouse options
 --
-if vim.fn.has('mouse') then -- if has('mouse'), enable mouse mode
-  vim.opt.mouse = 'a'       -- and copy&paste with the `shift` key
+if vim.fn.has('mouse') then       -- if has('mouse'), enable mouse mode
+  vim.opt.mouse = 'a'             -- and copy&paste with the `shift` key
 end
 
 -- set up clipboard options
@@ -172,12 +170,6 @@ Plug('williamboman/mason-lspconfig.nvim')
 -- Telescope for Find, Filter, Preview, Pick, ...
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 
--- A native neovim extension for Codeium
-Plug('Exafunction/codeium.nvim')
-
--- Go development plugin for Vim
-Plug('fatih/vim-go', { ['do'] = ':GoUpdateBinaries' })
-
 -- Orgmode clone written in Lua for Neovim 0.9+
 Plug('nvim-orgmode/orgmode')
 
@@ -269,13 +261,13 @@ require('mason-lspconfig').setup({
     'rust_analyzer',
     'pyright',
     'denols',
-    'tsserver',
+    'ts_ls',
   },
   handlers = {
     lspzero.default_setup,
 
     -- custom configuration for `lua_ls` language server
-    lua_ls = lspconf.lua_ls.setup({
+    lspconf['lua_ls'].setup({
       settings = {
         Lua = {
           diagnostics = {
@@ -286,7 +278,7 @@ require('mason-lspconfig').setup({
     }),
 
     -- custom configuration for `denols` language server
-    denols = lspconf.denols.setup({
+    lspconf['denols'].setup({
       init_options = {
         enable = true,
         lint = true,
@@ -295,8 +287,8 @@ require('mason-lspconfig').setup({
       root_dir = lsputil.root_pattern('deps.ts'),
     }),
 
-    -- custom configuration for `tsserver` language server
-    tsserver = lspconf.tsserver.setup({
+    -- custom configuration for `ts_ls` language server
+    lspconf['ts_ls'].setup({
       init_options = {
         preferences = {
           quotePreference = 'single',
@@ -314,20 +306,13 @@ require('mason-lspconfig').setup({
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 local cmp = require('cmp')
---local luasnip = require('luasnip')
 
 cmp.setup({
---  snippet = {
---    expand = function(args)
---      luasnip.lsp_expand(args.body)
---    end
---  },
-
   sources = {
     { name = 'path', group_index = 2 },
     { name = 'nvim_lsp', group_index = 2, keyword_length = 1 },
     { name = 'buffer', group_index = 2, keyword_length = 3 },
-    { name = 'orgmode' },
+    { name = 'orgmode', group_index = 2 },
   },
 
   mapping = cmp.mapping.preset.insert({
@@ -351,21 +336,8 @@ cmp.setup({
 
 -- settings of `orgmode` plugin
 --
-require('orgmode').setup({
-  org_default_notes_file = '~/Workspaces/Company/notes',
-  org_hide_leading_stars = true,
-  org_startup_indent = 'noindent',
-  org_todo_keywords = { 'TODO', 'DOING', 'DONE' },
-  org_agenda_files = { '~/Workspaces/Company/notes/Agenda/*' },
-  org_agenda_templates = {
-    T = { description = 'Task', template = '* TODO %?\n' },
-    n = { description = 'Note', template = '* %?\n' },
-  },
-})
+require('orgmode').setup()
 
--- settings for `codeium` plugin
---
-require('codeium').setup()
 
 -- ---
 -- set up plugins' keyboard mappings
