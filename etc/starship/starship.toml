@@ -63,7 +63,7 @@ truncation_length = 4
 
 [git_commit]
 only_detached = false
-tag_disable = false
+tag_disabled = false
 
 [conda]
 disabled = false
