@@ -132,11 +132,11 @@ Plug('tpope/vim-fugitive')
 -- A GitHub extension for fugitive.vim
 Plug('tpope/vim-rhubarb')
 
--- All the lua functions I don't want to write twice.
-Plug('nvim-lua/plenary.nvim')
-
 -- Rosé Pine, all natural pine, faux fur and a bit of soho vibes
 Plug('rose-pine/neovim', { as = 'rose-pine' })
+
+-- All the lua functions I don't want to write twice.
+Plug('nvim-lua/plenary.nvim')
 
 -- A lua `fork` of vim-web-devicons for neovim
 Plug('nvim-tree/nvim-web-devicons')
@@ -144,19 +144,8 @@ Plug('nvim-tree/nvim-web-devicons')
 -- A blazing fast and easy to configure neovim statusline plugin
 Plug('nvim-lualine/lualine.nvim')
 
-<<<<<<< Updated upstream
 -- Nvim Treesitter configurations and abstraction layer
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
-=======
--- EditorConfig plugin for Neovim (waiting for new stable releases of nvim)
-Plug('gpanders/editorconfig.nvim')
-
--- A Git wrapper so awesome, it should be illegal
-Plug('tpope/vim-fugitive')
-
--- A GitHub extension for fugitive.vim
-Plug('tpope/vim-rhubarb')
->>>>>>> Stashed changes
 
 -- Git integration for buffers
 Plug('lewis6991/gitsigns.nvim')
@@ -272,7 +261,7 @@ require('mason-lspconfig').setup({
     'rust_analyzer',
     'pyright',
     'denols',
-    'ts_ls',
+    'tsserver',
   },
   handlers = {
     lspzero.default_setup,
@@ -299,7 +288,7 @@ require('mason-lspconfig').setup({
     }),
 
     -- custom configuration for `ts_ls` language server
-    lspconf['ts_ls'].setup({
+    lspconf['tsserver'].setup({
       init_options = {
         preferences = {
           quotePreference = 'single',
