@@ -144,8 +144,19 @@ Plug('nvim-tree/nvim-web-devicons')
 -- A blazing fast and easy to configure neovim statusline plugin
 Plug('nvim-lualine/lualine.nvim')
 
+<<<<<<< Updated upstream
 -- Nvim Treesitter configurations and abstraction layer
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+=======
+-- EditorConfig plugin for Neovim (waiting for new stable releases of nvim)
+Plug('gpanders/editorconfig.nvim')
+
+-- A Git wrapper so awesome, it should be illegal
+Plug('tpope/vim-fugitive')
+
+-- A GitHub extension for fugitive.vim
+Plug('tpope/vim-rhubarb')
+>>>>>>> Stashed changes
 
 -- Git integration for buffers
 Plug('lewis6991/gitsigns.nvim')
