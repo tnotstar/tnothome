@@ -18,10 +18,10 @@
 #>
 
 try {
-    $uMamba = Get-Command micromamba -ErrorAction Stop
+    $mamba = Get-Command micromamba -ErrorAction Stop
 
     if (!(Get-Command Invoke-Mamba -ErrorAction SilentlyContinue)) {
-        (& $uMamba "shell.powershell" "hook" -s powershell) | Out-String | Invoke-Expression
+        (& $mamba shell hook -s powershell) | Out-String | Invoke-Expression
     }
 
     Write-Host "Running 'mamba' updating routines...`n" -ForegroundColor Yellow
@@ -30,14 +30,15 @@ try {
         Invoke-Mamba self-update -y
 
         Write-Host "> Updating environments:`n" -ForegroundColor DarkYellow
-	$info = Invoke-Mamba info --json | ConvertFrom-Json
+        $info = Invoke-Mamba info --json | ConvertFrom-Json
+
         Write-Host $info."base environment"
         $_ = Invoke-Mamba env list --json | ConvertFrom-Json
         foreach ($base in $_.envs) {
             if ($base -ne $info."base environment") {
                 $name = [IO.Path]::GetFileNameWithoutExtension($base)
                 Write-Host "   * Updating environment ``$name``..." -ForegroundColor Cyan
-                #Invoke-Mamba update -y --name "$name" --all
+                Invoke-Mamba update -y --name "$name" --all
             }
         }
         Write-Host "Info: All updates are finished ok!!" -ForegroundColor Green
