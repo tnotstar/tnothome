@@ -1,5 +1,5 @@
 #
-# ~/Local/etc/starship/starship.toml
+# chezmoi add .config/starship.toml
 #
 
 # Get editor completions based on the config schema
@@ -24,6 +24,7 @@ format = """\
     $directory\
     $package\
     $git_branch\
+    $git_commit\
     $line_break\
     $rust\
     $golang\
@@ -59,6 +60,14 @@ style = "blue"
 format = "in [$path$read_only]($style) "
 truncation_symbol = ".../"
 truncation_length = 4
+
+[git_commit]
+only_detached = false
+tag_disable = false
+
+[conda]
+disabled = false
+format="via [$symbol$environment]($style)"
 
 [shell]
 disabled = false
