@@ -31,7 +31,7 @@ vim.opt.display = 'truncate'      -- show @@@ in the last line, if truncated
 vim.opt.timeout = false           -- disable mappings timeout
 vim.opt.ttimeout = true           -- enable key code scan timeout
 
--- set up tabs/spaces options
+-- set up default tabs/spaces options (fallback for `vim-sleuth`)
 --
 vim.opt.expandtab = true          -- convert tabs to spaces
 vim.opt.tabstop = 4               -- use 4 spaces for tabs
@@ -170,8 +170,14 @@ Plug('williamboman/mason-lspconfig.nvim')
 -- Telescope for Find, Filter, Preview, Pick, ...
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 
+-- Go development plugin for Vim
+Plug('fatih/vim-go', { ['do'] = ':GoUpdateBinaries' })
+
 -- Orgmode clone written in Lua for Neovim 0.9+
 Plug('nvim-orgmode/orgmode')
+
+-- A native neovim extension for Codeium
+Plug('Exafunction/codeium.nvim')
 
 vim.call('plug#end')
 
@@ -261,7 +267,7 @@ require('mason-lspconfig').setup({
     'rust_analyzer',
     'pyright',
     'denols',
-    'tsserver',
+    'ts_ls',
   },
   handlers = {
     lspzero.default_setup,
@@ -288,7 +294,7 @@ require('mason-lspconfig').setup({
     }),
 
     -- custom configuration for `ts_ls` language server
-    lspconf['tsserver'].setup({
+    lspconf['ts_ls'].setup({
       init_options = {
         preferences = {
           quotePreference = 'single',
@@ -309,10 +315,11 @@ local cmp = require('cmp')
 
 cmp.setup({
   sources = {
-    { name = 'path', group_index = 2 },
+    { name = 'path',     group_index = 2 },
     { name = 'nvim_lsp', group_index = 2, keyword_length = 1 },
-    { name = 'buffer', group_index = 2, keyword_length = 3 },
-    { name = 'orgmode', group_index = 2 },
+    { name = 'buffer',   group_index = 2, keyword_length = 3 },
+    { name = 'orgmode',  group_index = 2 },
+    { name = 'codeium',  group_index = 2 },
   },
 
   mapping = cmp.mapping.preset.insert({
@@ -337,6 +344,10 @@ cmp.setup({
 -- settings of `orgmode` plugin
 --
 require('orgmode').setup()
+
+-- settings of `codeium` plugin
+--
+require('codeium').setup()
 
 
 -- ---
