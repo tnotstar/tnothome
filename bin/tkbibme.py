@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
+# Copyright 2024, Antonio Alvarado Hernández <tnotstar@gmail.com>
 # -*- coding: utf-8 -*-
 
-# Copyright 2024, Antonio Alvarado Hernández <tnotstar@gmail.com>
-
 import tkinter as tk
 
-import tkinter as tk
-from tkinter import messagebox
 
-class MainFrame:
-    """TODO"""
+class MainFrame(tk.Frame):
+    """This the main application frame."""
 
     def __init__(self, parent):
         self.parent = parent

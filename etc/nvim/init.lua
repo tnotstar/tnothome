@@ -347,7 +347,7 @@ require('orgmode').setup()
 
 -- settings of `codeium` plugin
 --
-require('codeium').setup()
+require('codeium').setup({})
 
 
 -- ---
