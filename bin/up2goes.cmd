@@ -12,6 +12,9 @@
 @echo Info: Installing Go Staticcheck linter...
 @go install "honnef.co/go/tools/cmd/staticcheck@latest"
 
+@echo Info: Installing Simple Project Scaffolder for Go...
+@go install "github.com/vg006/vgo@latest"
+
 @echo Info: Installing Go Implementation Stubs generator...
 @go install "github.com/josharian/impl@latest"
 
@@ -30,8 +33,13 @@
 @echo Info: Installing ApiSprout mock server...
 @go install "github.com/danielgtaylor/apisprout@latest"
 
-@goto :eof
+@echo Info: Installing Elvish shell...
+@go install src.elv.sh/cmd/elvish@latest
 
+@echo Info: Installing Note utility...
+@go install github.com/armand-sauzay/note@latest
+
+@goto :eof
 @endlocal
 
 :eof
