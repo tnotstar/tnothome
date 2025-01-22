@@ -27,17 +27,20 @@
 @echo Info: Installing Go Play client...
 @go install "github.com/haya14busa/goplay/cmd/goplay@latest"
 
+@echo Info: Installing Elvish shell...
+@go install "src.elv.sh/cmd/elvish@latest"
+
+@echo Info: Installing Gopass password manager...
+@go install "github.com/gopasspw/gopass@latest" 
+
 @echo Info: Installing Gopass git credential helper...
 @go install "github.com/gopasspw/git-credential-gopass@latest"
 
 @echo Info: Installing ApiSprout mock server...
 @go install "github.com/danielgtaylor/apisprout@latest"
 
-@echo Info: Installing Elvish shell...
-@go install src.elv.sh/cmd/elvish@latest
-
 @echo Info: Installing Note utility...
-@go install github.com/armand-sauzay/note@latest
+@go install "github.com/armand-sauzay/note@latest"
 
 @goto :eof
 @endlocal
