@@ -9,11 +9,13 @@ fn prepend_paths_with_dir {|@args|
         set paths = [$args[0] $@paths]
     }
 }
+
 prepend_paths_with_dir /usr/local/go/bin
 
 if (and (eq $E:GOPATH '') (path:is-dir ~/Library/Go)) {
     set E:GOPATH = ~/Library/Go
 }
+
 prepend_paths_with_dir $E:GOPATH/bin
 
 if (and (eq $E:CARGO_HOME '') (path:is-dir ~/Library/Cargo)) {
