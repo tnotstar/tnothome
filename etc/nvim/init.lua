@@ -123,6 +123,9 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 
+-- All the lua functions I don't want to write twice.
+Plug('nvim-lua/plenary.nvim')
+
 -- Heuristically set buffer options
 Plug('tpope/vim-sleuth')
 
@@ -132,11 +135,11 @@ Plug('tpope/vim-fugitive')
 -- A GitHub extension for fugitive.vim
 Plug('tpope/vim-rhubarb')
 
+-- Git integration for buffers
+Plug('lewis6991/gitsigns.nvim')
+
 -- Rosé Pine, all natural pine, faux fur and a bit of soho vibes
 Plug('rose-pine/neovim', { as = 'rose-pine' })
-
--- All the lua functions I don't want to write twice.
-Plug('nvim-lua/plenary.nvim')
 
 -- A lua `fork` of vim-web-devicons for neovim
 Plug('nvim-tree/nvim-web-devicons')
@@ -147,37 +150,28 @@ Plug('nvim-lualine/lualine.nvim')
 -- Nvim Treesitter configurations and abstraction layer
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 
--- Git integration for buffers
-Plug('lewis6991/gitsigns.nvim')
+-- A starting point to setup some lsp related features in neovim
+Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v4.x' })
 
 -- Quickstart configs for Nvim LSP
 Plug('neovim/nvim-lspconfig')
-
--- A completion plugins for neovim (coded in Lua)
-Plug('hrsh7th/nvim-cmp')
-Plug('hrsh7th/cmp-nvim-lsp')
-Plug('hrsh7th/cmp-path')
-Plug('hrsh7th/cmp-buffer')
-Plug('hrsh7th/cmp-nvim-lua')
-
--- A starting point to setup some lsp related features in neovim
-Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v4.x' })
 
 -- Easily install and manage LSP servers, DAP servers, linters, and formatters
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 
--- Telescope for Find, Filter, Preview, Pick, ...
-Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
-
--- Go development plugin for Vim
-Plug('fatih/vim-go')
-
--- Orgmode clone written in Lua for Neovim 0.9+
-Plug('nvim-orgmode/orgmode')
-
 -- A native neovim extension for Codeium
 Plug('Exafunction/codeium.nvim')
+
+-- A completion plugins for neovim (coded in Lua)
+Plug('hrsh7th/nvim-cmp')
+Plug('hrsh7th/cmp-path')
+Plug('hrsh7th/cmp-buffer')
+Plug('hrsh7th/cmp-nvim-lua')
+Plug('hrsh7th/cmp-nvim-lsp')
+
+-- Telescope for Find, Filter, Preview, Pick, ...
+Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 
 vim.call('plug#end')
 
@@ -185,7 +179,11 @@ vim.call('plug#end')
 -- set up plugins configurations
 --
 
--- set up colors scheme
+-- settings of `gitsigns.nvim` plugin
+--
+require('gitsigns').setup()
+
+-- set `rose-pine` theme up
 --
 vim.cmd.colorscheme('rose-pine')
 
@@ -203,7 +201,7 @@ require('nvim-treesitter.configs').setup({
   -- A list of parser names, or 'all' (the four listed parsers should always be
   -- installed)
   ensure_installed = {
-    'vim', 'lua', 'go', 'rust', 'python', 'javascript', 'typescript',
+    'vim', 'lua', 'go', 'zig', 'rust', 'python', 'javascript', 'typescript',
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -232,10 +230,6 @@ require('nvim-treesitter.configs').setup({
   },
 })
 
--- settings of `gitsigns.nvim` plugin
---
-require('gitsigns').setup()
-
 -- settings of `lspzero` plugin
 --
 local lspzero = require('lsp-zero')
@@ -250,9 +244,6 @@ lspzero.extend_lspconfig({
   lsp_attach = lsp_attach,
   capabilities = cmpnvimlsp.default_capabilities(),
 })
-
--- settings of plugin
---
 
 -- settings of `mason` & `mason-lspconfig` plugins
 --
@@ -316,9 +307,8 @@ local cmp = require('cmp')
 cmp.setup({
   sources = {
     { name = 'path',     group_index = 2 },
-    { name = 'nvim_lsp', group_index = 2, keyword_length = 1 },
     { name = 'buffer',   group_index = 2, keyword_length = 3 },
-    { name = 'orgmode',  group_index = 2 },
+    { name = 'nvim_lsp', group_index = 2, keyword_length = 1 },
     { name = 'codeium',  group_index = 2 },
   },
 
@@ -340,14 +330,9 @@ cmp.setup({
   }),
 })
 
-
--- settings of `orgmode` plugin
---
-require('orgmode').setup()
-
 -- settings of `codeium` plugin
 --
-require('codeium').setup({})
+require('codeium').setup()
 
 
 -- ---
