@@ -148,10 +148,11 @@ Plug('nvim-tree/nvim-web-devicons')
 Plug('nvim-lualine/lualine.nvim')
 
 -- Nvim Treesitter configurations and abstraction layer
-Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+Plug('nvim-treesitter/nvim-treesitter')
 
 -- A starting point to setup some lsp related features in neovim
-Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v4.x' })
+--Plug('VonHeikemen/lsp-zero.nvim', { branch = 'v4.x' })
+Plug('VonHeikemen/lsp-zero.nvim')
 
 -- Quickstart configs for Nvim LSP
 Plug('neovim/nvim-lspconfig')
@@ -201,7 +202,7 @@ require('nvim-treesitter.configs').setup({
   -- A list of parser names, or 'all' (the four listed parsers should always be
   -- installed)
   ensure_installed = {
-    'vim', 'lua', 'go', 'zig', 'rust', 'python', 'javascript', 'typescript',
+    'vim', 'lua', 'go', 'zig', 'rust', 'python', 'javascript', 'typescript', 'sql',
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
