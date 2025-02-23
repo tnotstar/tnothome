@@ -9,9 +9,9 @@
 # under the current directory
 scan_timeout = 125
 
-# Wait 250 milliseconds for starship to execute commands
+# Wait 300 milliseconds for starship to execute commands
 # under the current directory
-command_timeout = 250
+command_timeout = 300
 
 # Inserts a blank line between shell prompts
 add_newline = true
