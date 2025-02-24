@@ -29,6 +29,7 @@ prepend_paths_with_dir ~/Local/bin
 
 #eval (carapace _carapace elvish | slurp)
 eval (starship init elvish --print-full-init | slurp)
+eval (zoxide init elvish | slurp)
 
 fn ls {|@args| e:ls --color $@args}
 fn cp {|@args| e:cp -i $@args}
@@ -48,4 +49,3 @@ fn shmypass {
 }
 
 set-env EDITOR vi
-
