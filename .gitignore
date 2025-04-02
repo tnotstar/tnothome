@@ -8,16 +8,27 @@ var/**
 
                         # (re)include valid files excluded above
 !bin/*.c
+!bin/*.go
+!bin/*.zig
+!bin/*.bash
+!bin/*.fish
+!bin/*.ksh
 !bin/*.sh
+!bin/*.zsh
+!bin/*.elv
+!bin/*.nu
 !bin/*.js
 !bin/*.ts
 !bin/*.py
+!bin/*.pyw
 !bin/*.ps1
 !bin/*.cmd
 !bin/*.ini
 !bin/*.vbs
 
                         # avoid to commit binary files
+*.so
+*.so.*
 *.exe
 *.dll
 *.pyo
