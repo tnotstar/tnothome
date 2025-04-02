@@ -9,7 +9,8 @@ Charset=UTF-8
 Term=xterm-256color
 Columns=96
 Rows=40
-Transparency=low
+Transparency=high
+OpaqueWhenFocused=yes
 Scrollbar=right
 ScrollbackLines=8192
 StatusLine=no
@@ -25,37 +26,37 @@ CopyTab=yes
 CopyAsRTF=no
 Printer=Microsoft Print to PDF
 
-Font=CaskaydiaCove NF
+Font=CaskaydiaCove NFM
 FontWeight=400
 FontHeight=10
 RowSpacing=4
-FontSmoothing=default
+FontSmoothing=partial
 FontRender=textout
 BoldAsFont=yes
 BoldAsColour=yes
 
-CursorType=block
+CursorType=underscore
 CursorBlinks=no
 CursorColour=255,255,255
 
 BoldColour=255,255,255
 BlinkColour=255,255,255
 
+Black=64,60,80
+Red=234,111,145
+Green=155,206,215
+Yellow=241,202,147
+Blue=52,115,142
+Magenta=195,165,230
+Cyan=234,187,185
+White=250,235,215
 
-Black=0,0,0
-Red=212,44,58;162,30,41
-Green=28,168,0
-Yellow=192,160,0
-Blue=0,93,255;0,32,192
-Magenta=177,72,198;134,54,150
-Cyan=0,168,154
-White=191,191,191
-
-BoldBlack=96,96,96;72,72,72
-BoldRed=255,118,118
-BoldGreen=0,242,0
-BoldYellow=242,242,0
-BoldBlue=125,151,255
-BoldMagenta=255,112,255
-BoldCyan=0,240,240
+BoldBlack=111,110,130
+BoldRed=234,111,145
+BoldGreen=155,206,215
+BoldYellow=241,202,147
+BoldBlue=52,115,142
+BoldMagenta=195,165,230
+BoldCyan=234,187,185
 BoldWhite=255,255,255
+
