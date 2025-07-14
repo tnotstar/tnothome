@@ -161,8 +161,8 @@ Plug('neovim/nvim-lspconfig')
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 
--- A native neovim extension for Codeium
-Plug('Exafunction/codeium.nvim')
+-- Neovim plugin for GitHub Copilot
+Plug('github/copilot.vim')
 
 -- A completion plugins for neovim (coded in Lua)
 Plug('hrsh7th/nvim-cmp')
@@ -310,7 +310,6 @@ cmp.setup({
     { name = 'path',     group_index = 2 },
     { name = 'buffer',   group_index = 2, keyword_length = 3 },
     { name = 'nvim_lsp', group_index = 2, keyword_length = 1 },
-    { name = 'codeium',  group_index = 2 },
   },
 
   mapping = cmp.mapping.preset.insert({
@@ -330,10 +329,6 @@ cmp.setup({
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
   }),
 })
-
--- settings of `codeium` plugin
---
-require('codeium').setup()
 
 
 -- ---
