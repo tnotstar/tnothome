@@ -1,0 +1,11 @@
+[helpers]
+
+[default]
+depends = []
+
+[default.files]
+"etc/mintty/minttyrc" = "~/.minttyrc"
+"etc/tmux/tmux.conf" = "~/.tmux.conf"
+
+[default.variables]
+

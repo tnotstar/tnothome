@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+# Copyright 2025, Antonio Alvarado Hernández <tnotstar@gmail.com>
+
+
+                        # exclude all dotter's local.toml file
+local.toml
+
+                        # exclude all dotter's cache files
+cache/**
+cache.toml
+
+# EOF
