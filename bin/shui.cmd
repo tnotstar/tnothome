@@ -20,6 +20,7 @@
 @if "%1" == "policies" goto :policies
 @if "%1" == "services" goto :services
 @if "%1" == "programs" goto :programs
+@if "%1" == "keys" goto :keys
 @if "%1" == "user" goto :user
 @if "%1" == "users" goto :users
 @if "%1" == "devices" goto :devices
@@ -39,6 +40,7 @@
 @echo     %~n0 policies
 @echo     %~n0 services
 @echo     %~n0 programs
+@echo     %~n0 keys
 @echo     %~n0 user
 @echo     %~n0 users
 @echo     %~n0 devices
@@ -69,6 +71,10 @@
 
 :programs:
 @control.exe appwiz.cpl
+@goto :eof
+
+:keys
+@start rundll32.exe keymgr.dll, KRShowKeyMgr
 @goto :eof
 
 :user
