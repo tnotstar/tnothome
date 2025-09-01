@@ -1,3 +1,6 @@
+[settings]
+default_target_type = "automatic"
+
 [helpers]
 
 [default]
@@ -6,5 +9,7 @@ depends = []
 [default.files]
 "etc/mintty/minttyrc" = "~/.minttyrc"
 "etc/tmux/tmux.conf" = "~/.tmux.conf"
+"etc/git/gitconfig" = "~/.gitconfig"
 
 [default.variables]
+

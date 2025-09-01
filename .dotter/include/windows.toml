@@ -2,8 +2,11 @@
 # Copyright 2025, Antonio Alvarado Hernández
 
 [nvim.files]
-"etc/nvim/init.lua" = "~\\AppData\\Local\\nvim\\init.lua"
-"etc/nvim/autoload/plug.vim" = "~\\AppData\\Local\\nvim\\autoload\\plug.vim"
+"etc/nvim/init.lua" = "~/AppData/Local/nvim/init.lua"
+"etc/nvim/autoload/plug.vim" = "~/AppData/Local/nvim/autoload/plug.vim"
 
 [wsl.files]
-"etc/wsl/wslconfig" = "~\\.wslconfig"
+"etc/wsl/wslconfig" = "~//.wslconfig"
+
+[git.variables]
+git_gpg_program = "~/Scoop/apps/gpg4win/current/GnuPG/bin/gpg.exe"
