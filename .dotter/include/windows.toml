@@ -2,6 +2,8 @@
 # Copyright 2025, Antonio Alvarado Hernández
 
 [nvim.files]
-"etc/nvim/init.lua" = "~/AppData/Local/nvim/init.lua"
-"etc/nvim/autoload/plug.vim" = "~/AppData/Local/nvim/autoload/plug.vim"
+"etc/nvim/init.lua" = "~\\AppData\\Local\\nvim\\init.lua"
+"etc/nvim/autoload/plug.vim" = "~\\AppData\\Local\\nvim\\autoload\\plug.vim"
 
+[wsl.files]
+"etc/wsl/wslconfig" = "~\\.wslconfig"
