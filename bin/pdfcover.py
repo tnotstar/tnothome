@@ -1,7 +1,13 @@
-#!/usr/bin/env python3
+# Copyright 2023-2025, Antonio Alvarado <tnotstar@gmail.com>
 # -*- coding: utf-8 -*-
-
-# Copyright 2023, Antonio Alvarado Hernández <tnotstar@gmail.com>
+#!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "pdfrw",
+#     "wand",
+# ]
+# ///
 
 from collections.abc import Iterable
 from pathlib import Path
