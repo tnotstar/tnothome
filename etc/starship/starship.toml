@@ -1,17 +1,18 @@
 #
-# chezmoi add .config/starship.toml
+# Starship Configuration File
+# https://starship.rs/config/
 #
 
 # Get editor completions based on the config schema
 "$schema" = "https://starship.rs/config-schema.json"
 
-# Wait 125 milliseconds for starship to check files
+# Wait 50 milliseconds for starship to check files
 # under the current directory
-scan_timeout = 125
+scan_timeout = 50
 
-# Wait 300 milliseconds for starship to execute commands
+# Wait 200 milliseconds for starship to execute commands
 # under the current directory
-command_timeout = 300
+command_timeout = 200
 
 # Inserts a blank line between shell prompts
 add_newline = true
@@ -28,10 +29,9 @@ format = """\
     $line_break\
     $rust\
     $golang\
-    $deno\
-    $nodejs\
     $python\
-    $conda\
+    $zig\
+    $deno\
     $shell\
     $shlvl\
     $status\
@@ -41,12 +41,12 @@ format = """\
     """
 
 [username]
-format = "[$user]($style) "
+format = "[$user]($style)"
 style_user = "red"
 show_always = true
 
 [hostname]
-format = "@ [$hostname]($style) "
+format = "@[$hostname]($style) "
 style = "green"
 ssh_only = false
 
@@ -61,17 +61,16 @@ format = "in [$path$read_only]($style) "
 truncation_symbol = ".../"
 truncation_length = 4
 
-[git_commit]
-only_detached = false
-tag_disabled = false
+[git_branch]
+disabled = true
 
-[conda]
-disabled = false
-format="via [$symbol$environment]($style)"
+[git_commit]
+disabled = true
+only_detached = true
+tag_disabled = true
 
 [shell]
 disabled = false
-style = "blue"
 nu_indicator = "🔥"
 fish_indicator = "🐟"
 bash_indicator = "🐚"

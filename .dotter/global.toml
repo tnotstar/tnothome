@@ -10,6 +10,7 @@ depends = []
 "etc/mintty/minttyrc" = "~/.minttyrc"
 "etc/tmux/tmux.conf" = "~/.tmux.conf"
 "etc/git/gitconfig" = "~/.gitconfig"
+"etc/starship/starship.toml" = "~/.config/starship.toml"
 
 [default.variables]
 
