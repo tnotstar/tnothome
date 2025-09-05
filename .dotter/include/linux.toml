@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+# Copyright 2025, Antonio Alvarado <tnotstar@gmail.com>
+
+[tmux.files]
+"etc/tmux/tmux.conf" = "~/.tmux.conf"
+
+[linux]
+depends = ["tmux"]

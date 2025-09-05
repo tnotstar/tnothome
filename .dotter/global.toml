@@ -1,16 +1,27 @@
+# -*- coding: utf-8 -*-
+# Copyright 2025, Antonio Alvarado <tnotstar@gmail.com>
+
 [settings]
 default_target_type = "automatic"
 
 [helpers]
 
-[default]
-depends = []
+[nvim.files]
+"etc/nvim/init.lua" = "~/.config/nvim/init.lua"
+"etc/nvim/autoload/plug.vim" = "~/.config/nvim/autoload/plug.vim"
 
-[default.files]
-"etc/mintty/minttyrc" = "~/.minttyrc"
-"etc/tmux/tmux.conf" = "~/.tmux.conf"
+[git.files]
 "etc/git/gitconfig" = "~/.gitconfig"
+
+[git.variables]
+git_gpg_program = "gpg"
+
+[starship.files]
 "etc/starship/starship.toml" = "~/.config/starship.toml"
 
-[default.variables]
+[starship.variables]
+starship_git_branch_disabled = false
+starship_git_commit_disabled = false
 
+[default]
+depends = ["nvim", "git", "starship"]

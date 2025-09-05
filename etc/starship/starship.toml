@@ -27,10 +27,10 @@ format = """\
     $git_branch\
     $git_commit\
     $line_break\
-    $rust\
-    $golang\
     $python\
+    $golang\
     $zig\
+    $rust\
     $deno\
     $shell\
     $shlvl\
@@ -62,10 +62,10 @@ truncation_symbol = ".../"
 truncation_length = 4
 
 [git_branch]
-disabled = true
+disabled = {{ starship_git_branch_disabled }}
 
 [git_commit]
-disabled = true
+disabled = {{ starship_git_commit_disabled }}
 only_detached = true
 tag_disabled = true
 

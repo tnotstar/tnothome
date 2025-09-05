@@ -1,12 +1,22 @@
 # -*- coding: utf-8 -*-
-# Copyright 2025, Antonio Alvarado Hernández
+# Copyright 2025, Antonio Alvarado <tnotstar@gmail.com>
+
+[mintty.files]
+"etc/mintty/minttyrc" = "~/.minttyrc"
 
 [nvim.files]
 "etc/nvim/init.lua" = "~/AppData/Local/nvim/init.lua"
 "etc/nvim/autoload/plug.vim" = "~/AppData/Local/nvim/autoload/plug.vim"
 
 [wsl.files]
-"etc/wsl/wslconfig" = "~//.wslconfig"
+"etc/wsl/wslconfig" = "~/.wslconfig"
+
+[windows]
+depends = ["mintty", "wsl"]
 
 [git.variables]
 git_gpg_program = "~/Scoop/apps/gpg4win/current/GnuPG/bin/gpg.exe"
+
+[starship.variables]
+starship_git_branch_disabled = true
+starship_git_commit_disabled = true
