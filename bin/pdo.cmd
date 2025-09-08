@@ -16,46 +16,60 @@
 
 
 @setlocal enableextensions disabledelayedexpansion
+@chcp 65001 > nul
 
-@set NAME=%~n0
+@set "NAME=%~n0"
 @shift
 
-@set SSH_PROGRAM=plink
-@set SSH_OPTIONS=-A -t -X -agent -ssh
+@set "SSH_PROGRAM=plink"
+@set "SSH_OPTIONS=-C -A -t -X -agent -ssh"
 
 :while_more_options
-@set _opt_=%~0
+@set "_opt_=%~0"
 @if "%_opt_:~0,1%" == "-" (
-	@set SSH_OPTIONS=%SSH_OPTIONS% %_opt_%
+	@set "SSH_OPTIONS=%SSH_OPTIONS% %_opt_%"
 	@shift
 	@goto :while_more_options
 )
-
 @if "%0" == "" @goto :syntax
-@set SSH_TARGET=%0
+
+@set "SSH_TARGET=%0"
 @shift
+@if "%0" == "" @goto :online
 
-@if "%0" == "" @goto :syntax
-@set SSH_COMMAND=%0
+@set "SSH_COMMAND=%0"
 @shift
+@if exist "%SSH_COMMAND%" @set "SSH_ISFILE=-m "
 
-@if exist "%SSH_COMMAND%" @set SSH_ISFILE=-m
+:while_more_arguments
+@if "%~0" == "" @goto :batch
+	@if defined SSH_ARGUMENTS (
+		@set "SSH_ARGUMENTS=%SSH_ARGUMENTS% "%~0""
+	) else (
+		@set "SSH_ARGUMENTS="%~0""
+	)
+	@shift
+@goto :while_more_arguments
 
-:execute
-@chcp 65001 > nul
-@echo Info: Executing %SSH_COMMAND% on host %SSH_HOST%... 1>&2
-%SSH_PROGRAM% %SSH_OPTIONS% %SSH_TARGET% %SSH_ISFILE% %SSH_COMMAND% %0 %1 %2 %3 %4 %5 %6 %7 %8 %9
-@echo.
+:online
+@echo Info: Opening interactive session on host %SSH_TARGET%... 1>&2
+@call %SSH_PROGRAM% %SSH_OPTIONS% -no-antispoof %SSH_TARGET%
+@echo. 1>&2
+@echo Info: Program exited with code %ERRORLEVEL% 1>&2
+@goto :eof
+
+:batch
+@echo Info: Executing %SSH_COMMAND% %SSH_ARGUMENTS% on host %SSH_TARGET%... 1>&2
+@call %SSH_PROGRAM% %SSH_OPTIONS% -batch %SSH_TARGET% %SSH_ISFILE% %SSH_COMMAND% %SSH_ARGUMENTS%
+@echo. 1>&2
 @echo Info: Program exited with code %ERRORLEVEL% 1>&2
 @goto :eof
 
 :syntax
+@echo Fatal: invalid number of arguments %* 1>&2
 @echo. 1>&2
-@echo Fatal: invalid number of arguments 1>&2
-@echo. 1>&2
-@echo Syntax: %NAME% ^<user@host^> ^<command^> [^<arg1^>...] 1>&2
+@echo Syntax: %NAME% ^<user@host^>^|^<session-name^> [^<command^> [^<arg1^>...]] 1>&2
 @goto :eof
 
-@endlocal
-
 :eof
+@endlocal
