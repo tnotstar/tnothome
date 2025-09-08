@@ -18,5 +18,6 @@ depends = ["mintty", "wsl"]
 git_gpg_program = "~/Scoop/apps/gpg4win/current/GnuPG/bin/gpg.exe"
 
 [starship.variables]
+starship_package_disabled = true
 starship_git_branch_disabled = true
 starship_git_commit_disabled = true

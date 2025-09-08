@@ -41,7 +41,7 @@ format = """\
     """
 
 [username]
-format = "[$user]($style)"
+format = "[$user]($style) "
 style_user = "red"
 show_always = true
 
@@ -60,6 +60,10 @@ style = "blue"
 format = "in [$path$read_only]($style) "
 truncation_symbol = ".../"
 truncation_length = 4
+
+[package]
+disabled = {{ starship_package_disabled }}
+display_private = true
 
 [git_branch]
 disabled = {{ starship_git_branch_disabled }}
