@@ -1,5 +1,5 @@
 @rem
-@rem Copyright (c) 2011-2025 Antonio Alvarado Hernández <tnotstar@gmail.com>
+@rem Copyright 2011-2025, Antonio Alvarado <tnotstar@gmail.com>
 @rem
 @rem Licensed under the Apache License, Version 2.0 (the "License");
 @rem you may not use this file except in compliance with the License.
