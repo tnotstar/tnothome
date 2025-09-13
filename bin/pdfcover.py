@@ -66,18 +66,15 @@ def get_most_frequent_dimensions(pdf_reader: PdfReader, start_at: int) -> tuple:
 
     dimensions = {}
     for _, page in enumerate(pdf_reader.pages[start_at:]):
-        if page.CropBox:
-            box = [ float(v) for v in page.CropBox ]
-        elif page.MediaBox:
+        if page.MediaBox:
             box = [ float(v) for v in page.MediaBox ]
+        elif page.CropBox:
+            box = [ float(v) for v in page.CropBox ]
         else:
             raise ValueError(f"Can't locate a valid crop or media box for page: {_}")
 
-        key= (box[2] - box[0], box[3] - box[1])
-        if key in dimensions:
-            dimensions[key] += 1
-        else:
-            dimensions[key] = 1
+        key = (box[2] - box[0], box[3] - box[1])
+        dimensions[key] = dimensions.get(key, 0) + 1
 
     return max(dimensions, key=lambda x: dimensions[x])
 
