@@ -6,15 +6,15 @@ default_target_type = "automatic"
 
 [helpers]
 
-[nvim.files]
-"etc/nvim/init.lua" = "~/.config/nvim/init.lua"
-"etc/nvim/autoload/plug.vim" = "~/.config/nvim/autoload/plug.vim"
-
 [git.files]
 "etc/git/gitconfig" = "~/.gitconfig"
 
 [git.variables]
 git_gpg_program = "gpg"
+
+[nvim.files]
+"etc/nvim/init.lua" = "~/.config/nvim/init.lua"
+"etc/nvim/autoload/plug.vim" = "~/.config/nvim/autoload/plug.vim"
 
 [starship.files]
 "etc/starship/starship.toml" = "~/.config/starship.toml"
@@ -24,4 +24,4 @@ starship_git_branch_disabled = false
 starship_git_commit_disabled = false
 
 [default]
-depends = ["nvim", "git", "starship"]
+depends = ["git", "nvim", "starship", "vscode"]

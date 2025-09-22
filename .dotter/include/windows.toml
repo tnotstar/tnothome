@@ -8,6 +8,9 @@
 "etc/nvim/init.lua" = "~/AppData/Local/nvim/init.lua"
 "etc/nvim/autoload/plug.vim" = "~/AppData/Local/nvim/autoload/plug.vim"
 
+[vscode.files]
+"etc/vscode/user-settings.json" = "~/Scoop/apps/vscode/current/data/user-data/User/settings.json"
+
 [wsl.files]
 "etc/wsl/wslconfig" = "~/.wslconfig"
 
