@@ -21,6 +21,9 @@
 @echo Info: Installing Simple Project Scaffolder for Go...
 @go install "github.com/vg006/vgo@latest"
 
+@echo Info: Installing Go Blueprint generator...
+@go install "github.com/melkeydev/go-blueprint@latest"
+
 @echo Info: Installing Go Implementation Stubs generator...
 @go install "github.com/josharian/impl@latest"
 
