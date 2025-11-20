@@ -24,6 +24,9 @@
 @echo Info: Installing Go Blueprint generator...
 @go install "github.com/melkeydev/go-blueprint@latest"
 
+@echo Info: Installing Air server...
+@go install "github.com/air-verse/air@latest"
+
 @echo Info: Installing Go Implementation Stubs generator...
 @go install "github.com/josharian/impl@latest"
 
