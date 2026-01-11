@@ -1,26 +1,30 @@
 # -*- coding: utf-8 -*-
-# Copyright 2025, Antonio Alvarado <tnotstar@gmail.com>
+# Copyright 2025-2026, Antonio Alvarado <tnotstar@gmail.com>
 
-[mintty.files]
-"etc/mintty/minttyrc" = "~/.minttyrc"
+[nushell.files]
+"etc/nushell/config.nu" = "~/AppData/Roaming/nushell/config.nu"
+
+[starship.variables]
+starship_package_disabled = true
+starship_git_branch_disabled = true
+starship_git_commit_disabled = true
+
+[git.variables]
+git_core_ssh_command = "C:/Windows/System32/OpenSSH/ssh.exe"
+git_gpg_ssh_program = "C:/Windows/System32/OpenSSH/ssh-keygen.exe"
 
 [nvim.files]
 "etc/nvim/init.lua" = "~/AppData/Local/nvim/init.lua"
 "etc/nvim/autoload/plug.vim" = "~/AppData/Local/nvim/autoload/plug.vim"
 
 [vscode.files]
-"etc/vscode/user-settings.json" = "~/Scoop/apps/vscode/current/data/user-data/User/settings.json"
+"etc/vscode/user-settings.json" = "~/AppData/Roaming/Code/User/settings.json"
+
+[mintty.files]
+"etc/mintty/minttyrc" = "~/.minttyrc"
 
 [wsl.files]
 "etc/wsl/wslconfig" = "~/.wslconfig"
 
 [windows]
 depends = ["mintty", "wsl"]
-
-[git.variables]
-git_gpg_program = "~/Scoop/apps/gpg4win/current/GnuPG/bin/gpg.exe"
-
-[starship.variables]
-starship_package_disabled = true
-starship_git_branch_disabled = true
-starship_git_commit_disabled = true

@@ -1,0 +1,27 @@
+[init]
+	defaultBranch = main
+
+[core]
+	autocrlf = input
+	sshCommand = {{ git_core_ssh_command }}
+
+[user]
+	name = Antonio Alvarado
+	email = tnotstar@gmail.com
+	signingkey = ~/.ssh/id_ed25519.pub
+
+[commit]
+	gpgsign = true
+
+[gpg]
+	format = ssh
+
+[gpg.ssh]
+	program = {{ git_gpg_ssh_program }}
+
+[alias]
+	ulog = log --all --graph --oneline --date-order --date=short --pretty=format:'%C(auto)%h%d %cd <%ce> %s'
+	syncall = !git checkout master && git pull upstream master && git merge homework && git push origin master
+
+[credential "https://dev.azure.com"]
+	useHttpPath = true
