@@ -1,0 +1,103 @@
+{
+  "workbench.colorTheme": "Rosé Pine",
+  "workbench.editor.enablePreview": false,
+  "editor.fontFamily": "FiraCode Nerd Font, CaskaydiaCove Nerd Font, CaskaydiaCove Nerd Font Mono, Cascadia Code, Consolas, Courier New, monospace",
+  "editor.fontLigatures": true,
+  "editor.minimap.enabled": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "go.toolsManagement.autoUpdate": true,
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "deno.enable": true,
+  "deno.lint": true,
+  "python.analysis.typeCheckingMode": "standard",
+  "zig.zls.enabled": "on",
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "notebook.formatOnSave.enabled": true,
+  "notebook.codeActionsOnSave": {
+    "notebook.source.fixAll": "explicit",
+    "notebook.source.organizeImports": "explicit"
+  },
+  "terminal.integrated.shellIntegration.enabled": false,
+  "terminal.integrated.profiles.windows": {
+    "Nushell": {
+      "path": "${env:ProgramFiles}\\Nu\\bin\\nu.exe"
+    },
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe"
+      ],
+      "args": [],
+      "icon": "terminal-cmd"
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "Nushell",
+  "terminal.integrated.profiles.linux": {
+    "nushell": {
+      "path": "nu",
+      "icon": "terminal-bash"
+    },
+    "bash": {
+      "path": "bash",
+      "icon": "terminal-bash"
+    },
+    "tmux": {
+      "path": "tmux",
+      "icon": "terminal-tmux"
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "nushell",
+  "redhat.telemetry.enabled": false,
+  "git.openRepositoryInParentFolders": "never",
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "extensions.ignoreRecommendations": true,
+  "remote.autoForwardPortsSource": "output",
+  "remote.SSH.remotePlatform": {
+    "migracion": "linux",
+    "diogenes-eth": "linux",
+    "pitagoras-eth": "linux",
+    "cs.bookish-orbit-554xx94rhp79p.main": "linux",
+    "vscode-remote-try-node.devpod": "linux"
+  },
+  "dev.containers.dockerPath": "podman",
+  "dev.containers.dockerSocketPath": "/run/user/1000/podman/podman.sock",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "diffEditor.codeLens": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.codeActions.triggerOnFocusChange": true,
+  "geminicodeassist.project": "amiable-river-7bjcz"
+}
