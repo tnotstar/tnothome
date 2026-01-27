@@ -31,3 +31,13 @@ def up2starship [] {
 def up2zoxide [] {
 	zoxide init nushell | save -f ($nu.data-dir | path join "vendor/autoload/zoxide.nu")
 }
+
+do --env {
+	let ssh_agent_file = (
+		$env.HOME | path join ".bitwarden-ssh-agent.sock"
+	)
+
+	if ($ssh_agent_file | path exists) {
+		$env.SSH_AUTH_SOCK = $ssh_agent_file
+	}
+}

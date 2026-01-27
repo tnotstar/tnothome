@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2025, Antonio Alvarado <tnotstar@gmail.com>
+# Copyright 2025-2026, Antonio Alvarado <tnotstar@gmail.com>
 
 [settings]
 default_target_type = "automatic"
@@ -10,9 +10,10 @@ default_target_type = "automatic"
 "etc/nushell/config.nu" = "~/.config/nushell/config.nu"
 
 [starship.files]
-"etc/starship/starship.toml" = "~/.config/starship.toml"
+"etc/starship/starship.template" = "~/.config/starship.toml"
 
 [starship.variables]
+starship_package_disabled = false
 starship_git_branch_disabled = false
 starship_git_commit_disabled = false
 
@@ -25,6 +26,9 @@ git_gpg_ssh_program = "ssh-keygen"
 
 [nvim.files]
 "etc/nvim/init.lua" = "~/.config/nvim/init.lua"
+
+[vscode.files]
+"etc/vscode/user-settings.json" = "~/.config/Code/User/settings.json"
 
 [mamba.files]
 "etc/mamba/mambarc" = "~/.mambarc"
