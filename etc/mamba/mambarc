@@ -1,0 +1,18 @@
+solver: libmamba
+
+root_prefix: ~/Library/Mamba
+
+envs_dirs:
+  - ~/Library/Mamba/envs
+
+pkgs_dirs:
+  - ~/Library/Mamba/pkgs
+
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+
+channelpriority: strict
+changeps1: false
+always_yes: false
