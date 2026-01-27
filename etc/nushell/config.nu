@@ -41,3 +41,5 @@ do --env {
 		$env.SSH_AUTH_SOCK = $ssh_agent_file
 	}
 }
+
+alias docker = podman
