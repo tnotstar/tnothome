@@ -1,6 +1,6 @@
 [wsl2]
 kernelCommandLine = cgroup_no_v1=all
-
-processors = 8
-swap = 4294967296
-
+networkingMode = mirrored
+processors = 6
+memory = 8GB
+swap = 2GB
