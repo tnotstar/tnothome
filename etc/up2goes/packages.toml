@@ -1,0 +1,21 @@
+[common]
+"src.elv.sh/cmd/elvish@latest"= "Elvish shell interpreter"
+"github.com/gopasspw/gopass@latest" = "Gopass password manager"
+"github.com/gopasspw/git-credential-gopass@latest" = "Gopass credential helper"
+"golang.org/x/tools/gopls@latest" = "Go language server"
+"honnef.co/go/tools/cmd/staticcheck@latest" = "Go Staticcheck linter"
+"github.com/go-delve/delve/cmd/dlv@latest" = "Delve debugger"
+"github.com/fatih/gomodifytags@latest" = "Go Tags modifier"
+"github.com/cweill/gotests/gotests@latest" = "Go Tests"
+"github.com/vg006/vgo@latest" = "Simple Project Scaffolder for Go"
+"github.com/melkeydev/go-blueprint@latest" = "Go Blueprint generator"
+"github.com/josharian/impl@latest" = "Go Implementation Stubs generator"
+"github.com/air-verse/air@latest" = "Air server"
+"github.com/danielgtaylor/apisprout@latest" = "ApiSprout mock server"
+"github.com/haya14busa/goplay/cmd/goplay@latest" = "Go Play client"
+
+[linux]
+"github.com/charmbracelet/crush@latest" = "Crush AI coding agent"
+
+[windows]
+"github.com/armand-sauzay/note@latest" = "Note utility"
