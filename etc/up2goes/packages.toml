@@ -13,10 +13,9 @@
 "github.com/haya14busa/goplay/cmd/goplay@latest" = "Go Play client"
 
 [linux]
-"github.com/xyproto/orbiton/v2@latest" = "Orbiton text editor/IDE for the terminal"
-"github.com/charmbracelet/crush@latest" = "Crush AI coding agent"
 "github.com/gopasspw/gopass@latest" = "Gopass password manager"
 "github.com/gopasspw/git-credential-gopass@latest" = "Gopass credential helper"
+"github.com/xyproto/orbiton/v2@latest" = "Orbiton text editor/IDE for the terminal"
+"github.com/charmbracelet/crush@latest" = "Crush AI coding agent"
 
 [windows]
-"github.com/armand-sauzay/note@latest" = "Note utility"
