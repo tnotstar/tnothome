@@ -1,5 +1,3 @@
-# Copyright 2023-2025, Antonio Alvarado <tnotstar@gmail.com>
-# -*- coding: utf-8 -*-
 #!/usr/bin/env python3
 # /// script
 # requires-python = ">=3.13"
@@ -8,6 +6,9 @@
 #     "wand",
 # ]
 # ///
+
+# Copyright 2023 - 2026, Antonio Alvarado <tnotstar+@gmail.com>
+# -*- coding: utf-8 -*-
 
 from collections.abc import Iterable
 from pathlib import Path
@@ -19,6 +20,8 @@ from wand.image import Image
 
 import os
 import math
+from urllib.parse import urlparse
+from urllib.request import urlopen
 
 
 DEFAULT_IMAGE_FORMAT = r"pdf"
@@ -28,7 +31,22 @@ DEFAULT_DENSITY_POINTS = 96
 INCHES_PER_POINT = 1./72.
 
 
-def add_cover_page(output_path: Path, image_path: Path, input_path: Path, skip_firstpage: bool) -> None:
+def open_cover_image(image_arg: str) -> str:
+    """Open a file or a remote stream to be used as the cover image."""
+    
+    image_url = urlparse(image_arg)
+    if image_url.scheme in ("", "file"):
+        image_fname = image_url.path if image_url.scheme == "file" else image_arg
+        if not os.path.isfile(image_fname):
+            raise FileNotFoundError(f"Image file not found: {image_fname}")
+        return Image(filename=image_fname)
+    else:
+        with urlopen(image_arg) as response:
+            image_blob = response.read()
+            return Image(blob=image_blob)
+    
+
+def add_cover_page(output_arg, image_arg, input_arg: str, skip_firstpage: bool) -> None:
     """Add a cover page to given PDF file."""
 
     # create a temporary file to store the cover page
@@ -36,12 +54,12 @@ def add_cover_page(output_path: Path, image_path: Path, input_path: Path, skip_f
     os.close(cover_fd)
 
     # retrieve the image dimensions
-    pdf_reader = PdfReader(input_path)
+    pdf_reader = PdfReader(input_arg)
     start_at = 1 if skip_firstpage else 0
     width, height = get_most_frequent_dimensions(pdf_reader, start_at)
 
     # resize the image to fit the page
-    with Image(filename=str(image_path)) as cover:
+    with open_cover_image(image_arg) as cover:
         cover.format = DEFAULT_IMAGE_FORMAT
         cover.compression_quality = DEFAULT_QUALITY_PERCENT
         cover.resolution = DEFAULT_DENSITY_POINTS
@@ -52,7 +70,7 @@ def add_cover_page(output_path: Path, image_path: Path, input_path: Path, skip_f
         cover.save(filename=str(cover_fname))
 
     # merge the cover page with the original PDF file
-    pdf_writer = PdfWriter(output_path, trailer=pdf_reader)
+    pdf_writer = PdfWriter(output_arg, trailer=pdf_reader)
     pdf_writer.addpages(PdfReader(cover_fname).pages)
     pdf_writer.addpages(pdf_reader.pages[start_at:])
     pdf_writer.write()
@@ -94,11 +112,9 @@ def main():
     args = parser.parse_args()
 
     try:
-        output_path = Path(args.output_filename)
-        image_path = Path(args.image_filename)
-        input_path = Path(args.input_filename)
-        skip_firstpage = args.skip_firstpage
-        add_cover_page(output_path, image_path, input_path, skip_firstpage)
+        add_cover_page(
+            args.output_filename, args.image_filename, args.input_filename, args.skip_firstpage,
+        )
 
     except Exception as ex:
         print("Oops: " + str(ex))
