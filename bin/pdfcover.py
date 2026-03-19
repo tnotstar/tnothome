@@ -10,8 +10,6 @@
 # Copyright 2023 - 2026, Antonio Alvarado <tnotstar+@gmail.com>
 # -*- coding: utf-8 -*-
 
-from collections.abc import Iterable
-from pathlib import Path
 from tempfile import mkstemp
 from argparse import ArgumentParser
 
@@ -28,12 +26,12 @@ DEFAULT_IMAGE_FORMAT = r"pdf"
 DEFAULT_QUALITY_PERCENT = 100
 DEFAULT_DENSITY_POINTS = 96
 
-INCHES_PER_POINT = 1./72.
+INCHES_PER_POINT = 1.0 / 72.0
 
 
 def open_cover_image(image_arg: str) -> str:
     """Open a file or a remote stream to be used as the cover image."""
-    
+
     image_url = urlparse(image_arg)
     if image_url.scheme in ("", "file"):
         image_fname = image_url.path if image_url.scheme == "file" else image_arg
@@ -44,7 +42,7 @@ def open_cover_image(image_arg: str) -> str:
         with urlopen(image_arg) as response:
             image_blob = response.read()
             return Image(blob=image_blob)
-    
+
 
 def add_cover_page(output_arg, image_arg, input_arg: str, skip_firstpage: bool) -> None:
     """Add a cover page to given PDF file."""
@@ -65,7 +63,7 @@ def add_cover_page(output_arg, image_arg, input_arg: str, skip_firstpage: bool) 
         cover.resolution = DEFAULT_DENSITY_POINTS
         adj_width = math.ceil(DEFAULT_DENSITY_POINTS * INCHES_PER_POINT * width)
         adj_height = math.ceil(DEFAULT_DENSITY_POINTS * INCHES_PER_POINT * height)
-        resize_geometry=f"{adj_width}!x{adj_height}!"
+        resize_geometry = f"{adj_width}!x{adj_height}!"
         cover.transform(resize=resize_geometry)
         cover.save(filename=str(cover_fname))
 
@@ -85,9 +83,9 @@ def get_most_frequent_dimensions(pdf_reader: PdfReader, start_at: int) -> tuple:
     dimensions = {}
     for _, page in enumerate(pdf_reader.pages[start_at:]):
         if page.MediaBox:
-            box = [ float(v) for v in page.MediaBox ]
+            box = [float(v) for v in page.MediaBox]
         elif page.CropBox:
-            box = [ float(v) for v in page.CropBox ]
+            box = [float(v) for v in page.CropBox]
         else:
             raise ValueError(f"Can't locate a valid crop or media box for page: {_}")
 
@@ -101,19 +99,30 @@ def main():
     """This is the program entry-point"""
 
     parser = ArgumentParser(description="add a cover image to give PDF file")
-    parser.add_argument("-F", "--skip-firstpage", action="store_true", default=False,
-        help="skip first page from the input file")
-    parser.add_argument("-o", "--output-filename", required=True,
-        help="the output pdf file name")
-    parser.add_argument("-i", "--image-filename", required=True,
-        help="the cover image file name")
-    parser.add_argument("-p", "--input-filename", required=True,
-        help="the input pdf file name")
+    parser.add_argument(
+        "-F",
+        "--skip-firstpage",
+        action="store_true",
+        default=False,
+        help="skip first page from the input file",
+    )
+    parser.add_argument(
+        "-o", "--output-filename", required=True, help="the output pdf file name"
+    )
+    parser.add_argument(
+        "-i", "--image-filename", required=True, help="the cover image file name"
+    )
+    parser.add_argument(
+        "-p", "--input-filename", required=True, help="the input pdf file name"
+    )
     args = parser.parse_args()
 
     try:
         add_cover_page(
-            args.output_filename, args.image_filename, args.input_filename, args.skip_firstpage,
+            args.output_filename,
+            args.image_filename,
+            args.input_filename,
+            args.skip_firstpage,
         )
 
     except Exception as ex:
@@ -122,5 +131,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# EOF
