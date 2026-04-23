@@ -44,7 +44,7 @@ def open_cover_image(image_arg: str) -> str:
             return Image(blob=image_blob)
 
 
-def add_cover_page(output_arg, image_arg, input_arg: str, skip_firstpage: bool) -> None:
+def add_cover_page(output_arg, image_arg, input_arg: str, start_at: int) -> None:
     """Add a cover page to given PDF file."""
 
     # create a temporary file to store the cover page
@@ -53,7 +53,6 @@ def add_cover_page(output_arg, image_arg, input_arg: str, skip_firstpage: bool) 
 
     # retrieve the image dimensions
     pdf_reader = PdfReader(input_arg)
-    start_at = 1 if skip_firstpage else 0
     width, height = get_most_frequent_dimensions(pdf_reader, start_at)
 
     # resize the image to fit the page
@@ -101,10 +100,10 @@ def main():
     parser = ArgumentParser(description="add a cover image to give PDF file")
     parser.add_argument(
         "-F",
-        "--skip-firstpage",
-        action="store_true",
-        default=False,
-        help="skip first page from the input file",
+        "--skip-firstpages",
+        type=int,
+        default=0,
+        help="skip given first pages from the input file",
     )
     parser.add_argument(
         "-o", "--output-filename", required=True, help="the output pdf file name"
@@ -122,7 +121,7 @@ def main():
             args.output_filename,
             args.image_filename,
             args.input_filename,
-            args.skip_firstpage,
+            args.skip_firstpages,
         )
 
     except Exception as ex:
