@@ -7,7 +7,7 @@
 # ]
 # ///
 
-# Copyright 2023 - 2026, Antonio Alvarado <tnotstar+@gmail.com>
+# Copyright 2023 - 2026, Antonio Alvarado <tnotstar+copyright@gmail.com>
 # -*- coding: utf-8 -*-
 
 from tempfile import mkstemp
