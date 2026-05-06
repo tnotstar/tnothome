@@ -6,13 +6,13 @@
 # Get editor completions based on the config schema
 "$schema" = "https://starship.rs/config-schema.json"
 
-# Wait 50 milliseconds for starship to check files
+# Wait {{ starship_scan_timeout }} milliseconds for starship to check files
 # under the current directory
-scan_timeout = 50
+scan_timeout = {{ starship_scan_timeout }}
 
-# Wait 200 milliseconds for starship to execute commands
+# Wait {{ starship_command_timeout }} milliseconds for starship to execute commands
 # under the current directory
-command_timeout = 200
+command_timeout = {{ starship_command_timeout }}
 
 # Inserts a blank line between shell prompts
 add_newline = true
