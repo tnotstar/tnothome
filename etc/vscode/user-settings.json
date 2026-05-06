@@ -64,10 +64,6 @@
   },
   "terminal.integrated.defaultProfile.windows": "Nushell",
   "terminal.integrated.profiles.linux": {
-    "nushell": {
-      "path": "nu",
-      "icon": "terminal-bash",
-    },
     "bash": {
       "path": "bash",
       "icon": "terminal-bash",
@@ -77,7 +73,7 @@
       "icon": "terminal-tmux",
     },
   },
-  "terminal.integrated.defaultProfile.linux": "nushell",
+  "terminal.integrated.defaultProfile.linux": "bash",
   "redhat.telemetry.enabled": false,
   "git.openRepositoryInParentFolders": "never",
   "git.confirmSync": false,
@@ -132,6 +128,8 @@
     "mainThreadWebview-markdown.preview": false,
     "mainThreadWebview-simpleBrowser.view": true,
     "mainThreadWebview-browserPreview": true,
-    "mainThreadWebview-bruin.panel": true
+    "mainThreadWebview-bruin.panel": true,
   },
+  "claudeCode.preferredLocation": "panel",
+  "sqltools.connections": [],
 }
