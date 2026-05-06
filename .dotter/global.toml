@@ -8,6 +8,7 @@ default_target_type = "automatic"
 
 [nushell.files]
 "etc/nushell/config.nu" = "~/.config/nushell/config.nu"
+"etc/nushell/scripts/utools.nu" = "~/.config/nushell/scripts/utools.nu"
 
 [starship.files]
 "etc/starship/starship.template" = "~/.config/starship.toml"

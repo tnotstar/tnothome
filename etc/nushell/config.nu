@@ -20,18 +20,6 @@
 # set up the configuration editor
 $env.config.buffer_editor = "micro"
 
-def uvcode [] {
-	uv run ...(which code | get path) .
-}
-
-def up2starship [] {
-	starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
-}
-
-def up2zoxide [] {
-	zoxide init nushell | save -f ($nu.data-dir | path join "vendor/autoload/zoxide.nu")
-}
-
 do --env {
 	let ssh_agent_file = (
 		$env.HOME | path join ".bitwarden-ssh-agent.sock"
