@@ -13,6 +13,7 @@
 "github.com/haya14busa/goplay/cmd/goplay@latest" = "Go Play client"
 "github.com/a-h/templ/cmd/templ@latest" = "HTML templating language for Go"
 "github.com/sqlc-dev/sqlc/cmd/sqlc@latest" = "SQL compiler (sqlc)"
+"github.com/goreleaser/goreleaser/v2@latest" = "GoReleaser Release engineering, simplified"
 
 [linux]
 "github.com/gopasspw/gopass@latest" = "Gopass password manager"
