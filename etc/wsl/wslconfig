@@ -3,6 +3,7 @@ kernelCommandLine = cgroup_no_v1=all
 processors = 6
 memory = 8GB
 swap = 2GB
+networkingMode=mirrored
 dnsTunneling=true
 
 [experimental]
