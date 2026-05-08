@@ -1,16 +1,4 @@
-// Copyright (c) 2018 Antonio Alvarado Hernández - All rights reserved
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright 2013 - 2026, Antonio Alvarado <tnotstar+copyright@gmail.com>
 
 forReading = 1
 forWriting = 2
@@ -42,9 +30,9 @@ String.prototype.trim || (String.prototype.trim = function() {
  */
 Array.prototype.forEach || (Array.prototype.forEach = function(callback, thisArg) {
     var self, length = this.length;
-    if(arguments.length >= 2)
+    if (arguments.length >= 2)
         self = thisArg
-    for(var i = 0; i < length; i++)
+    for (var i = 0; i < length; i++)
         i in this && callback.call(self, this[i], i, this)
 })
 
@@ -54,7 +42,7 @@ Array.prototype.forEach || (Array.prototype.forEach = function(callback, thisArg
 isRunningElevated = function() {
     var sysDrive = Shell.Environment("Process")("SystemDrive")
     var testComand = "fsutil dirty query " + sysDrive
-    if(0 === Shell.Run(testComand, 0, true))
+    if (0 === Shell.Run(testComand, 0, true))
         return true
     else
         return false
@@ -64,37 +52,38 @@ isRunningElevated = function() {
  * Read the config file with given filename.
  */
 loadConfig = function(filename) {
+    var sectionName
+
     var config = {}
     var input = FileSystem.OpenTextFile(filename, forReading, false)
 
-    while(!input.atEndOfStream) {
-        var buffer
+    while (!input.atEndOfStream) {
+        var buffer = input.readLine()
         var begin, end
-        buffer = input.readLine()
 
         // check for comments
         begin = buffer.indexOf(";")
-        if(begin >= 0)
+        if (begin >= 0)
             buffer = buffer.slice(0, begin).trim()
-        if(!buffer.length)
+        if (!buffer.length)
             continue
 
         // check for sections
         begin = buffer.indexOf("[")
-        if(begin >= 0) {
+        if (begin >= 0) {
             end = buffer.indexOf("]", begin)
-            if(end >= 0)
-                feature = buffer.slice(begin + 1, end).trim().toLowerCase()
+            if (end >= 0)
+                sectionName = buffer.slice(begin + 1, end).trim().toLowerCase()
         }
 
         // check for properties
         begin = buffer.indexOf("=")
-        if(begin >= 0) {
+        if (begin >= 0) {
             var key = buffer.slice(0, begin).trim().toLowerCase()
             var value = buffer.slice(begin + 1).trim()
-            if(!config.hasOwnProperty(feature))
-                config[feature] = {}
-            config[feature][key] = value
+            if (!config.hasOwnProperty(sectionName))
+                config[sectionName] = { name: sectionName }
+            config[sectionName][key] = value
         }
     }
     input.close()
@@ -105,19 +94,19 @@ loadConfig = function(filename) {
  * Write arguments to the output console.
  */
 print = function() {
-    if(!WScript.Interactive)
+    if (!WScript.Interactive)
         return
     var asArray = Array.prototype.slice.call(arguments)
-    WScript.Echo(asArray.join(" "))
+    WScript.Echo(asArray.join(""))
 }
 
 /**
  * Write given config object to the output console.
  */
 printConfig = function(config) {
-    for(var feature in config) {
+    for (var feature in config) {
         print("> config['", feature, "']:")
-        for(var key in config[feature]) {
+        for (var key in config[feature]) {
             print(">>\t", key, " = '", config[feature][key], "'")
         }
     }
@@ -127,25 +116,28 @@ printConfig = function(config) {
  * Check if the feature config with given properties is currently wrong or right.
  */
 verifyIt = function(properties) {
-    var path, type, value, remove, current
+    var name, path, type, value, remove, current
 
     // check for mandatory properties
-    if(!("path" in properties))
-        throw "Invalid feature node"
+    if (!("name" in properties))
+        throw "Invalid `name` for unknown feature"
+    name = properties["name"]
+
+    if (!("path" in properties))
+        throw "Invalid `path` for feature: " + properties["name"]
     path = properties["path"]
 
     // check for optional properties
-    if("type" in properties)
+    if ("type" in properties)
         type = properties["type"]
-    if("value" in properties)
+    if ("value" in properties)
         value = properties["value"]
-    if("delete" in properties)
+    if ("delete" in properties)
         remove = properties["delete"]
 
-    // read values from registry
+    // read values from the registry
     try {
-        var current = Shell.RegRead(path)
-        if(current != value)
+        if(value != Shell.RegRead(path))
             return false
     } catch(e) {
         if(!remove)
@@ -158,22 +150,19 @@ verifyIt = function(properties) {
  * Overwrite values of the feature config with given properties.
  */
 fuckIt = function(properties) {
-    var path, type, value, remove, current
+    var name, path, type, value, remove
 
-    // check for mandatory properties
-    if(!("path" in properties))
-        throw "Invalid feature node"
+    // retrieve properties
+    name = properties["name"]
     path = properties["path"]
-
-    // check for optional properties
-    if("type" in properties)
+    if ("type" in properties)
         type = properties["type"]
-    if("value" in properties)
+    if ("value" in properties)
         value = properties["value"]
-    if("delete" in properties)
+    if ("delete" in properties)
         remove = properties["delete"]
 
-    // write or delete values from registry
+    // write or delete values to the registry
     try {
         if(remove)
             Shell.RegDelete(path)
@@ -191,42 +180,72 @@ var filename = WScript.scriptFullName.replace(".js", ".ini")
 var config = loadConfig(filename)
 
 // check for changes in configuration
-var todo = []
-for(var feature in config) {
-    if(!verifyIt(config[feature]))
-        todo.push(feature)
+var issues = 0, todo = {}
+for (var feature in config) {
+    try {
+        if (!verifyIt(config[feature])) {
+            todo[feature] = config[feature]
+            issues++
+        }
+    } catch (e) {
+        var message = "Something's wrong with feature: '" + feature + ":" + e
+        Shell.Popup(message, mbDelayed, "Fuck Them All!", mbInformation)
+        WScript.Quit(-1)
+    }
 }
-var length = todo.length
-if(!length)
-    WScript.Quit()
+if (0 == issues)
+    WScript.Quit(0)
+
+// check command line arguments
+var runSilent = (WScript.Arguments.Count() > 0) && (vaHiddenYes === WScript.Arguments(0))
 
 // ask to apply changes or exit
-var letsGo
-if(WScript.Arguments.Count() > 0) {
-    letsGo = (vaHiddenYes === WScript.Arguments(0))
-} else {
-    var message = "There are " + length + " wrong features. Could I fuck all them up?"
+var letsGo = runSilent
+if (!runSilent) {
+    var message = "There are " + issues + " wrong features. Could I fuck all them up?"
     var response = Shell.Popup(message, mbInfinite, "Fuck Them All!", mbAskYesNo)
     letsGo = (mbYes == response)
 }
+if (!letsGo)
+    WScript.Quit(0)
 
-// apply changes to given feature configurations
-if(letsGo) {
-    if(!isRunningElevated()) {
-        var cmdline = WScript.ScriptFullName + " " + vaHiddenYes
-        Application.ShellExecute(WScript.Fullname, cmdline, null, "RunAs")
-        WScript.Quit(0)
-    }
-    for(var i = 0; i < length; i++) {
-        if(!fuckIt(config[todo[i]])) {
-            var message = "Something's wrong. Process aborted."
-            Shell.Popup(message, mbDelayed, "Fuck Them All!", mbInformation)
-            WScript.Quit(-1)
-        }
-    }
-    var message = "Bad features have been fucked them all!"
-    Shell.Popup(message, mbDelayed, "Fuck Them All!", mbInformation)
+// check if we are running as an elevated user
+if (!isRunningElevated()) {
+    var cmdline = WScript.ScriptFullName + " " + vaHiddenYes
+    Application.ShellExecute(WScript.Fullname, cmdline, null, "RunAs")
     WScript.Quit(0)
 }
+
+// apply changes to given feature configurations
+for (var feature in todo) {
+    if (!fuckIt(todo[feature])) {
+        var message = "Something's wrong with feature: '" + feature + "'. Aborted."
+        Shell.Popup(message, mbDelayed, "Fuck Them All!", mbInformation)
+        WScript.Quit(-1)
+    }
+}
+var updateCmdline = "rundll32.exe user32.dll, UpdatePerUserSystemParameters"
+if (0 !== Shell.Run(updateCmdline, 0, true)) {
+    var message = "Something's wrong. Updating params aborted."
+    Shell.Popup(message, mbDelayed, "Fuck Them All!", mbInformation)
+    WScript.Quit(-1)
+}
+var restartShell = !runSilent
+if (!runSilent) {
+    var message = "Bad features have been fucked them all! Restart the shell?"
+    if (mbYes === Shell.Popup(message, mbInfinite, "Fuck Them All!", mbAskYesNo))
+        mbYes === response
+    restartShell = (mbYes === response)
+}
+if (!restartShell) 
+    WScript.Quit(0)
+
+var restartCmdline = "taskkill.exe /F /IM explorer.exe"
+if (0 !== Shell.Run(restartCmdline, 0, true)) {
+    var message = "Something's wrong. Restarting shell aborted."
+    Shell.Popup(message, mbDelayed, "Fuck Them All!", mbInformation)
+    WScript.Quit(-1)
+}
+WScript.Quit(Shell.Run("explorer.exe", 0, true))
 
 // EOF
