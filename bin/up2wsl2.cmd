@@ -1,4 +1,4 @@
-@rem Copyright 2025, Antonio Alvarado <tnotstar@gmail.com>
+@rem Copyright 2025 - 2026, Antonio Alvarado <tnotstar+copyright@gmail.com>
 
 @setlocal enableextensions
 @setlocal disabledelayedexpansion
@@ -34,3 +34,4 @@
 @endlocal
 
 :eof
+pause
