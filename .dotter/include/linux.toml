@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright 2025-2026, Antonio Alvarado <tnotstar@gmail.com>
+# Copyright 2025-2026, Antonio Alvarado <tnotstar+copyright@gmail.com>
 
 [starship.variables]
 starship_scan_timeout = 50
-starship_command_timeout = 350
-starship_package_disabled = true
-starship_git_branch_disabled = true
-starship_git_commit_disabled = true
+starship_command_timeout = 400
 
 [tmux.files]
 "etc/tmux/tmux.conf" = "~/.tmux.conf"
