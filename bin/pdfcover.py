@@ -2,7 +2,7 @@
 # /// script
 # requires-python = ">=3.13"
 # dependencies = [
-#     "pdfrw",
+#     "pypdf",
 #     "wand",
 # ]
 # ///
@@ -13,7 +13,7 @@
 from tempfile import mkstemp
 from argparse import ArgumentParser
 
-from pdfrw import PdfReader, PdfWriter
+from pypdf import PdfReader, PdfWriter
 from wand.image import Image
 
 import os
@@ -67,16 +67,18 @@ def add_cover_page(output_arg, image_arg, input_arg: str, start_at: int) -> None
         cover.save(filename=str(cover_fname))
 
     # merge the cover page with the original PDF file
-    pdf_writer = PdfWriter(output_arg, trailer=pdf_reader)
-    pdf_writer.addpages(PdfReader(cover_fname).pages)
-    pdf_writer.addpages(pdf_reader.pages[start_at:])
-    pdf_writer.write()
+    pdf_writer = PdfWriter()
+    if original_metadata := pdf_reader.metadata:
+        pdf_writer.add_metadata(original_metadata)
+    pdf_writer.append(PdfReader(cover_fname))
+    pdf_writer.append(pdf_reader, pages=(start_at, len(pdf_reader.pages)))
+    pdf_writer.write(output_arg)
 
     # remove the temporary cover page file
     os.remove(cover_fname)
 
 
-def get_most_frequent_dimensions(pdf_reader: PdfReader, start_at: int) -> tuple:
+def get_most_frequent_dimensions(pdf_reader: PdfReader, start_at: int) -> tuple[float, float, float, float]:
     """Return the most frequent dimensions tuple in given PDFReader instance."""
 
     dimensions = {}
@@ -98,7 +100,7 @@ def get_page_dimensions(page) -> tuple[float, float, float, float]:
         for name in ['/CropBox', '/MediaBox']:
             if box := current.get(name):
                 return tuple(float(x) for x in box)
-        current = current.Parent
+        current = current.parent
     return None
 
 
