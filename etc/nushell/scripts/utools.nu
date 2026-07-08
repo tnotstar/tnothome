@@ -35,8 +35,8 @@ def "upscale-variables" [input: string, acc: record] {
       let name = $match.variable
       let value = (
         $acc
-          | get -i $name
-          | default ($env | get -i $name | default $"${($name)}")
+          | get --optional $name
+          | default ($env | get --optional $name | default $"${($name)}")
       )
       $current | str replace $"${($name)}" $value
     }
