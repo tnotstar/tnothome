@@ -1,0 +1,275 @@
+# Copyright 2013 - 2026, Antonio Alvarado <tnotstar+copyright@gmail.com>
+# fuckthem.toml - config for the Go rewrite
+
+[EnableLongPaths]
+path = "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem\\LongPathsEnabled"
+type = "REG_DWORD"
+value = "1"
+
+[BackgroundColor]
+path = "HKCU\\Control Panel\\Colors\\Background"
+type = "REG_SZ"
+value = "20 20 20"
+
+[UnicodeInput]
+path = "HKCU\\Control Panel\\Input Method\\EnableHexNumpad"
+type = "REG_SZ"
+value = "2"
+
+[SetupProxyEnable]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ProxyEnable"
+delete = true
+
+[SetupProxyHttp1_1]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ProxyHttp1.1"
+delete = true
+
+[SetupProxyOverride]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ProxyOverride"
+delete = true
+
+[SetupProxyServer]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ProxyServer"
+delete = true
+
+[SetupMigrateProxy]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\MigrateProxy"
+delete = true
+
+[DisableProxySettings]
+path = "HKCU\\Software\\Policies\\Microsoft\\Internet Explorer\\Control Panel\\Proxy"
+delete = true
+
+[DisableProxyAutoConfig]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\AutoConfigURL"
+delete = true
+
+[DisableMcTaskManager]
+path = "HKLM\\SYSTEM\\CurrentControlSet\\Services\\McTaskManager\\Start"
+type = "REG_DWORD"
+value = "4"
+
+[DisableMcShield]
+path = "HKLM\\SYSTEM\\CurrentControlSet\\Services\\McShield\\Start"
+type = "REG_DWORD"
+value = "4"
+
+[CorporateWallpaper]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Wallpaper"
+delete = true
+
+[CorporateWallpaperStyle]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\WallpaperStyle"
+delete = true
+
+[CorporateTileWallpaper]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\TileWallpaper"
+delete = true
+
+[NoChangingWallPaper]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop\\NoChangingWallPaper"
+type = "REG_DWORD"
+value = "0"
+
+[NoDispBackgroundPage]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\NoDispBackgroundPage"
+type = "REG_DWORD"
+value = "0"
+
+[LegacyScreenSaver]
+path = "HKCU\\Software\\Policies\\Microsoft\\Windows\\Control Panel\\Desktop\\SCRNSAVE.EXE"
+delete = true
+
+[NoDispScrSavPage]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\NoDispScrSavPage"
+type = "REG_DWORD"
+value = "0"
+
+[DisableTaskMgr]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DisableTaskMgr"
+type = "REG_DWORD"
+value = "0"
+
+[DisableRegistryTools]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DisableRegistryTools"
+type = "REG_DWORD"
+value = "0"
+
+[DisallowCpl]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowCpl"
+delete = true
+
+[ForceActiveDesktopOn]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\ForceActiveDesktopOn"
+type = "REG_DWORD"
+value = "0"
+
+[NoManageMyComputerVerb]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoManageMyComputerVerb"
+type = "REG_DWORD"
+value = "0"
+
+[NoTrayContextMenu]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoTrayContextMenu"
+type = "REG_DWORD"
+value = "0"
+
+[NoHardwareTab]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoHardwareTab"
+type = "REG_DWORD"
+value = "0"
+
+[NoSimpleStartMenu]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoSimpleStartMenu"
+type = "REG_DWORD"
+value = "0"
+
+[NoNetHood]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoNetHood"
+type = "REG_DWORD"
+value = "0"
+
+[NoNetConnectDisconnect]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoNetConnectDisconnect"
+type = "REG_DWORD"
+value = "0"
+
+[NoPropertiesMyComputer]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoPropertiesMyComputer"
+type = "REG_DWORD"
+value = "0"
+
+[NoComputersNearMe]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoComputersNearMe"
+type = "REG_DWORD"
+value = "0"
+
+[NoActiveDesktopChanges]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoActiveDesktopChanges"
+type = "REG_DWORD"
+value = "0"
+
+[NoRun]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoRun"
+type = "REG_DWORD"
+value = "0"
+
+[NoSecurityTab]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoSecurityTab"
+type = "REG_DWORD"
+value = "0"
+
+[NoSupportInfo]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Uninstall\\NoSupportInfo"
+type = "REG_DWORD"
+value = "0"
+
+[NoAddFromNetwork]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Uninstall\\NoAddFromNetwork"
+type = "REG_DWORD"
+value = "0"
+
+[NoWindowsSetupPage]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Uninstall\\NoWindowsSetupPage"
+type = "REG_DWORD"
+value = "0"
+
+[NoAddFromCDorFloppy]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Uninstall\\NoAddFromCDorFloppy"
+type = "REG_DWORD"
+value = "0"
+
+[NoChooseProgramsPage]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Uninstall\\NoChooseProgramsPage"
+type = "REG_DWORD"
+value = "0"
+
+[NoAddFromInternet]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Uninstall\\NoAddFromInternet"
+type = "REG_DWORD"
+value = "0"
+
+[NoAddPage]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Uninstall\\NoAddPage"
+type = "REG_DWORD"
+value = "0"
+
+[NoAddRemovePrograms]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Uninstall\\NoAddRemovePrograms"
+type = "REG_DWORD"
+value = "0"
+
+[NoServices]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Uninstall\\NoServices"
+type = "REG_DWORD"
+value = "0"
+
+[NoRemovePage]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Uninstall\\NoRemovePage"
+type = "REG_DWORD"
+value = "0"
+
+[NoComponents]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop\\NoComponents"
+type = "REG_DWORD"
+value = "0"
+
+[NoAddingComponents]
+path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop\\NoAddingComponents"
+type = "REG_DWORD"
+value = "0"
+
+[NoControlPanel]
+path = "HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoControlPanel"
+type = "REG_DWORD"
+value = "0"
+
+[MMC_CertificateManager]
+path = "HKCU\\Software\\Policies\\Microsoft\\MMC\\{53D6AB1D-2488-11D1-A28C-00C04FB94F17}\\"
+delete = true
+
+[MMC_SecurityConfiguration]
+path = "HKCU\\Software\\Policies\\Microsoft\\MMC\\{011BE22D-E453-11D1-945A-00C04FB984F9}\\"
+delete = true
+
+[MMC_SharedFolders]
+path = "HKCU\\Software\\Policies\\Microsoft\\MMC\\{58221C65-EA27-11CF-ADCF-00AA00A80033}\\"
+delete = true
+
+[MMC_LocalUsersGroups]
+path = "HKCU\\Software\\Policies\\Microsoft\\MMC\\{5D6179C8-17EC-11D1-9AA9-00C04FD8FE93}\\"
+delete = true
+
+[MMC_Services]
+path = "HKCU\\Software\\Policies\\Microsoft\\MMC\\{58221C66-EA27-11CF-ADCF-00AA00A80033}\\"
+delete = true
+
+[MMC_ComputerManagement]
+path = "HKCU\\Software\\Policies\\Microsoft\\MMC\\{58221C67-EA27-11CF-ADCF-00AA00A80033}\\"
+delete = true
+
+[MMC_RemovableStorageManagement]
+path = "HKCU\\Software\\Policies\\Microsoft\\MMC\\{3CB6973D-3E6F-11D0-95DB-00A024D77700}\\"
+delete = true
+
+[MMC_DiskDefragmenter]
+path = "HKCU\\Software\\Policies\\Microsoft\\MMC\\{43668E21-2636-11D1-A1CE-0080C88593A5}\\"
+delete = true
+
+[MMC_DeviceManagement]
+path = "HKCU\\Software\\Policies\\Microsoft\\MMC\\{74246BFC-4C96-11D0-ABEF-0020AF6B0B7A}\\"
+delete = true
+
+[UpdateGoogle]
+path = "HKLM\\Software\\Policies\\Google\\Update\\Update{8A69D345-D564-463C-AFF1-A69D9E530F96}"
+type = "REG_DWORD"
+value = "2"
+
+[RemoveNetSwitchLockedProfiles]
+path = "HKCU\\Software\\CNS\\LockedProfiles"
+delete = true
+
+[DisableMcAfeeFramework]
+path = "HKLM\\SYSTEM\\CurrentControlSet\\Services\\McAfeeFramework\\Start"
+type = "REG_DWORD"
+value = "4"
