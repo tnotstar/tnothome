@@ -3,7 +3,7 @@
 
 [starship.variables]
 starship_scan_timeout = 50
-starship_command_timeout = 400
+starship_command_timeout = 500
 
 [tmux.files]
 "etc/tmux/tmux.conf" = "~/.tmux.conf"

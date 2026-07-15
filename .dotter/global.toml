@@ -27,6 +27,11 @@ git_gpg_ssh_program = "ssh-keygen"
 
 [nvim.files]
 "etc/nvim/init.lua" = "~/.config/nvim/init.lua"
+"etc/nvim/lua/config/autocmds.lua" = "~/.config/nvim/lua/config/autocmds.lua"
+"etc/nvim/lua/config/keymaps.lua" = "~/.config/nvim/lua/config/keymaps.lua"
+"etc/nvim/lua/config/lazy.lua" = "~/.config/nvim/lua/config/lazy.lua"
+"etc/nvim/lua/config/options.lua" = "~/.config/nvim/lua/config/options.lua"
+"etc/nvim/lua/plugins/legacy.lua" = "~/.config/nvim/lua/plugins/legacy.lua"
 
 [vscode.files]
 "etc/vscode/user-settings.json" = "~/.config/Code/User/settings.json"
