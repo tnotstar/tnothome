@@ -11,7 +11,8 @@ mbNo = 7
 mbAskYesNo = 4 + 32 + 256
 mbInformation = 64
 
-vaHiddenYes = "/Silent"
+vaRunSilent = "/Silent"
+vaRunAdmin = "/RunAs"
 
 Shell = new ActiveXObject("WScript.Shell")
 FileSystem = new ActiveXObject("Scripting.FileSystemObject")
@@ -175,6 +176,17 @@ fuckIt = function(properties) {
 }
 
 
+// check command line arguments
+var runSilent = false
+var runAdmin = false
+
+for (var i = WScript.Arguments.Count() - 1; i >= 0; --i) {
+    if (vaRunSilent === WScript.Arguments(i))
+        runSilent = true
+    else if (vaRunAdmin === WScript.Arguments(i))
+        runAdmin = true
+}
+
 // read the input configuration file
 var filename = WScript.scriptFullName.replace(".js", ".ini")
 var config = loadConfig(filename)
@@ -196,14 +208,11 @@ for (var feature in config) {
 if (0 == issues)
     WScript.Quit(0)
 
-// check command line arguments
-var runSilent = (WScript.Arguments.Count() > 0) && (vaHiddenYes === WScript.Arguments(0))
-
 // ask to apply changes or exit
-var letsGo = runSilent
-if (!runSilent) {
+var letsGo = runAdmin || runSilent
+if (!letsGo) {
     var message = "There are " + issues + " wrong features. Could I fuck all them up?"
-    var response = Shell.Popup(message, mbInfinite, "Fuck Them All!", mbAskYesNo)
+    var response = Shell.Popup(message, mbDelayed, "Fuck Them All!", mbAskYesNo)
     letsGo = (mbYes == response)
 }
 if (!letsGo)
@@ -211,9 +220,12 @@ if (!letsGo)
 
 // check if we are running as an elevated user
 if (!isRunningElevated()) {
-    var cmdline = WScript.ScriptFullName + " " + vaHiddenYes
+    var cmdline = WScript.ScriptFullName + " " +
+            vaRunAdmin + (runSilent ? " " + vaRunSilent : "")
     Application.ShellExecute(WScript.Fullname, cmdline, null, "RunAs")
     WScript.Quit(0)
+} else {
+    runAdmin = true
 }
 
 // apply changes to given feature configurations
@@ -225,27 +237,26 @@ for (var feature in todo) {
     }
 }
 var updateCmdline = "rundll32.exe user32.dll, UpdatePerUserSystemParameters"
-if (0 !== Shell.Run(updateCmdline, 0, true)) {
+if (0 != Shell.Run(updateCmdline, 0, true)) {
     var message = "Something's wrong. Updating params aborted."
     Shell.Popup(message, mbDelayed, "Fuck Them All!", mbInformation)
     WScript.Quit(-1)
 }
-var restartShell = !runSilent
-if (!runSilent) {
+var restartShell = runAdmin || runSilent
+if (!restartShell) {
     var message = "Bad features have been fucked them all! Restart the shell?"
-    if (mbYes === Shell.Popup(message, mbInfinite, "Fuck Them All!", mbAskYesNo))
-        mbYes === response
-    restartShell = (mbYes === response)
+    var response = Shell.Popup(message, mbDelayed, "Fuck Them All!", mbAskYesNo)
+    restartShell = (mbYes == response)
 }
 if (!restartShell) 
     WScript.Quit(0)
 
-var restartCmdline = "taskkill.exe /F /IM explorer.exe"
-if (0 !== Shell.Run(restartCmdline, 0, true)) {
-    var message = "Something's wrong. Restarting shell aborted."
-    Shell.Popup(message, mbDelayed, "Fuck Them All!", mbInformation)
-    WScript.Quit(-1)
-}
-WScript.Quit(Shell.Run("explorer.exe", 0, true))
+// var restartCmdline = "taskkill.exe /F /IM explorer.exe"
+// if (0 != Shell.Run(restartCmdline, 0, true)) {
+//    var message = "Something's wrong. Restarting shell aborted."
+//    Shell.Popup(message, mbDelayed, "Fuck Them All!", mbInformation)
+//    WScript.Quit(-1)
+//}
+//WScript.Quit(Shell.Run("explorer.exe", 0, true))
 
 // EOF
