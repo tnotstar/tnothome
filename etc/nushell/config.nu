@@ -17,6 +17,13 @@
 # options using:
 #     config nu --doc | nu-highlight | less -R
 
+# From: https://github.com/DougLiberis/dotfiles/commit/2143c1480d66676bcaeafa4d4ba1c9f6f3cb717a
+#
+# Disable OSC133 shell-integration escapes: WezTerm on Windows mishandles them via
+# ConPTY, causing the scrollback to shift up one line per keystroke.
+# https://github.com/nushell/nushell/issues/13410
+$env.config.shell_integration.osc133 = false
+
 # set up the configuration editor
 $env.config.buffer_editor = "micro"
 
