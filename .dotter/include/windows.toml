@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
-# Copyright 2025-2026, Antonio Alvarado <tnotstar@gmail.com>
+# Copyright 2025-2026, Antonio Alvarado <tnotstar+copyright@gmail.com>
+
+[windowsterminal.files]
+"etc/windowsterminal/settings.json" = "~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
 
 [nushell.files]
 "etc/nushell/config.nu" = "~/AppData/Roaming/nushell/config.nu"
+"etc/nushell/scripts/utools.nu" = "~/AppData/Roaming/nushell/scripts/utools.nu"
 
 [starship.variables]
 starship_scan_timeout = 50
@@ -29,4 +33,4 @@ git_gpg_ssh_program = "C:/Windows/System32/OpenSSH/ssh-keygen.exe"
 "etc/wsl/wslconfig" = "~/.wslconfig"
 
 [windows]
-depends = ["mintty", "wsl"]
+depends = ["windowsterminal", "mintty, "wsl"]
