@@ -1,0 +1,20 @@
+# == Compiled executables ==
+*.exe
+*.dll
+*.o
+*.obj
+
+# == Temporal files and IDE ones ==
+# Vim
+*.swp
+*.swo
+.netrwhist
+
+# VS Code
+.vscode/
+.vs/
+*.user
+*.suo
+
+Thumbs.db
+desktop.ini

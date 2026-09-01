@@ -1,0 +1,10 @@
+* text=auto
+
+*.c text eol=crlf
+*.h text eol=crlf
+
+Makefile text eol=crlf
+
+*.md text eol=lf
+.gitignore text eol=lf
+.editorconfig text eol=lf
