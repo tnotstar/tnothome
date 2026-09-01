@@ -1,24 +1,38 @@
 @rem -*- coding: utf-8 -*-
 @rem
-@rem Copyright 2012 2026, Antonio Alvarado <tnotstar+copyright@gmail.com>
+@rem Copyright (c) 2012-2026, Antonio Alvarado <tnotstar+copyright@gmail.com>
+@rem All rights reserved.
 @rem
-@rem Licensed under the Apache License, Version 2.0 (the "License");
-@rem you may not use this file except in compliance with the License.
-@rem You may obtain a copy of the License at
+@rem Redistribution and use in source and binary forms, with or without
+@rem modification, are permitted provided that the following conditions are met:
 @rem
-@rem     http://www.apache.org/licenses/LICENSE-2.0
+@rem 1. Redistributions of source code must retain the above copyright notice, this
+@rem    list of conditions and the following disclaimer.
 @rem
-@rem Unless required by applicable law or agreed to in writing, software
-@rem distributed under the License is distributed on an "AS IS" BASIS,
-@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-@rem See the License for the specific language governing permissions and
-@rem limitations under the License.
+@rem 2. Redistributions in binary form must reproduce the above copyright notice,
+@rem    this list of conditions and the following disclaimer in the documentation
+@rem    and/or other materials provided with the distribution.
 @rem
+@rem 3. Neither the name of the copyright holder nor the names of its
+@rem    contributors may be used to endorse or promote products derived from
+@rem    this software without specific prior written permission.
+@rem
+@rem THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+@rem AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+@rem IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+@rem DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+@rem FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+@rem DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+@rem SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+@rem CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+@rem OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+@rem OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @if "%1" == "system" goto :system
 @if "%1" == "properties" goto :properties
 @if "%1" == "policies" goto :policies
 @if "%1" == "services" goto :services
+@if "%1" == "networks" goto :networks
 @if "%1" == "programs" goto :programs
 @if "%1" == "keys" goto :keys
 @if "%1" == "user" goto :user
@@ -40,6 +54,7 @@
 @echo     %~n0 properties
 @echo     %~n0 policies
 @echo     %~n0 services
+@echo     %~n0 networks
 @echo     %~n0 programs
 @echo     %~n0 keys
 @echo     %~n0 user
@@ -69,6 +84,10 @@
 
 :services
 @start services.msc
+@goto :eof
+
+:networks:
+@control.exe ncpa.cpl
 @goto :eof
 
 :programs:
