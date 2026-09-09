@@ -6,6 +6,9 @@ default_target_type = "automatic"
 
 [helpers]
 
+[wezterm.files]
+"etc/wezterm/wezterm.lua" = "~/.wezterm.lua"
+
 [nushell.files]
 "etc/nushell/config.nu" = "~/.config/nushell/config.nu"
 "etc/nushell/scripts/utools.nu" = "~/.config/nushell/scripts/utools.nu"

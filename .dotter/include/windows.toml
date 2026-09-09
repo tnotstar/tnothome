@@ -33,4 +33,4 @@ git_gpg_ssh_program = "C:/Windows/System32/OpenSSH/ssh-keygen.exe"
 "etc/wsl/wslconfig" = "~/.wslconfig"
 
 [windows]
-depends = ["windowsterminal", "mintty, "wsl"]
+depends = ["windowsterminal", "wezterm", "mintty", "wsl"]
