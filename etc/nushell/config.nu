@@ -48,6 +48,6 @@ def --env y [...args] {
 }
 
 alias docker = podman
-alias fg = job unfreeze
+#alias fg = job unfreeze
 
 use ($nu.default-config-dir | path join scripts utools.nu) *
