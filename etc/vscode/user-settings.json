@@ -1,114 +1,9 @@
 {
-  "[go]": {
-    "editor.defaultFormatter": "golang.go",
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "denoland.vscode-deno",
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[python]": {
-    "editor.codeActionsOnSave": {
-      "source.fixAll": "explicit",
-      "source.organizeImports": "explicit",
-    },
-    "editor.defaultFormatter": "charliermarsh.ruff",
-    "editor.formatOnSave": true,
-  },
-  "[toml]": {
-    "editor.defaultFormatter": "tamasfe.even-better-toml",
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "denoland.vscode-deno",
-  },
-  "[xml]": {
-    "editor.defaultFormatter": "redhat.vscode-xml",
-  },
-  "bruin.pathSeparator": "/",
-  "claudeCode.preferredLocation": "panel",
-  "deno.enable": true,
-  "deno.lint": true,
-  "diffEditor.codeLens": true,
-  "editor.codeActions.triggerOnFocusChange": true,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": "explicit",
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.fontFamily": "JetBrains Mono, FiraCode Nerd Font, Cascadia Code, Consolas, Courier New, monospace",
-  "editor.fontLigatures": true,
-  "editor.formatOnSave": true,
-  "editor.minimap.enabled": false,
-  "extensions.ignoreRecommendations": true,
-  "files.insertFinalNewline": true,
-  "files.trimTrailingWhitespace": true,
-  "github.copilot.nextEditSuggestions.enabled": true,
-  "go.toolsManagement.autoUpdate": true,
-  "mssql.connectionGroups": [
-    {
-      "id": "ROOT",
-      "name": "ROOT",
-    },
-  ],
-  "notebook.codeActionsOnSave": {
-    "notebook.source.fixAll": "explicit",
-    "notebook.source.organizeImports": "explicit",
-  },
-  "notebook.formatOnSave.enabled": true,
-  "python.analysis.typeCheckingMode": "standard",
-  "redhat.telemetry.enabled": false,
-  "remote.SSH.path": "C:\\Windows\\System32\\OpenSSH\\ssh.exe",
-  "remote.SSH.remotePlatform": {
-    "cs.bookish-orbit-554xx94rhp79p.main": "linux",
-    "diogenes-eth": "linux",
-    "edubuntu-ts": "linux",
-    "go-test.devpod": "linux",
-    "lnx-fabric-001.global": "linux",
-    "migracion": "linux",
-    "pitagoras-eth": "linux",
-    "vscode-remote-try-go.devpod": "linux",
-    "vscode-remote-try-node.devpod": "linux",
-  },
-  "remote.SSH.useExecServer": false,
-  "remote.SSH.useLocalServer": true,
-  "remote.autoForwardPortsSource": "output",
-  "terminal.integrated.defaultProfile.linux": "bash",
-  "terminal.integrated.defaultProfile.windows": "Nushell",
-  "terminal.integrated.profiles.linux": {
-    "bash": {
-      "icon": "terminal-bash",
-      "path": "bash",
-    },
-    "nushell": {
-      "path": "nu",
-    },
-    "tmux": {
-      "icon": "terminal-tmux",
-      "path": "tmux",
-    },
-  },
-  "terminal.integrated.profiles.windows": {
-    "Command Prompt": {
-      "args": [],
-      "icon": "terminal-cmd",
-      "path": [
-        "${env:windir}\\Sysnative\\cmd.exe",
-        "${env:windir}\\System32\\cmd.exe",
-      ],
-    },
-    "Nushell": {
-      "path": "${env:ProgramFiles}\\Nu\\bin\\nu.exe",
-    },
-    "PowerShell": {
-      "icon": "terminal-powershell",
-      "source": "PowerShell",
-    },
-  },
-  "terminal.integrated.shellIntegration.enabled": false,
   "workbench.colorTheme": "Rosé Pine",
   "workbench.editor.autoLockGroups": {
-    "agentSessionsWelcomePage": false,
     "default": false,
+    "repl": false,
+    "agentSessionsWelcomePage": false,
     "imagePreview.previewEditor": false,
     "jsProfileVisualizer.cpuprofile.table": false,
     "jsProfileVisualizer.heapprofile.table": false,
@@ -121,7 +16,6 @@
     "mainThreadWebview-simpleBrowser.view": true,
     "mssql.executionPlanView": false,
     "notebookOutputEditor": false,
-    "repl": false,
     "terminalEditor": true,
     "vscode.audioPreview": false,
     "vscode.markdown.editor": false,
@@ -132,8 +26,111 @@
     "workbench.editor.processExplorer": true,
     "workbench.editorinputs.searchEditorInput": false,
     "workbench.editors.gettingStartedInput": false,
-    "workbench.input.interactive": false,
+    "workbench.input.interactive": false
   },
   "workbench.editor.enablePreview": false,
+  "keyboard.layout": "0000040A",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.minimap.enabled": false,
+  "editor.fontFamily": "JetBrains Mono, FiraCode Nerd Font, Cascadia Code, Consolas, Courier New, monospace",
+  "editor.fontLigatures": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.codeActions.triggerOnFocusChange": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
+  "go.toolsManagement.autoUpdate": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  ,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true
+  },
+  "python.analysis.typeCheckingMode": "standard",
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "deno.enable": true,
+  "deno.lint": true,
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml"
+  },
+  "redhat.telemetry.enabled": false,
   "zig.zls.enabled": "on",
+  "diffEditor.codeLens": true,
+  "remote.SSH.path": "C:\\Windows\\System32\\OpenSSH\\ssh.exe",
+  "remote.SSH.useExecServer": false,
+  "remote.SSH.useLocalServer": true,
+  "remote.autoForwardPortsSource": "output",
+  "terminal.integrated.shellIntegration.enabled": false,
+  "terminal.integrated.profiles.linux": {
+    "bash": {
+      "icon": "terminal-bash",
+      "path": "bash"
+    },
+    "nushell": {
+      "path": "nu"
+    },
+    "tmux": {
+      "icon": "terminal-tmux",
+      "path": "tmux"
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.profiles.windows": {
+    "Command Prompt": {
+      "args": [],
+      "icon": "terminal-cmd",
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe"
+      ]
+    },
+    "Nushell": {
+      "path": "${env:ProgramFiles}\\Nu\\bin\\nu.exe"
+    },
+    "PowerShell": {
+      "icon": "terminal-powershell",
+      "source": "PowerShell"
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "Nushell",
+  "notebook.formatOnSave.enabled": true,
+  "notebook.codeActionsOnSave": {
+    "notebook.source.fixAll": "explicit",
+    "notebook.source.organizeImports": "explicit"
+  },
+  "extensions.ignoreRecommendations": true,
+  "dev.containers.dockerPath": "podman",
+  "dev.containers.dockerSocketPath": "/run/user/1000/podman/podman.sock",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.openRepositoryInParentFolders": "never",
+  "bruin.pathSeparator": "\\",
+  "chat.tools.autoApprove": true,
+  "claudeCode.preferredLocation": "panel",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "sqltools.connections": [],
+  "mssql.connectionGroups": [
+    {
+      "id": "ROOT",
+      "name": "ROOT"
+    }
+  ]
 }

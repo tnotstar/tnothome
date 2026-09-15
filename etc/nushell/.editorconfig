@@ -1,0 +1,4 @@
+# Specific settings for Nushell scripts
+[*.nu]
+indent_style = space
+indent_size = 4

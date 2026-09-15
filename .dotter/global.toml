@@ -10,6 +10,7 @@ default_target_type = "automatic"
 "etc/wezterm/wezterm.lua" = "~/.wezterm.lua"
 
 [nushell.files]
+"etc/nushell/env.nu" = "~/.config/nushell/env.nu"
 "etc/nushell/config.nu" = "~/.config/nushell/config.nu"
 "etc/nushell/scripts/utools.nu" = "~/.config/nushell/scripts/utools.nu"
 
@@ -32,9 +33,8 @@ git_gpg_ssh_program = "ssh-keygen"
 "etc/nvim/init.lua" = "~/.config/nvim/init.lua"
 "etc/nvim/lua/config/autocmds.lua" = "~/.config/nvim/lua/config/autocmds.lua"
 "etc/nvim/lua/config/keymaps.lua" = "~/.config/nvim/lua/config/keymaps.lua"
-"etc/nvim/lua/config/lazy.lua" = "~/.config/nvim/lua/config/lazy.lua"
 "etc/nvim/lua/config/options.lua" = "~/.config/nvim/lua/config/options.lua"
-"etc/nvim/lua/plugins/legacy.lua" = "~/.config/nvim/lua/plugins/legacy.lua"
+"etc/nvim/lua/plugins/init.lua" = "~/.config/nvim/lua/plugins/init.lua"
 
 [vscode.files]
 "etc/vscode/user-settings.json" = "~/.config/Code/User/settings.json"
