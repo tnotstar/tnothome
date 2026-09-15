@@ -4,7 +4,7 @@ processors = 6
 memory = 8GB
 swap = 2GB
 networkingMode = mirrored
-dnsTunneling = shared
+dnsTunneling = true
 
 [experimental]
 autoMemoryReclaim = gradual
