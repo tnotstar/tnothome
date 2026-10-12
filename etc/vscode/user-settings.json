@@ -126,6 +126,7 @@
   "chat.tools.autoApprove": true,
   "claudeCode.preferredLocation": "panel",
   "github.copilot.nextEditSuggestions.enabled": true,
+<<<<<<< Updated upstream
   "sqltools.connections": [],
   "mssql.connectionGroups": [
     {
@@ -133,4 +134,36 @@
       "name": "ROOT"
     }
   ]
+=======
+  "diffEditor.codeLens": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.codeActions.triggerOnFocusChange": true,
+  "geminicodeassist.project": "amiable-river-7bjcz",
+  "workbench.editor.autoLockGroups": {
+    "default": false,
+    "workbench.editor.chatSession": false,
+    "workbench.editorinputs.searchEditorInput": false,
+    "workbench.editor.processExplorer": true,
+    "agentSessionsWelcomePage": false,
+    "workbench.editorinputs.browser": false,
+    "notebookOutputEditor": false,
+    "jupyter-notebook": false,
+    "repl": false,
+    "workbench.editors.gettingStartedInput": false,
+    "terminalEditor": true,
+    "imagePreview.previewEditor": false,
+    "vscode.audioPreview": false,
+    "vscode.videoPreview": false,
+    "jsProfileVisualizer.cpuprofile.table": false,
+    "jsProfileVisualizer.heapprofile.table": false,
+    "jsProfileVisualizer.heapsnapshot.table": false,
+    "workbench.input.interactive": false,
+    "mainThreadWebview-markdown.preview": false,
+    "mainThreadWebview-simpleBrowser.view": true,
+    "mainThreadWebview-browserPreview": true,
+    "mainThreadWebview-bruin.panel": true
+  }
+>>>>>>> Stashed changes
 }
